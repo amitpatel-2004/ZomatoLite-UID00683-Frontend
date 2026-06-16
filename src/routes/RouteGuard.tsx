@@ -1,12 +1,9 @@
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import type { RouteGuardProps } from './routeGuard.types';
 import { ROUTES } from '@constants';
+import { Navigate, Outlet } from 'react-router-dom';
 
-export const RouteGuard: React.FC<RouteGuardProps> = ({ isProtected }) => {
-  // TODO: Check actual user authentication status later
-  const isAuthenticated = false;
+import type { RouteGuardProps } from './RouteGuard.types';
 
+export const RouteGuard = ({ isProtected, isAuthenticated = false }: RouteGuardProps) => {
   if (isProtected && !isAuthenticated) {
     return <Navigate to={ROUTES.AUTH.LOGIN} replace />;
   }

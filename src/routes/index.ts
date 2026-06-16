@@ -1,2 +1,2 @@
-export { AppRoutes } from './AppRoutes';
+export { router } from './AppRoutes';
 export { RouteGuard } from './RouteGuard';

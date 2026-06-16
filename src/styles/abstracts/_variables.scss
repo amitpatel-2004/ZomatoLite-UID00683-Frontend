@@ -9,3 +9,9 @@ $color-light: #f8f8f8;
 
 // Typography
 $font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+:root {
+  --ant-primary-color: #{$color-primary};
+  --ant-error-color: #{$color-danger};
+  --ant-success-color: #{$color-success};
+}

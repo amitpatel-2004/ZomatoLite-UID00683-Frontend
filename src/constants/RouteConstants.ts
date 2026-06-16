@@ -1,3 +1,5 @@
+import type { ValueOf } from '@types';
+
 /**
  * Global navigation route paths.
  */
@@ -13,5 +15,4 @@ export const ROUTES = {
   },
 } as const;
 
-type ValueOf<T> = T[keyof T];
 export type RoutePath = ValueOf<ValueOf<typeof ROUTES>>;

@@ -1,2 +1,2 @@
-export { ROUTES, type RoutePath } from './RouteConstants';
 export { MESSAGES } from './MessageConstants';
+export { type RoutePath, ROUTES } from './RouteConstants';

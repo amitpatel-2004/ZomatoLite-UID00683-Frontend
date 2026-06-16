@@ -1,25 +1,51 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { RouteGuard } from '@routes';
 import { ROUTES } from '@constants';
 import { ErrorPage } from '@pages';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
-// TODO: Replace placeholders with actual components later
+import { RouteGuard } from './RouteGuard';
+
 const LoginPlaceholder = () => <div>Login UI</div>;
-const HomePlaceholder = () => <div>Home UI</div>;
+const SignupPlaceholder = () => <div>Register UI</div>;
+const DashboardPlaceholder = () => <div>Restaurant Dashboard UI</div>;
 
-export const AppRoutes = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<RouteGuard isProtected={false} />}>
-          <Route path={ROUTES.AUTH.LOGIN} element={<LoginPlaceholder />} />
-        </Route>
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to={ROUTES.RESTAURANT.DASHBOARD} replace />,
+      },
 
-        <Route element={<RouteGuard isProtected={true} />}>
-          <Route path={ROUTES.RESTAURANT.DASHBOARD} element={<HomePlaceholder />} />
-        </Route>
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+      {
+        element: <RouteGuard isProtected={false} />,
+        children: [
+          {
+            path: ROUTES.AUTH.LOGIN,
+            element: <LoginPlaceholder />,
+          },
+          {
+            path: ROUTES.AUTH.SIGNUP,
+            element: <SignupPlaceholder />,
+          },
+        ],
+      },
+
+      {
+        element: <RouteGuard isProtected={true} />,
+        children: [
+          {
+            path: ROUTES.RESTAURANT.DASHBOARD,
+            element: <DashboardPlaceholder />,
+          },
+        ],
+      },
+
+      {
+        path: '*',
+        element: <ErrorPage />,
+      },
+    ],
+  },
+]);
