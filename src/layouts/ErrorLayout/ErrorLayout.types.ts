@@ -1,10 +1,9 @@
 import type { ResultStatusType } from 'antd/lib/result';
 
-export interface ErrorPageProps {
+export interface ErrorLayoutProps {
   status?: ResultStatusType;
   title?: string;
   subTitle?: string;
   buttonText?: string;
-  /** Route path the primary button redirects to. */
   redirectTo?: string;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Spin } from 'antd';
 
@@ -15,9 +15,11 @@ import type { RootState } from '@store/index';
 
 import type { RouteGuardProps } from './RouteGuard.types';
 
-export const RouteGuard = ({ isProtected, redirectTo }: RouteGuardProps): React.JSX.Element => {
+export const RouteGuard = (props: RouteGuardProps): React.JSX.Element => {
+  const { isProtected, redirectTo, allowedRoles, onUnauthorized } = props;
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const user = useSelector((state: RootState) => state.auth.user);
   const isEmailVerified = useSelector((state: RootState) => state.auth.isEmailVerified);
@@ -57,6 +59,17 @@ export const RouteGuard = ({ isProtected, redirectTo }: RouteGuardProps): React.
     return () => unsubscribe();
   }, [dispatch, user]);
 
+  useEffect(() => {
+    if (isFirebaseInitializing || !allowedRoles || allowedRoles.length === 0 || !user) return;
+    if (allowedRoles.includes(user.role)) return;
+
+    if (onUnauthorized) {
+      onUnauthorized(user, navigate);
+    } else {
+      navigate(ROUTES.ERROR.NOT_FOUND, { replace: true });
+    }
+  }, [isFirebaseInitializing, allowedRoles, user, navigate, onUnauthorized]);
+
   if (isFirebaseInitializing) {
     return (
       <div className="centered-layout">
@@ -91,6 +104,10 @@ export const RouteGuard = ({ isProtected, redirectTo }: RouteGuardProps): React.
 
   if (!isEmailVerified) {
     return <Navigate replace to={ROUTES.AUTH.VERIFY_EMAIL} />;
+  }
+
+  if (allowedRoles && allowedRoles.length > 0 && user && !allowedRoles.includes(user.role)) {
+    return <></>;
   }
 
   return <Outlet />;

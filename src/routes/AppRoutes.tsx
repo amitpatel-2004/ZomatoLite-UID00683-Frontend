@@ -3,8 +3,8 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { MESSAGES } from '@constants/message.constants';
 import { ROUTES } from '@constants/route.constants';
 import { CenteredLayout } from '@layouts/CenteredLayout';
+import { ErrorLayout } from '@layouts/ErrorLayout';
 import { LoginContainer, RegisterContainer, VerifyEmailContainer } from '@pages/auth';
-import { ErrorPage } from '@pages/ErrorPage';
 
 import { RouteGuard } from './RouteGuard';
 
@@ -13,7 +13,7 @@ const DashboardPlaceholder = () => <div>Restaurant Dashboard UI</div>;
 export const router = createBrowserRouter([
   {
     path: '/',
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorLayout />,
     children: [
       {
         index: true,
@@ -70,8 +70,12 @@ export const router = createBrowserRouter([
       },
 
       {
+        path: ROUTES.ERROR.NOT_FOUND,
+        element: <ErrorLayout />,
+      },
+      {
         path: '*',
-        element: <ErrorPage />,
+        element: <ErrorLayout />,
       },
     ],
   },

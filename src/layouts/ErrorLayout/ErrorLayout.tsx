@@ -6,9 +6,9 @@ import { Button, Col, Result, Row } from 'antd';
 
 import { ROUTES } from '@constants/route.constants';
 
-import type { ErrorPageProps } from './ErrorPage.types';
+import type { ErrorLayoutProps } from './ErrorLayout.types';
 
-export const ErrorPage = (props: ErrorPageProps): React.JSX.Element => {
+export const ErrorLayout = (props: ErrorLayoutProps): React.JSX.Element => {
   const {
     buttonText = 'Back Home',
     redirectTo = ROUTES.AUTH.LOGIN,
@@ -16,6 +16,7 @@ export const ErrorPage = (props: ErrorPageProps): React.JSX.Element => {
     subTitle = 'Sorry, the page you visited does not exist.',
     title = '404',
   } = props;
+
   const navigate = useNavigate();
 
   const handleClick = (): void => {

@@ -1,5 +1,10 @@
+import type { NavigateFunction } from 'react-router-dom';
+
+import type { AuthUser, UserRole } from '@appTypes/auth.types';
+
 export interface RouteGuardProps {
-  /** True if the route requires a user to be logged in. */
   isProtected: boolean;
   redirectTo?: string;
+  allowedRoles?: UserRole[];
+  onUnauthorized?: (user: AuthUser, navigate: NavigateFunction) => void;
 }

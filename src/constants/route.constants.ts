@@ -8,4 +8,7 @@ export const ROUTES = {
     ROOT: '/restaurant',
     DASHBOARD: '/restaurant/dashboard',
   },
+  ERROR: {
+    NOT_FOUND: '/not-found',
+  },
 } as const;
