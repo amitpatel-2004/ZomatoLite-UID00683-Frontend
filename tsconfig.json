@@ -18,14 +18,18 @@
     "outDir": "./dist",
     "paths": {
       "@assets/*": ["./src/assets/*"],
-      "@styles": ["./src/styles/index"],
-      "@routes": ["./src/routes/index"],
-      "@constants": ["./src/constants/index"],
-      "@components": ["./src/components/index"],
-      "@pages": ["./src/pages/index"],
-      "@containers": ["./src/containers/index"],
-      "@types": ["./src/types/index"],
-      "@utils": ["./src/utils/index"]
+      "@styles/*": ["./src/styles/*"],
+      "@routes/*": ["./src/routes/AppRoutes"],
+      "@constants/*": ["./src/constants/*"],
+      "@components/*": ["/src/pages/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@containers/*": ["/src/containers/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@core/*": ["./src/core/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@appTypes/*": ["./src/types/*"],
+      "@schemas/*": ["./src/schemas/*"],
+      "@store/*": ["./src/store/*"]
     },
     "types": ["jest", "node"]
   },

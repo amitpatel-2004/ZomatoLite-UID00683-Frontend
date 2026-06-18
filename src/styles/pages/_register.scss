@@ -1,0 +1,117 @@
+.register-form {
+  width: 100%;
+
+  .ant-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ant-form-item {
+    margin-bottom: 0 !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ant-form-item-control {
+    position: relative;
+    padding-bottom: 2rem;
+  }
+
+  .ant-form-item-label > label {
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    font-weight: 500;
+    height: auto;
+
+    &::after {
+      display: none !important;
+    }
+  }
+
+  .ant-input,
+  .ant-input-affix-wrapper {
+    border: 1px solid var(--color-border) !important;
+    border-radius: 6px !important;
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    padding: 0.6rem;
+    transition: all 0.2s ease;
+    width: 100%;
+
+    &:focus,
+    &-focused {
+      border-color: var(--color-primary) !important;
+      box-shadow: 0 0 0 2px rgba(232, 29, 67, 0.12) !important;
+    }
+
+    .ant-input {
+      border: none !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+      background: transparent !important;
+    }
+  }
+
+  .ant-form-item-has-error {
+    .ant-input,
+    .ant-input-affix-wrapper {
+      border-color: var(--color-error) !important;
+
+      &:focus,
+      &-focused {
+        box-shadow: 0 0 0 2px rgba(224, 53, 70, 0.12) !important;
+      }
+    }
+  }
+
+  /* Positions the error safely inside the reserved padding zone without overlapping */
+  .ant-form-item-explain {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .ant-form-item-explain-error {
+    color: var(--color-error);
+    font-size: 1rem;
+  }
+
+  &__footer {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    display: block;
+    text-align: center;
+  }
+
+  &__link {
+    color: var(--color-primary) !important;
+    font-weight: 500;
+    text-decoration: underline;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .ant-radio-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .ant-radio-wrapper {
+    color: var(--color-text-primary);
+    font-size: 1rem;
+
+    .ant-radio-checked .ant-radio-inner {
+      border-color: var(--color-primary) !important;
+      background-color: var(--color-primary) !important;
+    }
+    &:hover .ant-radio-inner {
+      border-color: var(--color-primary) !important;
+    }
+  }
+}

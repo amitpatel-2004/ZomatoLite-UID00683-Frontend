@@ -5,6 +5,7 @@ node_modules/
 # Build and Output Bundles
 dist/
 build/
+.firebase/
 *.js.map
 *.css.map
 

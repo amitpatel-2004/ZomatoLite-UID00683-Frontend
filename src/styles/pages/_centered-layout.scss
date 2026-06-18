@@ -1,0 +1,38 @@
+.centered-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-bg-page);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+
+  &__card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem 2rem;
+  }
+
+  &__title {
+    color: var(--color-text-primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem !important;
+    text-align: center;
+  }
+
+  &__subtitle {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    display: block;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__content {
+    width: 100%;
+  }
+}

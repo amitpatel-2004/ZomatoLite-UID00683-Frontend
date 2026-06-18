@@ -1,11 +1,12 @@
-import { ROUTES } from '@constants';
-import { ErrorPage } from '@pages';
+import { MESSAGES } from '@constants/MessageConstants';
+import { ROUTES } from '@constants/RouteConstants';
+import { CenteredLayout } from '@layouts/CenteredLayout';
+import { LoginContainer, RegisterContainer, VerifyEmailContainer } from '@pages/auth';
+import { ErrorPage } from '@pages/ErrorPage';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { RouteGuard } from './RouteGuard';
 
-const LoginPlaceholder = () => <div>Login UI</div>;
-const SignupPlaceholder = () => <div>Register UI</div>;
 const DashboardPlaceholder = () => <div>Restaurant Dashboard UI</div>;
 
 export const router = createBrowserRouter([
@@ -23,11 +24,25 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ROUTES.AUTH.LOGIN,
-            element: <LoginPlaceholder />,
+            element: (
+              <CenteredLayout
+                subtitle={MESSAGES.PAGE_TITLES.LOGIN_SUBTITLE}
+                title={MESSAGES.PAGE_TITLES.LOGIN}
+              >
+                <LoginContainer />
+              </CenteredLayout>
+            ),
           },
           {
-            path: ROUTES.AUTH.SIGNUP,
-            element: <SignupPlaceholder />,
+            path: ROUTES.AUTH.REGISTER,
+            element: (
+              <CenteredLayout
+                subtitle={MESSAGES.PAGE_TITLES.REGISTER_SUBTITLE}
+                title={MESSAGES.PAGE_TITLES.REGISTER}
+              >
+                <RegisterContainer />
+              </CenteredLayout>
+            ),
           },
         ],
       },
@@ -35,6 +50,17 @@ export const router = createBrowserRouter([
       {
         element: <RouteGuard isProtected={true} />,
         children: [
+          {
+            path: ROUTES.AUTH.VERIFY_EMAIL,
+            element: (
+              <CenteredLayout
+                subtitle={MESSAGES.PAGE_TITLES.VERIFY_EMAIL_SUBTITLE}
+                title={MESSAGES.PAGE_TITLES.VERIFY_EMAIL}
+              >
+                <VerifyEmailContainer />
+              </CenteredLayout>
+            ),
+          },
           {
             path: ROUTES.RESTAURANT.DASHBOARD,
             element: <DashboardPlaceholder />,
