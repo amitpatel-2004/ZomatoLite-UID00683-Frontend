@@ -1,8 +1,10 @@
-import { MESSAGES } from '@constants/MessageConstants';
-import { Button, Form, Input, Typography } from 'antd';
 import React from 'react';
 
-import type { LoginFormProps } from './loginForm.types';
+import { Button, Form, Input, Typography } from 'antd';
+
+import { MESSAGES } from '@constants/message.constants';
+
+import type { LoginFormProps } from './LoginForm.types';
 
 const { Link, Text } = Typography;
 

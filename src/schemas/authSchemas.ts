@@ -1,5 +1,6 @@
-import { MESSAGES } from '@constants/MessageConstants';
 import * as Yup from 'yup';
+
+import { MESSAGES } from '@constants/message.constants';
 
 const strictPasswordSchema = Yup.string()
   .min(6, 'Password must be at least 6 characters long')

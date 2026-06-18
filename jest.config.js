@@ -9,6 +9,7 @@ const { compilerOptions } = tsconfig;
 
 export default {
   testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },

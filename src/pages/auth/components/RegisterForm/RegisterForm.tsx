@@ -1,8 +1,10 @@
-import { MESSAGES } from '@constants/MessageConstants';
-import { Button, Form, Input, Radio, Typography } from 'antd';
 import React from 'react';
 
-import type { RegisterFormProps } from './registerForm.types';
+import { Button, Form, Input, Radio, Typography } from 'antd';
+
+import { MESSAGES } from '@constants/message.constants';
+
+import type { RegisterFormProps } from './RegisterForm.types';
 
 const { Link, Text } = Typography;
 

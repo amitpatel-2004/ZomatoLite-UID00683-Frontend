@@ -1,6 +1,5 @@
-import type { AuthState, AuthThunkResult, AuthUser } from '@appTypes/Auth.types';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
+import type { AuthResult, AuthState, AuthUser } from '@appTypes/auth.types';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: AuthState = {
   error: null,
@@ -24,7 +23,7 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
 
-    authRequestSucceeded: (state, action: PayloadAction<AuthThunkResult>) => {
+    authRequestSucceeded: (state, action: PayloadAction<AuthResult>) => {
       state.error = null;
       state.idToken = action.payload.idToken;
       state.isEmailVerified = action.payload.isEmailVerified;

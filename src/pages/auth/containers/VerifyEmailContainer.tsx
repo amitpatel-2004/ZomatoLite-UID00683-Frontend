@@ -1,6 +1,8 @@
-import { MESSAGES } from '@constants/MessageConstants';
-import { Alert, Button, Space, Typography } from 'antd';
 import React from 'react';
+
+import { Alert, Button, Space, Typography } from 'antd';
+
+import { MESSAGES } from '@constants/message.constants';
 
 import { useVerifyEmail } from '../hooks/useVerifyEmail';
 

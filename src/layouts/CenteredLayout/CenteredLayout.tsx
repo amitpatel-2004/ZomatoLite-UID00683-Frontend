@@ -1,7 +1,8 @@
-import { Typography } from 'antd';
 import React from 'react';
 
-import type { CenteredLayoutProps } from './centeredLayout.types';
+import { Typography } from 'antd';
+
+import type { CenteredLayoutProps } from './CenteredLayout.types';
 
 const { Text, Title } = Typography;
 

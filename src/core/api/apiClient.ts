@@ -1,8 +1,13 @@
-import { API_BASE_URL, API_TIMEOUT } from '@constants/ApiConstants';
-import { MESSAGES } from '@constants/MessageConstants';
+import axios, {
+  AxiosError,
+  type AxiosInstance,
+  type AxiosResponse,
+  type InternalAxiosRequestConfig,
+} from 'axios';
+
+import { API_BASE_URL, API_TIMEOUT } from '@constants/api.constants';
+import { MESSAGES } from '@constants/message.constants';
 import { firebaseAuth } from '@core/firebase';
-import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import axios, { AxiosError } from 'axios';
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,

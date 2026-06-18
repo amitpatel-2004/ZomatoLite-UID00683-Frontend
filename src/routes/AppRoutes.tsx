@@ -1,9 +1,10 @@
-import { MESSAGES } from '@constants/MessageConstants';
-import { ROUTES } from '@constants/RouteConstants';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+
+import { MESSAGES } from '@constants/message.constants';
+import { ROUTES } from '@constants/route.constants';
 import { CenteredLayout } from '@layouts/CenteredLayout';
 import { LoginContainer, RegisterContainer, VerifyEmailContainer } from '@pages/auth';
 import { ErrorPage } from '@pages/ErrorPage';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { RouteGuard } from './RouteGuard';
 

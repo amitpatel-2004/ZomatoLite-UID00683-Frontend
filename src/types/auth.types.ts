@@ -49,7 +49,7 @@ export interface RegisterPayload {
 }
 
 /** Data resolved after a successful login or register operation. */
-export interface AuthThunkResult {
+export interface AuthResult {
   user: AuthUser;
   /** Short-lived Firebase ID token. */
   idToken: string;

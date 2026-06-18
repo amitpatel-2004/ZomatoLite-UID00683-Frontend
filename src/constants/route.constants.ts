@@ -1,6 +1,3 @@
-/**
- * Global navigation route paths.
- */
 export const ROUTES = {
   AUTH: {
     LOGIN: '/auth/login',

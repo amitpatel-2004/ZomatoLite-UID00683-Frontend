@@ -1,8 +1,6 @@
 @use 'normalize.css';
 @use 'antd/dist/antd.variable.min.css';
 
-@use 'abstracts/variables';
-@use 'base/reset';
-@use 'pages/login';
-@use 'pages/register';
-@use 'pages/centered-layout';
+@use 'abstracts';
+@use 'base';
+@use 'pages';

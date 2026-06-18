@@ -1,28 +1,34 @@
-$color-primary: #e81d43;
-$color-primary-hover: #c8183a;
-$color-error: #e03546;
-$color-success: #24963f;
+@use 'sass:map';
 
-$color-white: #ffffff;
-$color-text-primary: #1a1a1a;
-$color-text-secondary: #666666;
-$color-border: #d9d9d9;
-$color-dark: #1c1c1c;
-$color-light: #f8f8f8;
+$colors: (
+  'primary': #e81d43,
+  'primary-hover': #c8183a,
+  'error': #e03546,
+  'success': #24963f,
+  'white': #ffffff,
+  'text-primary': #1a1a1a,
+  'text-secondary': #666666,
+  'border': #d9d9d9,
+  'dark': #1c1c1c,
+  'light': #f8f8f8,
+);
+
 $font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
 :root {
-  --ant-primary-color: #{$color-primary};
-  --ant-error-color: #{$color-error};
-  --ant-success-color: #{$color-success};
+  // Ant Design Colors
+  --ant-primary-color: #{map.get($colors, 'primary')};
+  --ant-error-color: #{map.get($colors, 'error')};
+  --ant-success-color: #{map.get($colors, 'success')};
 
-  --color-primary: #{$color-primary};
-  --color-primary-hover: #{$color-primary-hover};
-  --color-error: #{$color-error};
-  --color-success: #{$color-success};
-  --color-white: #{$color-white};
-  --color-text-primary: #{$color-text-primary};
-  --color-text-secondary: #{$color-text-secondary};
-  --color-border: #{$color-border};
-  --color-bg-page: #{$color-light};
+  // General Colors
+  --color-primary: #{map.get($colors, 'primary')};
+  --color-primary-hover: #{map.get($colors, 'primary-hover')};
+  --color-error: #{map.get($colors, 'error')};
+  --color-success: #{map.get($colors, 'success')};
+  --color-white: #{map.get($colors, 'white')};
+  --color-text-primary: #{map.get($colors, 'text-primary')};
+  --color-text-secondary: #{map.get($colors, 'text-secondary')};
+  --color-border: #{map.get($colors, 'border')};
+  --color-bg-page: #{map.get($colors, 'light')};
 }

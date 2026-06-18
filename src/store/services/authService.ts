@@ -1,13 +1,14 @@
+import { sendEmailVerification, signInWithCustomToken, signOut } from 'firebase/auth';
+
 import type {
   AuthApiResponse,
-  AuthThunkResult,
+  AuthResult,
   LoginPayload,
   RegisterPayload,
-} from '@appTypes/Auth.types';
-import { API_ENDPOINTS } from '@constants/ApiConstants';
+} from '@appTypes/auth.types';
+import { API_ENDPOINTS } from '@constants/api.constants';
 import { apiClient } from '@core/api';
 import { firebaseAuth } from '@core/firebase';
-import { sendEmailVerification, signInWithCustomToken, signOut } from 'firebase/auth';
 
 const getActionCodeSettings = () => ({
   url: `${window.location.origin}/restaurant/dashboard`,
@@ -24,13 +25,13 @@ const exchangeCustomToken = async (
 };
 
 export const authService = {
-  login: async (payload: LoginPayload): Promise<AuthThunkResult> => {
+  login: async (payload: LoginPayload): Promise<AuthResult> => {
     const { data } = await apiClient.post<AuthApiResponse>(API_ENDPOINTS.AUTH.LOGIN, payload);
     const { idToken, isEmailVerified } = await exchangeCustomToken(data.data.customToken);
     return { idToken, isEmailVerified, user: data.data.user };
   },
 
-  register: async (payload: RegisterPayload): Promise<AuthThunkResult> => {
+  register: async (payload: RegisterPayload): Promise<AuthResult> => {
     const { data } = await apiClient.post<AuthApiResponse>(API_ENDPOINTS.AUTH.REGISTER, payload);
     const { idToken, isEmailVerified } = await exchangeCustomToken(data.data.customToken);
 
