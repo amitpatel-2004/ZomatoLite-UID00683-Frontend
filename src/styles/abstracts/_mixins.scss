@@ -1,0 +1,24 @@
+@use 'sass:math';
+@use './variables' as *;
+
+/**
+ * Converts a pixel value to rem units.
+ *
+ * @param {Number} $size
+ *   Pixel value to convert (can be unitless or px).
+ *
+ * @returns {Number}
+ *   Converted rem value based on a 16px root font size.
+ *
+ * @example
+ *   font-size: pxToRem(24); // 1.5rem
+ */
+@function pxToRem($size) {
+  @if math.is-unitless($size) {
+    $size: $size * 1px;
+  } @else if unit($size) != 'px' {
+    @error "pxToRem() expects a px value, got #{unit($size)}";
+  }
+
+  @return math.div($size, 16px) * 1rem;
+}

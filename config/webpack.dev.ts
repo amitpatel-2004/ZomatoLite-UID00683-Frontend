@@ -1,28 +1,19 @@
+import { Configuration } from 'webpack';
+
 import 'webpack-dev-server';
 
-import webpack from 'webpack';
-
-import commonConfig from './webpack.common.ts';
-
-const devConfig: webpack.Configuration = {
-  ...commonConfig,
-
+const devConfig: Configuration = {
   mode: 'development',
-
-  output: {
-    ...commonConfig.output,
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js',
-  },
 
   devServer: {
     open: true,
     historyApiFallback: true,
+    compress: true,
+    hot: true,
   },
 
   module: {
     rules: [
-      ...(commonConfig.module?.rules || []),
       {
         test: /\.s[ac]ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],

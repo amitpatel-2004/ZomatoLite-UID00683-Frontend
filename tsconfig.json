@@ -18,14 +18,14 @@
     "outDir": "./dist",
     "paths": {
       "@assets/*": ["./src/assets/*"],
-      "@styles": ["./src/styles/index"],
-      "@routes": ["./src/routes/index"],
-      "@constants": ["./src/constants/index"],
-      "@components": ["./src/components/index"],
-      "@pages": ["./src/pages/index"],
-      "@containers": ["./src/containers/index"],
-      "@types": ["./src/types/index"],
-      "@utils": ["./src/utils/index"]
+      "@styles/*": ["./src/styles/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@containers/*": ["./src/containers/*"],
+      "@appTypes/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "types": ["jest", "node"]
   },

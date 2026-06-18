@@ -1,8 +1,5 @@
 import type { ResultStatusType } from 'antd/lib/result';
 
-/**
- * Configuration properties for the ErrorPage component.
- */
 export interface ErrorPageProps {
   status?: ResultStatusType;
   title?: string;

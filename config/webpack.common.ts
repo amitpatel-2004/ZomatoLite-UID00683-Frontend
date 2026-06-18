@@ -1,24 +1,23 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
 import Dotenv from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'node:path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import webpack from 'webpack';
+import { Configuration } from 'webpack';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const rootDir = process.cwd();
 
-const commonConfig: webpack.Configuration = {
-  entry: ['./src/index.tsx', './src/styles/main.scss'],
+const commonConfig: Configuration = {
+  entry: [path.resolve(rootDir, 'src/index.tsx'), path.resolve(rootDir, 'src/styles/main.scss')],
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(rootDir, 'dist'),
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].chunk.js',
     clean: true,
     publicPath: '/',
   },
   plugins: [
-    new Dotenv({ path: './.env', safe: false }),
-    new HtmlWebpackPlugin({ template: 'index.html' }),
+    new Dotenv({ path: path.resolve(rootDir, '.env'), safe: false }),
+    new HtmlWebpackPlugin({ template: path.resolve(rootDir, 'public/index.html') }),
   ],
   module: {
     rules: [
@@ -38,15 +37,15 @@ const commonConfig: webpack.Configuration = {
           },
         ],
       },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: 'asset',
-      },
     ],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
-    plugins: [new TsconfigPathsPlugin()],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: path.resolve(rootDir, 'tsconfig.json'),
+      }),
+    ],
   },
 };
 

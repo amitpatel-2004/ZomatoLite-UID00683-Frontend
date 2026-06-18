@@ -1,5 +1,6 @@
-import { ROUTES } from '@constants';
 import { Navigate, Outlet } from 'react-router-dom';
+
+import { ROUTES } from '@constants/route.constants';
 
 import type { RouteGuardProps } from './RouteGuard.types';
 

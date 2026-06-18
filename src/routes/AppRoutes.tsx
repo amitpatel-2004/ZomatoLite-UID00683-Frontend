@@ -1,6 +1,7 @@
-import { ROUTES } from '@constants';
-import { ErrorPage } from '@pages';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
+
+import { ROUTES } from '@constants/route.constants';
+import { ErrorPage } from '@pages/ErrorPage';
 
 import { RouteGuard } from './RouteGuard';
 
