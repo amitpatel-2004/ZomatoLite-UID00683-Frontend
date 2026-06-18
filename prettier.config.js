@@ -1,0 +1,10 @@
+const config = {
+  semi: true,
+  tabWidth: 2,
+  printWidth: 100,
+  singleQuote: true,
+  trailingComma: 'all',
+  endOfLine: 'lf',
+};
+
+export default config;

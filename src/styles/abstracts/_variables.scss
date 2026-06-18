@@ -1,0 +1,15 @@
+$colors: (
+  'primary': #e81d43,
+  'success': #24963f,
+  'danger': #e03546,
+  'dark': #1c1c1c,
+  'light': #f8f8f8,
+);
+
+$font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+:root {
+  --ant-primary-color: #{map-get($colors, 'primary')};
+  --ant-success-color: #{map-get($colors, 'success')};
+  --ant-error-color: #{map-get($colors, 'danger')};
+}
