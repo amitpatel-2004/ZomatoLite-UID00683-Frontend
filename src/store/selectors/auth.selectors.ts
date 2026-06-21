@@ -1,0 +1,7 @@
+import type { RootState } from '../rootReducer';
+
+export const selectIsAuthLoading = (state: RootState) => state.auth.isLoading;
+export const selectAuthUser = (state: RootState) => state.auth.user;
+export const selectIsEmailVerified = (state: RootState) => state.auth.isEmailVerified;
+export const selectAuthError = (state: RootState) => state.auth.error;
+export const selectAuthIdToken = (state: RootState) => state.auth.idToken;

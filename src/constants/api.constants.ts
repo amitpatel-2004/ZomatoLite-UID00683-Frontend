@@ -13,3 +13,9 @@ export const API_ENDPOINTS = {
 } as const;
 
 export const API_TIMEOUT = 10000;
+
+export const API_HEADERS = {
+  BASE: {
+    'Content-Type': 'application/json',
+  },
+} as const;

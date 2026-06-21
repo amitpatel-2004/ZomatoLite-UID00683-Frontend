@@ -15,6 +15,12 @@ $colors: (
 
 $font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+$bp-xxl: 1600px;
+
 :root {
   // Ant Design Colors
   --ant-primary-color: #{map.get($colors, 'primary')};
@@ -31,4 +37,9 @@ $font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, A
   --color-text-secondary: #{map.get($colors, 'text-secondary')};
   --color-border: #{map.get($colors, 'border')};
   --color-bg-page: #{map.get($colors, 'light')};
+
+  // Alpha Variants
+  --color-primary-shadow: #{rgba(map.get($colors, 'primary'), 0.1)};
+  --color-error-shadow: #{rgba(map.get($colors, 'error'), 0.1)};
+  --color-card-shadow: #{rgba(map.get($colors, 'dark'), 0.5)};
 }

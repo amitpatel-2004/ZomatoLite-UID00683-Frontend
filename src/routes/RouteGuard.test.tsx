@@ -16,7 +16,7 @@ const TEXT = {
 };
 
 const loginRoute = <Route path={ROUTES.AUTH.LOGIN} element={<div>{TEXT.LOGIN}</div>} />;
-const signupRoute = <Route path={ROUTES.AUTH.SIGNUP} element={<div>{TEXT.SIGNUP}</div>} />;
+const signupRoute = <Route path={ROUTES.AUTH.REGISTER} element={<div>{TEXT.SIGNUP}</div>} />;
 const dashboardRoute = (
   <Route path={ROUTES.RESTAURANT.DASHBOARD} element={<div>{TEXT.DASHBOARD}</div>} />
 );
@@ -45,7 +45,7 @@ describe('RouteGuard Component Layout Core Guard Suites', () => {
   });
 
   it('should render child content for unprotected routes', () => {
-    renderGuard({ isProtected: false }, signupRoute, ROUTES.AUTH.SIGNUP);
+    renderGuard({ isProtected: false }, signupRoute, ROUTES.AUTH.REGISTER);
 
     expect(screen.getByText(TEXT.SIGNUP)).toBeVisible();
   });

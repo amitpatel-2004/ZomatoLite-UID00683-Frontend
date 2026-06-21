@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Form, Input, Radio, Typography } from 'antd';
 
-import { MESSAGES } from '@constants/message.constants';
+import { DISPLAY } from '@pages/auth/constants/display.constants';
 
 import type { RegisterFormProps } from './RegisterForm.types';
 
@@ -18,7 +18,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
         <Form.Item
           help={touched.displayName && errors.displayName ? errors.displayName : undefined}
           htmlFor="displayName"
-          label={MESSAGES.LABELS.DISPLAY_NAME}
+          label={DISPLAY.LABELS.DISPLAY_NAME}
           validateStatus={touched.displayName && errors.displayName ? 'error' : undefined}
         >
           <Input
@@ -34,7 +34,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
         <Form.Item
           help={touched.email && errors.email ? errors.email : undefined}
           htmlFor="email"
-          label={MESSAGES.LABELS.EMAIL}
+          label={DISPLAY.LABELS.EMAIL}
           validateStatus={touched.email && errors.email ? 'error' : undefined}
         >
           <Input
@@ -51,7 +51,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
         <Form.Item
           help={touched.password && errors.password ? errors.password : undefined}
           htmlFor="password"
-          label={MESSAGES.LABELS.PASSWORD}
+          label={DISPLAY.LABELS.PASSWORD}
           validateStatus={touched.password && errors.password ? 'error' : undefined}
         >
           <Input.Password
@@ -69,7 +69,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
             touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : undefined
           }
           htmlFor="confirmPassword"
-          label={MESSAGES.LABELS.CONFIRM_PASSWORD}
+          label={DISPLAY.LABELS.CONFIRM_PASSWORD}
           validateStatus={touched.confirmPassword && errors.confirmPassword ? 'error' : undefined}
         >
           <Input.Password
@@ -84,26 +84,26 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
 
         <Form.Item
           help={touched.role && errors.role ? errors.role : undefined}
-          label={MESSAGES.LABELS.ROLE}
+          label={DISPLAY.LABELS.ROLE}
           validateStatus={touched.role && errors.role ? 'error' : undefined}
         >
           <Radio.Group name="role" onBlur={handleBlur} onChange={handleChange} value={values.role}>
-            <Radio value="customer">{MESSAGES.LABELS.ROLE_CUSTOMER}</Radio>
-            <Radio value="owner">{MESSAGES.LABELS.ROLE_OWNER}</Radio>
+            <Radio value="customer">{DISPLAY.LABELS.ROLE_CUSTOMER}</Radio>
+            <Radio value="owner">{DISPLAY.LABELS.ROLE_OWNER}</Radio>
           </Radio.Group>
         </Form.Item>
 
         <Form.Item>
           <Button block htmlType="submit" loading={isLoading} type="primary">
-            {MESSAGES.LABELS.REGISTER}
+            {DISPLAY.ACTIONS.REGISTER}
           </Button>
         </Form.Item>
       </Form>
 
       <Text className="register-form__footer">
-        {MESSAGES.LABELS.ALREADY_HAVE_ACCOUNT}{' '}
+        {DISPLAY.ACTIONS.ALREADY_HAVE_ACCOUNT}{' '}
         <Link className="register-form__link" onClick={onLoginClick}>
-          {MESSAGES.LABELS.GO_TO_LOGIN}
+          {DISPLAY.ACTIONS.GO_TO_LOGIN}
         </Link>
       </Text>
     </div>

@@ -7,22 +7,28 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Spin } from 'antd';
 
 import type { UserRole } from '@appTypes/auth.types';
-import { MESSAGES } from '@constants/message.constants';
 import { ROUTES } from '@constants/route.constants';
-import { firebaseAuth } from '@core/firebase';
-import { authRequestSucceeded, sessionCleared } from '@store/auth';
-import type { RootState } from '@store/index';
+import { firebaseAuth } from '@core/firebase/firebase.config';
+import { CenteredLayout } from '@layouts/CenteredLayout';
+import { DISPLAY } from '@pages/auth/constants/display.constants';
+import {
+  authRequestSucceeded,
+  selectAuthUser,
+  selectIsEmailVerified,
+  sessionCleared,
+} from '@store/auth';
+import type { AppDispatch } from '@store/index';
 
 import type { RouteGuardProps } from './RouteGuard.types';
 
 export const RouteGuard = (props: RouteGuardProps): React.JSX.Element => {
   const { isProtected, redirectTo, allowedRoles, onUnauthorized } = props;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const user = useSelector((state: RootState) => state.auth.user);
-  const isEmailVerified = useSelector((state: RootState) => state.auth.isEmailVerified);
+  const user = useSelector(selectAuthUser);
+  const isEmailVerified = useSelector(selectIsEmailVerified);
 
   const [isFirebaseInitializing, setIsFirebaseInitializing] = useState(() => !user);
 
@@ -57,7 +63,7 @@ export const RouteGuard = (props: RouteGuardProps): React.JSX.Element => {
     });
 
     return () => unsubscribe();
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (isFirebaseInitializing || !allowedRoles || allowedRoles.length === 0 || !user) return;
@@ -72,9 +78,9 @@ export const RouteGuard = (props: RouteGuardProps): React.JSX.Element => {
 
   if (isFirebaseInitializing) {
     return (
-      <div className="centered-layout">
-        <Spin size="large" tip={MESSAGES.LABELS.VERIFYING_SESSION} />
-      </div>
+      <CenteredLayout>
+        <Spin size="large" tip={DISPLAY.ACTIONS.VERIFYING_SESSION} />
+      </CenteredLayout>
     );
   }
 

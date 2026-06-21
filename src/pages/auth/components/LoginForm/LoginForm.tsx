@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Form, Input, Typography } from 'antd';
 
-import { MESSAGES } from '@constants/message.constants';
+import { DISPLAY } from '@pages/auth/constants/display.constants';
 
 import type { LoginFormProps } from './LoginForm.types';
 
@@ -18,7 +18,7 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
         <Form.Item
           help={touched.email && errors.email ? errors.email : undefined}
           htmlFor="email"
-          label={MESSAGES.LABELS.EMAIL}
+          label={DISPLAY.LABELS.EMAIL}
           validateStatus={touched.email && errors.email ? 'error' : undefined}
         >
           <Input
@@ -35,7 +35,7 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
         <Form.Item
           help={touched.password && errors.password ? errors.password : undefined}
           htmlFor="password"
-          label={MESSAGES.LABELS.PASSWORD}
+          label={DISPLAY.LABELS.PASSWORD}
           validateStatus={touched.password && errors.password ? 'error' : undefined}
         >
           <Input.Password
@@ -50,15 +50,15 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
 
         <Form.Item>
           <Button block htmlType="submit" loading={isLoading} type="primary">
-            {MESSAGES.LABELS.LOGIN}
+            {DISPLAY.ACTIONS.LOGIN}
           </Button>
         </Form.Item>
       </Form>
 
       <Text className="login-form__footer">
-        {MESSAGES.LABELS.NO_ACCOUNT}{' '}
+        {DISPLAY.ACTIONS.NO_ACCOUNT}{' '}
         <Link className="login-form__link" onClick={onRegisterClick}>
-          {MESSAGES.LABELS.GO_TO_REGISTER}
+          {DISPLAY.ACTIONS.GO_TO_REGISTER}
         </Link>
       </Text>
     </div>

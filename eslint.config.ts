@@ -52,7 +52,7 @@ export default defineConfig([
     },
     rules: {
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      'no-duplicate-imports': 'error',
+      'no-duplicate-imports': ['error', { allowSeparateTypeImports: true }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],

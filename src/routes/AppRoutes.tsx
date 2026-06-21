@@ -1,9 +1,8 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
-import { MESSAGES } from '@constants/message.constants';
+import { ErrorComponent } from '@components/ErrorComponent';
 import { ROUTES } from '@constants/route.constants';
 import { CenteredLayout } from '@layouts/CenteredLayout';
-import { ErrorLayout } from '@layouts/ErrorLayout';
 import { LoginContainer, RegisterContainer, VerifyEmailContainer } from '@pages/auth';
 
 import { RouteGuard } from './RouteGuard';
@@ -13,7 +12,11 @@ const DashboardPlaceholder = () => <div>Restaurant Dashboard UI</div>;
 export const router = createBrowserRouter([
   {
     path: '/',
-    errorElement: <ErrorLayout />,
+    errorElement: (
+      <CenteredLayout>
+        <ErrorComponent />
+      </CenteredLayout>
+    ),
     children: [
       {
         index: true,
@@ -26,10 +29,7 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.AUTH.LOGIN,
             element: (
-              <CenteredLayout
-                subtitle={MESSAGES.PAGE_TITLES.LOGIN_SUBTITLE}
-                title={MESSAGES.PAGE_TITLES.LOGIN}
-              >
+              <CenteredLayout>
                 <LoginContainer />
               </CenteredLayout>
             ),
@@ -37,10 +37,7 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.AUTH.REGISTER,
             element: (
-              <CenteredLayout
-                subtitle={MESSAGES.PAGE_TITLES.REGISTER_SUBTITLE}
-                title={MESSAGES.PAGE_TITLES.REGISTER}
-              >
+              <CenteredLayout>
                 <RegisterContainer />
               </CenteredLayout>
             ),
@@ -54,10 +51,7 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.AUTH.VERIFY_EMAIL,
             element: (
-              <CenteredLayout
-                subtitle={MESSAGES.PAGE_TITLES.VERIFY_EMAIL_SUBTITLE}
-                title={MESSAGES.PAGE_TITLES.VERIFY_EMAIL}
-              >
+              <CenteredLayout>
                 <VerifyEmailContainer />
               </CenteredLayout>
             ),
@@ -71,11 +65,19 @@ export const router = createBrowserRouter([
 
       {
         path: ROUTES.ERROR.NOT_FOUND,
-        element: <ErrorLayout />,
+        element: (
+          <CenteredLayout>
+            <ErrorComponent />
+          </CenteredLayout>
+        ),
       },
       {
         path: '*',
-        element: <ErrorLayout />,
+        element: (
+          <CenteredLayout>
+            <ErrorComponent />
+          </CenteredLayout>
+        ),
       },
     ],
   },

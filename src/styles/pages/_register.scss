@@ -1,71 +1,69 @@
+@use '../abstracts/mixins' as m;
+
 .register-form {
   width: 100%;
 
   .ant-form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: m.pxToRem(16);
   }
 
   .ant-form-item {
-    margin-bottom: 0 !important;
+    margin-bottom: 0;
     display: flex;
     flex-direction: column;
   }
 
   .ant-form-item-control {
     position: relative;
-    padding-bottom: 2rem;
+    padding-bottom: m.pxToRem(32);
   }
 
   .ant-form-item-label > label {
     color: var(--color-text-primary);
-    font-size: 1rem;
-    font-weight: 500;
     height: auto;
 
     &::after {
-      display: none !important;
+      display: none;
     }
   }
 
   .ant-input,
   .ant-input-affix-wrapper {
-    border: 1px solid var(--color-border) !important;
-    border-radius: 6px !important;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
     color: var(--color-text-primary);
-    font-size: 1rem;
-    padding: 0.6rem;
+    padding: m.pxToRem(10);
     transition: all 0.2s ease;
     width: 100%;
 
     &:focus,
-    &-focused {
-      border-color: var(--color-primary) !important;
-      box-shadow: 0 0 0 2px rgba(232, 29, 67, 0.12) !important;
+    &.ant-input-affix-wrapper-focused {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px var(--color-primary-shadow);
     }
 
     .ant-input {
-      border: none !important;
-      padding: 0 !important;
-      box-shadow: none !important;
-      background: transparent !important;
+      border: none;
+      padding: 0;
+      box-shadow: none;
+      background: transparent;
     }
   }
 
   .ant-form-item-has-error {
     .ant-input,
     .ant-input-affix-wrapper {
-      border-color: var(--color-error) !important;
+      border-color: var(--color-error);
 
       &:focus,
-      &-focused {
-        box-shadow: 0 0 0 2px rgba(224, 53, 70, 0.12) !important;
+      &.ant-input-affix-wrapper-focused {
+        box-shadow: 0 0 0 2px var(--color-error-shadow);
       }
     }
   }
 
-  /* Positions the error safely inside the reserved padding zone without overlapping */
   .ant-form-item-explain {
     position: absolute;
     bottom: 0;
@@ -75,20 +73,17 @@
 
   .ant-form-item-explain-error {
     color: var(--color-error);
-    font-size: 1rem;
   }
 
   &__footer {
     color: var(--color-text-secondary);
-    font-size: 1rem;
-    margin-top: 1.5rem;
+    margin-top: m.pxToRem(24);
     display: block;
     text-align: center;
   }
 
   &__link {
-    color: var(--color-primary) !important;
-    font-weight: 500;
+    color: var(--color-primary);
     text-decoration: underline;
 
     &:hover {
@@ -98,20 +93,20 @@
 
   .ant-radio-group {
     display: flex;
-    gap: 1rem;
-    margin-top: 0.5rem;
+    gap: m.pxToRem(16);
+    margin-top: m.pxToRem(8);
   }
 
   .ant-radio-wrapper {
     color: var(--color-text-primary);
-    font-size: 1rem;
 
     .ant-radio-checked .ant-radio-inner {
-      border-color: var(--color-primary) !important;
-      background-color: var(--color-primary) !important;
+      border-color: var(--color-primary);
+      background-color: var(--color-primary);
     }
+
     &:hover .ant-radio-inner {
-      border-color: var(--color-primary) !important;
+      border-color: var(--color-primary);
     }
   }
 }

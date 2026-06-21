@@ -7,11 +7,12 @@ import type {
   RegisterPayload,
 } from '@appTypes/auth.types';
 import { API_ENDPOINTS } from '@constants/api.constants';
-import { apiClient } from '@core/api';
-import { firebaseAuth } from '@core/firebase';
+import { apiClient } from '@core/api/apiClient';
+import { firebaseAuth } from '@core/firebase/firebase.config';
+import { MESSAGES } from '@pages/auth/constants/messages.constants';
 
 const getActionCodeSettings = () => ({
-  url: `${window.location.origin}/restaurant/dashboard`,
+  url: `${window.location.origin}`,
   handleCodeInApp: false,
 });
 
@@ -46,7 +47,7 @@ export const authService = {
     if (firebaseAuth.currentUser) {
       await sendEmailVerification(firebaseAuth.currentUser, getActionCodeSettings());
     } else {
-      throw new Error('No user is currently logged in');
+      throw new Error(MESSAGES.ERRORS.NOT_LOGGED_IN);
     }
   },
 
