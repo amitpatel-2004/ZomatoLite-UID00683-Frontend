@@ -14,7 +14,12 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
 
   return (
     <div className="login-form">
-      <Form className="login-form__form" layout="vertical" onFinish={() => handleSubmit()}>
+      <Form
+        className="login-form__form"
+        layout="vertical"
+        onFinish={() => handleSubmit()}
+        noValidate
+      >
         <Form.Item
           help={touched.email && errors.email ? errors.email : undefined}
           htmlFor="email"

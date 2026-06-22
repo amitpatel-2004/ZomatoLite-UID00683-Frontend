@@ -14,7 +14,12 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
 
   return (
     <div className="register-form">
-      <Form className="register-form__form" layout="vertical" onFinish={() => handleSubmit()}>
+      <Form
+        className="register-form__form"
+        layout="vertical"
+        onFinish={() => handleSubmit()}
+        noValidate
+      >
         <Form.Item
           help={touched.displayName && errors.displayName ? errors.displayName : undefined}
           htmlFor="displayName"
