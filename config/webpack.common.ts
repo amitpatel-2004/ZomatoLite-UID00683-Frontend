@@ -1,4 +1,3 @@
-import Dotenv from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'node:path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
@@ -16,7 +15,6 @@ const commonConfig: Configuration = {
     publicPath: '/',
   },
   plugins: [
-    new Dotenv({ path: path.resolve(rootDir, '.env'), safe: false }),
     new HtmlWebpackPlugin({ template: path.resolve(rootDir, 'public/index.html') }),
   ],
   module: {

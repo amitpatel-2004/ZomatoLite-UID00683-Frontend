@@ -15,7 +15,7 @@ jest.mock('firebase/auth', () => ({
   onAuthStateChanged: jest.fn(),
 }));
 
-jest.mock('@core/firebase', () => ({
+jest.mock('@core/firebase/firebase.config', () => ({
   firebaseAuth: {},
 }));
 

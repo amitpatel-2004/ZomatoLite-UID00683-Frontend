@@ -1,7 +1,8 @@
 import type { FormikProps } from 'formik';
 
 import type { RegisterFormValues } from '@appTypes/auth.types';
-import { MESSAGES } from '@constants/message.constants';
+import { DISPLAY } from '@pages/auth/constants/display.constants';
+import { MESSAGES } from '@pages/auth/constants/messages.constants';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -37,15 +38,15 @@ describe('RegisterForm', () => {
   it('should render role radio buttons', () => {
     render(<RegisterForm formik={buildFormik()} isLoading={false} onLoginClick={jest.fn()} />);
 
-    expect(screen.getByText(MESSAGES.LABELS.ROLE_CUSTOMER)).toBeVisible();
-    expect(screen.getByText(MESSAGES.LABELS.ROLE_OWNER)).toBeVisible();
+    expect(screen.getByText(DISPLAY.LABELS.ROLE_CUSTOMER)).toBeVisible();
+    expect(screen.getByText(DISPLAY.LABELS.ROLE_OWNER)).toBeVisible();
   });
 
   it('should render the submit button and login link', () => {
     render(<RegisterForm formik={buildFormik()} isLoading={false} onLoginClick={jest.fn()} />);
 
-    expect(screen.getByRole('button', { name: MESSAGES.LABELS.REGISTER })).toBeVisible();
-    expect(screen.getByText(MESSAGES.LABELS.GO_TO_LOGIN)).toBeVisible();
+    expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.REGISTER })).toBeVisible();
+    expect(screen.getByText(DISPLAY.ACTIONS.GO_TO_LOGIN)).toBeVisible();
   });
 
   it('shows a validation error when a field is touched', () => {
@@ -69,7 +70,7 @@ describe('RegisterForm', () => {
 
     render(<RegisterForm formik={buildFormik()} isLoading={false} onLoginClick={onLoginClick} />);
 
-    await user.click(screen.getByText(MESSAGES.LABELS.GO_TO_LOGIN));
+    await user.click(screen.getByText(DISPLAY.ACTIONS.GO_TO_LOGIN));
 
     expect(onLoginClick).toHaveBeenCalledTimes(1);
   });

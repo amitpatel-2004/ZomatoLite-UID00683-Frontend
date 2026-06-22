@@ -1,7 +1,8 @@
 import type { FormikProps } from 'formik';
 
 import type { LoginFormValues } from '@appTypes/auth.types';
-import { MESSAGES } from '@constants/message.constants';
+import { DISPLAY } from '@pages/auth/constants/display.constants';
+import { MESSAGES } from '@pages/auth/constants/messages.constants';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -35,8 +36,8 @@ describe('LoginForm', () => {
   it('should render the submit button and register link', () => {
     render(<LoginForm formik={buildFormik()} isLoading={false} onRegisterClick={jest.fn()} />);
 
-    expect(screen.getByRole('button', { name: MESSAGES.LABELS.LOGIN })).toBeVisible();
-    expect(screen.getByText(MESSAGES.LABELS.GO_TO_REGISTER)).toBeVisible();
+    expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.LOGIN })).toBeVisible();
+    expect(screen.getByText(DISPLAY.ACTIONS.GO_TO_REGISTER)).toBeVisible();
   });
 
   it('should show email validation error when the field is touched', () => {
@@ -77,7 +78,7 @@ describe('LoginForm', () => {
       <LoginForm formik={buildFormik()} isLoading={false} onRegisterClick={onRegisterClick} />,
     );
 
-    await user.click(screen.getByText(MESSAGES.LABELS.GO_TO_REGISTER));
+    await user.click(screen.getByText(DISPLAY.ACTIONS.GO_TO_REGISTER));
 
     expect(onRegisterClick).toHaveBeenCalledTimes(1);
   });

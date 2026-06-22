@@ -1,39 +1,46 @@
-import { MESSAGES } from '@constants/message.constants';
-import { render, screen } from '@testing-library/react';
+import { MESSAGES as SHARED_MESSAGES } from '@constants/message.constants';
+import { DISPLAY } from '@pages/auth/constants/display.constants';
+import { MESSAGES } from '@pages/auth/constants/messages.constants';
+import { useAuth } from '@pages/auth/hooks/useAuth';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { VerifyEmailContainer } from './VerifyEmailContainer';
-import { useVerifyEmail } from '../hooks/useVerifyEmail';
 
 import '@testing-library/jest-dom';
 
-jest.mock('../hooks/useVerifyEmail', () => ({
-  useVerifyEmail: jest.fn(),
+jest.mock('@pages/auth/hooks/useAuth', () => ({
+  useAuth: jest.fn(),
 }));
 
-const mockUseVerifyEmail = jest.mocked(useVerifyEmail);
+const mockUseAuth = jest.mocked(useAuth);
 
 const defaultMock = {
-  localEmail: null as string | null,
-  isResending: false,
-  resendStatus: 'sending' as const,
-  handleResend: jest.fn() as () => Promise<void>,
+  isEmailVerified: false,
+  isLoading: false,
+  login: jest.fn(),
+  register: jest.fn(),
+  resendVerification: jest.fn().mockResolvedValue(undefined),
+  user: null,
 };
 
 describe('VerifyEmailContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseVerifyEmail.mockReturnValue(defaultMock);
+    mockUseAuth.mockReturnValue(defaultMock);
   });
 
   it('should render the resend button', () => {
     render(<VerifyEmailContainer />);
 
-    expect(screen.getByRole('button', { name: MESSAGES.LABELS.RESEND_VERIFICATION })).toBeVisible();
+    expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.RESEND_VERIFICATION })).toBeVisible();
   });
 
   it('should show the user email when available', () => {
-    mockUseVerifyEmail.mockReturnValue({ ...defaultMock, localEmail: 'user@example.com' });
+    mockUseAuth.mockReturnValue({
+      ...defaultMock,
+      user: { _id: '1', email: 'user@example.com', displayName: 'Test', role: 'customer' },
+    });
 
     render(<VerifyEmailContainer />);
 
@@ -46,30 +53,45 @@ describe('VerifyEmailContainer', () => {
     expect(screen.queryByText('@')).not.toBeInTheDocument();
   });
 
-  it('should show success alert when verification email was resent', () => {
-    mockUseVerifyEmail.mockReturnValue({ ...defaultMock, resendStatus: 'sent' as const });
+  it('should show success alert when verification email was resent', async () => {
+    mockUseAuth.mockReturnValue({
+      ...defaultMock,
+      resendVerification: jest.fn().mockResolvedValue(undefined),
+    });
+    const user = userEvent.setup();
 
     render(<VerifyEmailContainer />);
 
-    expect(screen.getByText(MESSAGES.AUTH.EMAIL_VERIFICATION_RESENT)).toBeVisible();
+    await user.click(screen.getByRole('button'));
+
+    await waitFor(() => {
+      expect(screen.getByText(MESSAGES.SUCCESS.EMAIL_VERIFICATION_RESENT)).toBeVisible();
+    });
   });
 
-  it('should shows error alert when resend failed', () => {
-    mockUseVerifyEmail.mockReturnValue({ ...defaultMock, resendStatus: 'error' as const });
-
-    render(<VerifyEmailContainer />);
-
-    expect(screen.getByText(MESSAGES.ERRORS.GENERIC)).toBeVisible();
-  });
-
-  it('should call handleResend when the button is clicked', async () => {
-    const handleResend = jest.fn() as () => Promise<void>;
-    mockUseVerifyEmail.mockReturnValue({ ...defaultMock, handleResend });
+  it('should show error alert when resend failed', async () => {
+    mockUseAuth.mockReturnValue({
+      ...defaultMock,
+      resendVerification: jest.fn().mockRejectedValue(new Error('fail')),
+    });
     const user = userEvent.setup();
 
     render(<VerifyEmailContainer />);
     await user.click(screen.getByRole('button'));
 
-    expect(handleResend).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(screen.getByText(SHARED_MESSAGES.ERRORS.GENERIC)).toBeVisible();
+    });
+  });
+
+  it('should call resendVerification when the button is clicked', async () => {
+    const mockResend = jest.fn().mockResolvedValue(undefined);
+    mockUseAuth.mockReturnValue({ ...defaultMock, resendVerification: mockResend });
+    const user = userEvent.setup();
+
+    render(<VerifyEmailContainer />);
+    await user.click(screen.getByRole('button'));
+
+    expect(mockResend).toHaveBeenCalledTimes(1);
   });
 });
