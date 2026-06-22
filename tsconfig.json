@@ -29,7 +29,8 @@
       "@utils/*": ["./src/utils/*"],
       "@appTypes/*": ["./src/types/*"],
       "@schemas/*": ["./src/schemas/*"],
-      "@store/*": ["./src/store/*"]
+      "@store/*": ["./src/store/*"],
+      "@services/*": ["./src/services/*"]
     },
     "types": ["jest", "node"]
   },

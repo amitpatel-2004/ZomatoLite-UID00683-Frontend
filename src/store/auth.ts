@@ -5,7 +5,6 @@ export {
   selectIsAuthLoading,
   selectIsEmailVerified,
 } from './selectors/auth.selectors';
-export { authService } from './services/authService';
 export {
   authReducer,
   authRequestFailed,

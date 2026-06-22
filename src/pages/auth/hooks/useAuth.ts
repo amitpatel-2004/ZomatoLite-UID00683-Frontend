@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import type { LoginPayload, RegisterPayload } from '@appTypes/auth.types';
 import { MESSAGES } from '@constants/message.constants';
+import { authService } from '@services/authService';
 import {
   authRequestFailed,
   authRequestStarted,
   authRequestSucceeded,
-  authService,
   selectAuthUser,
   selectIsAuthLoading,
   selectIsEmailVerified,
