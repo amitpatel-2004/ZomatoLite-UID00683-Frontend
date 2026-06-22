@@ -1,17 +1,11 @@
 import { initializeApp } from 'firebase/app';
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
 
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  appId: process.env.FIREBASE_APP_ID,
-};
+import { FIREBASE_EMULATOR_PORT, firebaseConfig } from '@constants/firebase.constants';
 
 const app = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(app);
 
-if (process.env.USE_FIREBASE_EMULATOR === 'true') {
-  const port = process.env.FIREBASE_AUTH_EMULATOR_PORT || '9099';
-  connectAuthEmulator(firebaseAuth, `http://127.0.0.1:${port}`);
+if (process.env.ENV_MODE === 'test') {
+  connectAuthEmulator(firebaseAuth, `http://127.0.0.1:${FIREBASE_EMULATOR_PORT.AUTH}`);
 }

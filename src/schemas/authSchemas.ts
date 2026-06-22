@@ -1,11 +1,9 @@
 import * as Yup from 'yup';
 
-import { MESSAGES } from '@constants/message.constants';
+import { MESSAGES } from '@pages/auth/constants/messages.constants';
 
 const strictPasswordSchema = Yup.string()
-  .min(6, 'Password must be at least 6 characters long')
-  .matches(/[A-Za-z]/, 'Password must contain at least one letter')
-  .matches(/\d/, 'Password must contain at least one number')
+  .min(6, MESSAGES.VALIDATION.PASSWORD_MIN)
   .max(128, MESSAGES.VALIDATION.PASSWORD_MAX)
   .required(MESSAGES.VALIDATION.PASSWORD_REQUIRED);
 
@@ -20,6 +18,7 @@ export const loginValidationSchema = Yup.object({
 export const registerValidationSchema = Yup.object({
   displayName: Yup.string()
     .max(100, MESSAGES.VALIDATION.DISPLAY_NAME_MAX)
+    .matches(/^[\w '.,-]+$/, MESSAGES.VALIDATION.DISPLAY_NAME_PATTERN)
     .required(MESSAGES.VALIDATION.DISPLAY_NAME_REQUIRED)
     .test('no-whitespace-only', MESSAGES.VALIDATION.DISPLAY_NAME_NO_WHITESPACE, (value) =>
       Boolean(value && value.trim().length > 0),

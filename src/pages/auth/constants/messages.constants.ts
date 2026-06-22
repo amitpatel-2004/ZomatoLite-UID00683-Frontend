@@ -1,0 +1,31 @@
+export const MESSAGES = {
+  SUCCESS: {
+    LOGIN: 'Logged in successfully.',
+    REGISTER: 'Account created! Please verify your email.',
+    LOGOUT: 'Logged out successfully.',
+    EMAIL_VERIFICATION_SENT: 'Verification email sent. Please check your inbox.',
+    EMAIL_VERIFICATION_RESENT: 'Verification email resent.',
+  },
+  ERRORS: {
+    EMAIL_VERIFICATION_RESENT_FAIL: 'Failed to resend verification email.',
+    EMAIL_ALREADY_VERIFIED: 'Your email is already verified.',
+    NOT_LOGGED_IN: 'No user is currently logged in.',
+    SESSION_EXPIRED: 'Your session has expired. Please log in again.',
+  },
+  VALIDATION: {
+    EMAIL_REQUIRED: 'Email is required.',
+    EMAIL_INVALID: 'Please enter a valid email address.',
+    EMAIL_MAX: 'Email must be at most 255 characters.',
+    PASSWORD_REQUIRED: 'Password is required.',
+    PASSWORD_MAX: 'Password must be at most 128 characters.',
+    PASSWORD_MIN: 'Password must be at least 6 characters.',
+    PASSWORD_CONFIRM_REQUIRED: 'Please confirm your password.',
+    PASSWORD_MISMATCH: 'Passwords do not match.',
+    DISPLAY_NAME_REQUIRED: 'Display name is required.',
+    DISPLAY_NAME_MAX: 'Display name must be at most 100 characters.',
+    DISPLAY_NAME_NO_WHITESPACE: 'Display name cannot be empty or only spaces.',
+    DISPLAY_NAME_PATTERN: 'Display name contains invalid characters.',
+    ROLE_REQUIRED: 'Please select a role.',
+    ROLE_INVALID: 'Role must be either customer or owner.',
+  },
+} as const;

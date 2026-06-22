@@ -1,47 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Alert, Button, Space, Typography } from 'antd';
-
-import { MESSAGES } from '@constants/message.constants';
-
-import { useVerifyEmail } from '../hooks/useVerifyEmail';
-
-const { Text } = Typography;
+import { Card } from '@components/Card';
+import { VerifyEmailForm } from '@pages/auth/components/VerifyEmailForm';
+import type { ResendStatus } from '@pages/auth/components/VerifyEmailForm/VerifyEmailForm.types';
+import { RESEND_STATUS } from '@pages/auth/components/VerifyEmailForm/VerifyEmailForm.types';
+import { DISPLAY } from '@pages/auth/constants/display.constants';
+import { useAuth } from '@pages/auth/hooks/useAuth';
 
 export const VerifyEmailContainer = (): React.JSX.Element => {
-  const { localEmail, isResending, resendStatus, handleResend } = useVerifyEmail();
+  const { user, resendVerification } = useAuth();
+  const [isResending, setIsResending] = useState(false);
+  const [resendStatus, setResendStatus] = useState<ResendStatus>(RESEND_STATUS.SENDING);
+
+  const localEmail = user?.email ?? null;
+
+  const handleResend = async (): Promise<void> => {
+    setIsResending(true);
+    setResendStatus(RESEND_STATUS.SENDING);
+    try {
+      await resendVerification();
+      setResendStatus(RESEND_STATUS.SENT);
+    } catch {
+      setResendStatus(RESEND_STATUS.ERROR);
+    } finally {
+      setIsResending(false);
+    }
+  };
 
   return (
-    <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%' }}>
-      <Space direction="vertical" size="middle" style={{ textAlign: 'center', width: '100%' }}>
-        {localEmail && (
-          <Text strong style={{ display: 'block' }}>
-            {localEmail}
-          </Text>
-        )}
-
-        {resendStatus === 'sent' && (
-          <Alert
-            message={MESSAGES.AUTH.EMAIL_VERIFICATION_RESENT}
-            showIcon
-            style={{ width: '100%' }}
-            type="success"
-          />
-        )}
-
-        {resendStatus === 'error' && (
-          <Alert
-            message={MESSAGES.ERRORS.GENERIC}
-            showIcon
-            style={{ width: '100%' }}
-            type="error"
-          />
-        )}
-
-        <Button block loading={isResending} onClick={() => void handleResend()} type="primary">
-          {MESSAGES.LABELS.RESEND_VERIFICATION}
-        </Button>
-      </Space>
-    </div>
+    <Card subtitle={DISPLAY.LABELS.VERIFY_EMAIL_SUBTITLE} title={DISPLAY.LABELS.VERIFY_EMAIL_TITLE}>
+      <VerifyEmailForm
+        isResending={isResending}
+        localEmail={localEmail}
+        onResend={handleResend}
+        resendStatus={resendStatus}
+      />
+    </Card>
   );
 };

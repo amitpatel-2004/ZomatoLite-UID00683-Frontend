@@ -1,10 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { createStore } from 'redux';
 
 import { rootReducer } from './rootReducer';
 
-export const store = configureStore({
-  reducer: rootReducer,
-});
+export const store = createStore(rootReducer);
 
 export type AppDispatch = typeof store.dispatch;
 export type { RootState } from './rootReducer';

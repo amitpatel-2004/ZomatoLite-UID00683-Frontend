@@ -1,4 +1,10 @@
-export { authService } from './services/authService';
+export {
+  selectAuthError,
+  selectAuthIdToken,
+  selectAuthUser,
+  selectIsAuthLoading,
+  selectIsEmailVerified,
+} from './selectors/auth.selectors';
 export {
   authReducer,
   authRequestFailed,
