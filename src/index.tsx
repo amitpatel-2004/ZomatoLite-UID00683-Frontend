@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import { ConfigProvider } from 'antd';
 
+import { AuthInit } from '@core/auth/AuthInit';
 import { router } from '@routes/AppRoutes';
 import { store } from '@store/index';
 
@@ -15,9 +16,11 @@ const root = createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ConfigProvider>
-        <RouterProvider router={router} />
-      </ConfigProvider>
+      <AuthInit>
+        <ConfigProvider>
+          <RouterProvider router={router} />
+        </ConfigProvider>
+      </AuthInit>
     </Provider>
   </React.StrictMode>,
 );

@@ -4,7 +4,3 @@ export const firebaseConfig = {
   projectId: process.env.FIREBASE_PROJECT_ID,
   appId: process.env.FIREBASE_APP_ID,
 };
-
-export const FIREBASE_EMULATOR_PORT = {
-  AUTH: process.env.FIREBASE_AUTH_EMULATOR_PORT,
-};

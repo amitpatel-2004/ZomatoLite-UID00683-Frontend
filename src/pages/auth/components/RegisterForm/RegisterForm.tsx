@@ -2,9 +2,12 @@ import React from 'react';
 
 import { Button, Form, Input, Radio, Typography } from 'antd';
 
+import { BUTTON_TYPES, FORM_LAYOUTS } from '@constants/style.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 
 import type { RegisterFormProps } from './RegisterForm.types';
+
+import './RegisterForm.scss';
 
 const { Link, Text } = Typography;
 
@@ -16,8 +19,8 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
     <div className="register-form">
       <Form
         className="register-form__form"
-        layout="vertical"
-        onFinish={() => handleSubmit()}
+        layout={FORM_LAYOUTS.VERTICAL}
+        onFinish={handleSubmit}
         noValidate
       >
         <Form.Item
@@ -29,7 +32,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
           <Input
             id="displayName"
             name="displayName"
-            placeholder="Enter your full name"
+            placeholder={DISPLAY.PLACEHOLDERS.DISPLAY_NAME}
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.displayName}
@@ -45,7 +48,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
           <Input
             id="email"
             name="email"
-            placeholder="Enter your email address"
+            placeholder={DISPLAY.PLACEHOLDERS.EMAIL}
             onBlur={handleBlur}
             onChange={handleChange}
             type="email"
@@ -62,7 +65,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
           <Input.Password
             id="password"
             name="password"
-            placeholder="Create a strong password"
+            placeholder={DISPLAY.PLACEHOLDERS.CREATE_PASSWORD}
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.password}
@@ -80,7 +83,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
           <Input.Password
             id="confirmPassword"
             name="confirmPassword"
-            placeholder="Re-enter your password"
+            placeholder={DISPLAY.PLACEHOLDERS.CONFIRM_PASSWORD}
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.confirmPassword}
@@ -99,7 +102,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
         </Form.Item>
 
         <Form.Item>
-          <Button block htmlType="submit" loading={isLoading} type="primary">
+          <Button block htmlType="submit" loading={isLoading} type={BUTTON_TYPES.PRIMARY}>
             {DISPLAY.ACTIONS.REGISTER}
           </Button>
         </Form.Item>

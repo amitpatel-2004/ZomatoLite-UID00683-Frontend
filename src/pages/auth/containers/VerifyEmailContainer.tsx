@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { Card } from '@components/Card';
 import { VerifyEmailForm } from '@pages/auth/components/VerifyEmailForm';
+import { RESEND_STATUS } from '@pages/auth/components/VerifyEmailForm/VerifyEmailForm.constants';
 import type { ResendStatus } from '@pages/auth/components/VerifyEmailForm/VerifyEmailForm.types';
-import { RESEND_STATUS } from '@pages/auth/components/VerifyEmailForm/VerifyEmailForm.types';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 import { useAuth } from '@pages/auth/hooks/useAuth';
 

@@ -1,5 +1,5 @@
 @use 'sass:math';
-@use './variables' as v;
+@use './variables' as variables;
 
 /**
  * Converts a pixel value to rem units.
@@ -32,7 +32,7 @@
  *   }
  */
 @mixin respond-desktop {
-  @media (min-width: v.$bp-lg) {
+  @media (min-width: variables.$bp-lg) {
     @content;
   }
 }
@@ -46,7 +46,7 @@
  *   }
  */
 @mixin respond-tablet {
-  @media (min-width: v.$bp-md) {
+  @media (min-width: variables.$bp-md) {
     @content;
   }
 }

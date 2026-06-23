@@ -1,11 +1,12 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
-import { ErrorComponent } from '@components/ErrorComponent';
 import { ROUTES } from '@constants/route.constants';
 import { CenteredLayout } from '@layouts/CenteredLayout';
 import { LoginContainer, RegisterContainer, VerifyEmailContainer } from '@pages/auth';
+import { ErrorContainer } from '@pages/error';
 
-import { RouteGuard } from './RouteGuard';
+import { AuthGuard } from './guards/AuthGuard';
+import { hasRole, isAuthenticated, isGuest, isVerified } from './guards/authGuardChecks';
 
 const DashboardPlaceholder = () => <div>Restaurant Dashboard UI</div>;
 
@@ -14,17 +15,14 @@ export const router = createBrowserRouter([
     path: '/',
     errorElement: (
       <CenteredLayout>
-        <ErrorComponent />
+        <ErrorContainer />
       </CenteredLayout>
     ),
     children: [
-      {
-        index: true,
-        element: <Navigate to={ROUTES.RESTAURANT.DASHBOARD} replace />,
-      },
+      { index: true, element: <Navigate to={ROUTES.RESTAURANT.DASHBOARD} replace /> },
 
       {
-        element: <RouteGuard isProtected={false} />,
+        element: <AuthGuard check={isGuest} fallbackPath={ROUTES.RESTAURANT.DASHBOARD} />,
         children: [
           {
             path: ROUTES.AUTH.LOGIN,
@@ -46,7 +44,7 @@ export const router = createBrowserRouter([
       },
 
       {
-        element: <RouteGuard isProtected={true} />,
+        element: <AuthGuard check={isAuthenticated} fallbackPath={ROUTES.AUTH.LOGIN} />,
         children: [
           {
             path: ROUTES.AUTH.VERIFY_EMAIL,
@@ -57,8 +55,17 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: ROUTES.RESTAURANT.DASHBOARD,
-            element: <DashboardPlaceholder />,
+            element: <AuthGuard check={isVerified} fallbackPath={ROUTES.AUTH.VERIFY_EMAIL} />,
+            children: [
+              {
+                element: (
+                  <AuthGuard check={hasRole(['owner'])} fallbackPath={ROUTES.ERROR.NOT_FOUND} />
+                ),
+                children: [
+                  { path: ROUTES.RESTAURANT.DASHBOARD, element: <DashboardPlaceholder /> },
+                ],
+              },
+            ],
           },
         ],
       },
@@ -67,7 +74,7 @@ export const router = createBrowserRouter([
         path: ROUTES.ERROR.NOT_FOUND,
         element: (
           <CenteredLayout>
-            <ErrorComponent />
+            <ErrorContainer />
           </CenteredLayout>
         ),
       },
@@ -75,7 +82,7 @@ export const router = createBrowserRouter([
         path: '*',
         element: (
           <CenteredLayout>
-            <ErrorComponent />
+            <ErrorContainer />
           </CenteredLayout>
         ),
       },
