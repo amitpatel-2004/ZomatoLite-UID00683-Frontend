@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { Button, Form, Input, Radio, Typography } from 'antd';
+import { Form as FormikForm } from 'formik';
 
+import { Button, Form, Radio, Typography } from 'antd';
+
+import { PasswordField, RadioGroupField, TextField } from '@components/FormFields';
+import { USER_ROLES } from '@constants/auth.constants';
 import { BUTTON_TYPES, FORM_LAYOUTS } from '@constants/style.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 
@@ -12,100 +16,48 @@ import './RegisterForm.scss';
 const { Link, Text } = Typography;
 
 export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
-  const { formik, isLoading, onLoginClick } = props;
-  const { errors, handleBlur, handleChange, handleSubmit, touched, values } = formik;
+  const { isLoading, onLoginClick } = props;
 
   return (
     <div className="register-form">
-      <Form
-        className="register-form__form"
-        layout={FORM_LAYOUTS.VERTICAL}
-        onFinish={handleSubmit}
-        noValidate
-      >
-        <Form.Item
-          help={touched.displayName && errors.displayName ? errors.displayName : undefined}
-          htmlFor="displayName"
-          label={DISPLAY.LABELS.DISPLAY_NAME}
-          validateStatus={touched.displayName && errors.displayName ? 'error' : undefined}
-        >
-          <Input
-            id="displayName"
+      <Form component={false} layout={FORM_LAYOUTS.VERTICAL}>
+        <FormikForm className="register-form__form" noValidate>
+          <TextField
+            label={DISPLAY.LABELS.DISPLAY_NAME}
             name="displayName"
             placeholder={DISPLAY.PLACEHOLDERS.DISPLAY_NAME}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={values.displayName}
           />
-        </Form.Item>
 
-        <Form.Item
-          help={touched.email && errors.email ? errors.email : undefined}
-          htmlFor="email"
-          label={DISPLAY.LABELS.EMAIL}
-          validateStatus={touched.email && errors.email ? 'error' : undefined}
-        >
-          <Input
-            id="email"
+          <TextField
+            label={DISPLAY.LABELS.EMAIL}
             name="email"
             placeholder={DISPLAY.PLACEHOLDERS.EMAIL}
-            onBlur={handleBlur}
-            onChange={handleChange}
             type="email"
-            value={values.email}
           />
-        </Form.Item>
 
-        <Form.Item
-          help={touched.password && errors.password ? errors.password : undefined}
-          htmlFor="password"
-          label={DISPLAY.LABELS.PASSWORD}
-          validateStatus={touched.password && errors.password ? 'error' : undefined}
-        >
-          <Input.Password
-            id="password"
+          <PasswordField
+            label={DISPLAY.LABELS.PASSWORD}
             name="password"
             placeholder={DISPLAY.PLACEHOLDERS.CREATE_PASSWORD}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={values.password}
           />
-        </Form.Item>
 
-        <Form.Item
-          help={
-            touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : undefined
-          }
-          htmlFor="confirmPassword"
-          label={DISPLAY.LABELS.CONFIRM_PASSWORD}
-          validateStatus={touched.confirmPassword && errors.confirmPassword ? 'error' : undefined}
-        >
-          <Input.Password
-            id="confirmPassword"
+          <PasswordField
+            label={DISPLAY.LABELS.CONFIRM_PASSWORD}
             name="confirmPassword"
             placeholder={DISPLAY.PLACEHOLDERS.CONFIRM_PASSWORD}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={values.confirmPassword}
           />
-        </Form.Item>
 
-        <Form.Item
-          help={touched.role && errors.role ? errors.role : undefined}
-          label={DISPLAY.LABELS.ROLE}
-          validateStatus={touched.role && errors.role ? 'error' : undefined}
-        >
-          <Radio.Group name="role" onBlur={handleBlur} onChange={handleChange} value={values.role}>
-            <Radio value="customer">{DISPLAY.LABELS.ROLE_CUSTOMER}</Radio>
-            <Radio value="owner">{DISPLAY.LABELS.ROLE_OWNER}</Radio>
-          </Radio.Group>
-        </Form.Item>
+          <RadioGroupField label={DISPLAY.LABELS.ROLE} name="role">
+            <Radio value={USER_ROLES.CUSTOMER}>{DISPLAY.LABELS.ROLE_CUSTOMER}</Radio>
+            <Radio value={USER_ROLES.OWNER}>{DISPLAY.LABELS.ROLE_OWNER}</Radio>
+          </RadioGroupField>
 
-        <Form.Item>
-          <Button block htmlType="submit" loading={isLoading} type={BUTTON_TYPES.PRIMARY}>
-            {DISPLAY.ACTIONS.REGISTER}
-          </Button>
-        </Form.Item>
+          <Form.Item>
+            <Button block htmlType="submit" loading={isLoading} type={BUTTON_TYPES.PRIMARY}>
+              {DISPLAY.ACTIONS.REGISTER}
+            </Button>
+          </Form.Item>
+        </FormikForm>
       </Form>
 
       <Text className="register-form__footer">

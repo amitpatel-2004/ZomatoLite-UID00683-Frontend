@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import type { UserRole } from '@appTypes/auth.types';
+import { USER_ROLES } from '@constants/auth.constants';
 import { firebaseAuth } from '@core/firebase/firebase.config';
 import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@store/auth';
 import { useAppDispatch } from '@store/hooks';
@@ -24,7 +25,7 @@ export const AuthInit = (props: React.PropsWithChildren): React.JSX.Element => {
                 _id: firebaseUser.uid,
                 email: firebaseUser.email ?? '',
                 displayName: firebaseUser.displayName ?? '',
-                role: (idTokenResult.claims.role as UserRole) ?? 'customer',
+                role: (idTokenResult.claims.role as UserRole) ?? USER_ROLES.CUSTOMER,
               },
             }),
           );
