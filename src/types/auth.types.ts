@@ -7,17 +7,6 @@ export type AuthUser = {
   role: UserRole;
 };
 
-export type AuthResponseData = {
-  /** Firebase custom token for client-side sign-in. */
-  customToken: string;
-  user: AuthUser;
-};
-
-export type AuthApiResponse = {
-  message: string;
-  data: AuthResponseData;
-};
-
 export type AuthState = {
   user: AuthUser | null;
   /** Firebase ID token to be used in Authorization request header. */
@@ -28,33 +17,8 @@ export type AuthState = {
   error: string | null;
 };
 
-export type LoginPayload = {
-  email: string;
-  password: string;
-};
-
-export type RegisterPayload = {
-  email: string;
-  password: string;
-  displayName: string;
-  role: UserRole;
-};
-
 export type AuthResult = {
   user: AuthUser;
   idToken: string;
   isEmailVerified: boolean;
-};
-
-export type LoginFormValues = {
-  email: string;
-  password: string;
-};
-
-export type RegisterFormValues = {
-  displayName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  role: UserRole;
 };
