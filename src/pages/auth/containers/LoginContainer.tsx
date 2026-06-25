@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { message } from 'antd';
 
-import type { LoginFormValues } from '@appTypes/auth.types';
 import { Card } from '@components/Card';
 import { MESSAGES } from '@constants/message.constants';
 import { ROUTES } from '@constants/route.constants';
@@ -13,6 +12,7 @@ import { LoginForm } from '@pages/auth/components/LoginForm';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 import { useAuth } from '@pages/auth/hooks/useAuth';
 import { loginValidationSchema } from '@pages/auth/schemas/authSchemas';
+import type { LoginFormValues } from '@pages/auth/types/auth.types';
 
 export const LoginContainer = (): React.JSX.Element => {
   const { isLoading, login } = useAuth();

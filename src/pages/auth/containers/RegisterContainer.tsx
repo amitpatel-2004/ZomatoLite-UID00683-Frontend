@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { message } from 'antd';
 
-import type { RegisterFormValues } from '@appTypes/auth.types';
 import { Card } from '@components/Card';
 import { MESSAGES } from '@constants/message.constants';
 import { ROUTES } from '@constants/route.constants';
@@ -13,6 +12,7 @@ import { RegisterForm } from '@pages/auth/components/RegisterForm';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 import { useAuth } from '@pages/auth/hooks/useAuth';
 import { registerValidationSchema } from '@pages/auth/schemas/authSchemas';
+import type { RegisterFormValues } from '@pages/auth/types/auth.types';
 
 export const RegisterContainer = (): React.JSX.Element => {
   const { isLoading, register } = useAuth();
