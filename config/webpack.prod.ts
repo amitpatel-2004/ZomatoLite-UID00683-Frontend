@@ -1,6 +1,9 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'node:path';
 import type { Configuration } from 'webpack';
 import WorkboxWebpackPlugin from 'workbox-webpack-plugin';
+
+const rootDir = process.cwd();
 
 const prodConfig: Configuration = {
   mode: 'production',
@@ -11,7 +14,18 @@ const prodConfig: Configuration = {
     rules: [
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                loadPaths: [path.resolve(rootDir, 'src/styles')],
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.css$/i,

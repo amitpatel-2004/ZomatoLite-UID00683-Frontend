@@ -28,7 +28,6 @@
       "@core/*": ["./src/core/*"],
       "@utils/*": ["./src/utils/*"],
       "@appTypes/*": ["./src/types/*"],
-      "@schemas/*": ["./src/schemas/*"],
       "@store/*": ["./src/store/*"],
       "@services/*": ["./src/services/*"]
     },

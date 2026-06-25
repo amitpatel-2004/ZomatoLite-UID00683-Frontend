@@ -5,5 +5,5 @@ export type ErrorComponentProps = {
   title?: string;
   subTitle?: string;
   buttonText?: string;
-  redirectTo?: string;
+  onAction?: () => void;
 };

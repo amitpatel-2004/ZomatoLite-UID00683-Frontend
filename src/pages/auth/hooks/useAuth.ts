@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import type { LoginPayload, RegisterPayload } from '@appTypes/auth.types';
 import { MESSAGES } from '@constants/message.constants';
@@ -11,10 +11,10 @@ import {
   selectIsAuthLoading,
   selectIsEmailVerified,
 } from '@store/auth';
-import type { AppDispatch } from '@store/index';
+import { useAppDispatch } from '@store/hooks';
 
 export const useAuth = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const isLoading = useSelector(selectIsAuthLoading);
   const user = useSelector(selectAuthUser);
   const isEmailVerified = useSelector(selectIsEmailVerified);

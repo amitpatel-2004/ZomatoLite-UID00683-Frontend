@@ -1,9 +1,9 @@
-@use '../abstracts/mixins' as m;
+@use 'abstracts/mixins' as mixins;
 
 .verify-email-form {
   display: flex;
   flex-direction: column;
-  gap: m.pxToRem(16);
+  gap: mixins.pxToRem(16);
   text-align: center;
   width: 100%;
 

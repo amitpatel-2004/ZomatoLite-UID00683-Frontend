@@ -2,9 +2,12 @@ import React from 'react';
 
 import { Button, Form, Input, Typography } from 'antd';
 
+import { FORM_LAYOUTS } from '@constants/style.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 
 import type { LoginFormProps } from './LoginForm.types';
+
+import './LoginForm.scss';
 
 const { Link, Text } = Typography;
 
@@ -16,8 +19,8 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
     <div className="login-form">
       <Form
         className="login-form__form"
-        layout="vertical"
-        onFinish={() => handleSubmit()}
+        layout={FORM_LAYOUTS.VERTICAL}
+        onFinish={handleSubmit}
         noValidate
       >
         <Form.Item
@@ -29,7 +32,7 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
           <Input
             id="email"
             name="email"
-            placeholder="Enter your email address"
+            placeholder={DISPLAY.PLACEHOLDERS.EMAIL}
             onBlur={handleBlur}
             onChange={handleChange}
             type="email"
@@ -46,7 +49,7 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
           <Input.Password
             id="password"
             name="password"
-            placeholder="Enter your password"
+            placeholder={DISPLAY.PLACEHOLDERS.PASSWORD}
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.password}

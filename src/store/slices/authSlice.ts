@@ -5,6 +5,7 @@ const AUTH_ACTIONS = {
   AUTH_REQUEST_STARTED: 'auth/authRequestStarted',
   AUTH_REQUEST_SUCCEEDED: 'auth/authRequestSucceeded',
   EMAIL_VERIFICATION_STATUS_UPDATED: 'auth/emailVerificationStatusUpdated',
+  FIREBASE_INITIALIZED: 'auth/firebaseInitialized',
   ID_TOKEN_REFRESHED: 'auth/idTokenRefreshed',
   SESSION_CLEARED: 'auth/sessionCleared',
   USER_UPDATED: 'auth/userUpdated',
@@ -27,11 +28,14 @@ type IdTokenRefreshedAction = {
 type SessionClearedAction = { type: typeof AUTH_ACTIONS.SESSION_CLEARED };
 type UserUpdatedAction = { type: typeof AUTH_ACTIONS.USER_UPDATED; payload: AuthUser };
 
+type FirebaseInitializedAction = { type: typeof AUTH_ACTIONS.FIREBASE_INITIALIZED };
+
 type AuthAction =
   | AuthRequestFailedAction
   | AuthRequestStartedAction
   | AuthRequestSucceededAction
   | EmailVerificationStatusUpdatedAction
+  | FirebaseInitializedAction
   | IdTokenRefreshedAction
   | SessionClearedAction
   | UserUpdatedAction;
@@ -40,6 +44,7 @@ const initialState: AuthState = {
   error: null,
   idToken: null,
   isEmailVerified: false,
+  isFirebaseInitializing: true,
   isLoading: false,
   user: null,
 };
@@ -56,6 +61,10 @@ export const authRequestStarted = (): AuthRequestStartedAction => ({
 export const authRequestSucceeded = (payload: AuthResult): AuthRequestSucceededAction => ({
   payload,
   type: AUTH_ACTIONS.AUTH_REQUEST_SUCCEEDED,
+});
+
+export const firebaseInitialized = (): FirebaseInitializedAction => ({
+  type: AUTH_ACTIONS.FIREBASE_INITIALIZED,
 });
 
 export const emailVerificationStatusUpdated = (
@@ -99,6 +108,9 @@ export const authReducer = (state: AuthState = initialState, action: AuthAction)
 
     case AUTH_ACTIONS.EMAIL_VERIFICATION_STATUS_UPDATED:
       return { ...state, isEmailVerified: action.payload };
+
+    case AUTH_ACTIONS.FIREBASE_INITIALIZED:
+      return { ...state, isFirebaseInitializing: false };
 
     case AUTH_ACTIONS.ID_TOKEN_REFRESHED:
       return { ...state, idToken: action.payload };

@@ -1,7 +1,7 @@
-@use '../abstracts/mixins' as m;
+@use 'abstracts/mixins' as mixins;
 
 .centered-layout {
   min-height: 100vh;
   background-color: var(--color-bg-page);
-  padding: m.pxToRem(32) m.pxToRem(24);
+  padding: mixins.pxToRem(32) mixins.pxToRem(24);
 }

@@ -1,18 +1,18 @@
-@use '../abstracts/mixins' as m;
+@use '../abstracts/mixins' as mixins;
 @use '../abstracts/variables' as variables;
 
 body {
   margin: 0;
   padding: 0;
   font-family: variables.$font-stack;
-  font-size: m.pxToRem(16);
+  font-size: mixins.pxToRem(16);
   background-color: var(--color-bg-page);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
 }
 
 .ant-input {
-  font-size: m.pxToRem(16);
+  font-size: mixins.pxToRem(16);
 }
 
 .u-fullscreen {

@@ -1,0 +1,21 @@
+.typography {
+  &__title {
+    color: var(--color-text-primary);
+    text-align: center;
+  }
+
+  &__subtitle {
+    color: var(--color-text-secondary);
+    text-align: center;
+    display: block;
+  }
+
+  &__label {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  &__body {
+    color: var(--color-text-secondary);
+  }
+}

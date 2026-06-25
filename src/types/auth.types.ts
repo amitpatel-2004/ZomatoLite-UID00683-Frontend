@@ -24,6 +24,7 @@ export type AuthState = {
   idToken: string | null;
   isLoading: boolean;
   isEmailVerified: boolean;
+  isFirebaseInitializing: boolean;
   error: string | null;
 };
 

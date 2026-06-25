@@ -15,6 +15,13 @@ export const DISPLAY = {
     VERIFY_EMAIL_SUBTITLE:
       "We've sent a verification link to your email. Click the link to continue.",
   },
+  PLACEHOLDERS: {
+    DISPLAY_NAME: 'Enter your full name',
+    EMAIL: 'Enter your email address',
+    PASSWORD: 'Enter your password',
+    CREATE_PASSWORD: 'Create a strong password',
+    CONFIRM_PASSWORD: 'Re-enter your password',
+  },
   ACTIONS: {
     LOGIN: 'Log In',
     REGISTER: 'Create Account',

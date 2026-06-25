@@ -3,6 +3,8 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
+import { message } from 'antd';
+
 import type { LoginFormValues } from '@appTypes/auth.types';
 import { Card } from '@components/Card';
 import { MESSAGES } from '@constants/message.constants';
@@ -10,7 +12,7 @@ import { ROUTES } from '@constants/route.constants';
 import { LoginForm } from '@pages/auth/components/LoginForm';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 import { useAuth } from '@pages/auth/hooks/useAuth';
-import { loginValidationSchema } from '@schemas/authSchemas';
+import { loginValidationSchema } from '@pages/auth/schemas/authSchemas';
 
 export const LoginContainer = (): React.JSX.Element => {
   const { isLoading, login } = useAuth();
@@ -24,8 +26,8 @@ export const LoginContainer = (): React.JSX.Element => {
         await login(values);
         navigate(ROUTES.RESTAURANT.DASHBOARD);
       } catch (error) {
-        const message = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
-        alert(`Login Failed: ${message}`);
+        const errorMsg = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
+        void message.error(`Login Failed: ${errorMsg}`);
       }
     },
   });

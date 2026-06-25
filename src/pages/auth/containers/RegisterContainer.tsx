@@ -3,6 +3,8 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
+import { message } from 'antd';
+
 import type { RegisterFormValues } from '@appTypes/auth.types';
 import { Card } from '@components/Card';
 import { MESSAGES } from '@constants/message.constants';
@@ -10,7 +12,7 @@ import { ROUTES } from '@constants/route.constants';
 import { RegisterForm } from '@pages/auth/components/RegisterForm';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 import { useAuth } from '@pages/auth/hooks/useAuth';
-import { registerValidationSchema } from '@schemas/authSchemas';
+import { registerValidationSchema } from '@pages/auth/schemas/authSchemas';
 
 export const RegisterContainer = (): React.JSX.Element => {
   const { isLoading, register } = useAuth();
@@ -33,11 +35,11 @@ export const RegisterContainer = (): React.JSX.Element => {
           password: values.password,
           role: values.role,
         });
-        alert('Registration successful! Please verify your email.');
+        void message.success('Registration successful! Please verify your email.');
         navigate(ROUTES.AUTH.VERIFY_EMAIL);
       } catch (error) {
-        const message = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
-        alert(`Registration Failed: ${message}`);
+        const errorMsg = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
+        void message.error(`Registration Failed: ${errorMsg}`);
       }
     },
   });

@@ -1,0 +1,24 @@
+@use 'abstracts/mixins' as mixins;
+
+.card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--color-card-shadow);
+  width: 100%;
+  max-width: mixins.pxToRem(480);
+  padding: mixins.pxToRem(40) mixins.pxToRem(32);
+
+  &__title {
+    margin-bottom: mixins.pxToRem(4);
+  }
+
+  &__subtitle {
+    display: block;
+    margin-bottom: mixins.pxToRem(32);
+  }
+
+  &__content {
+    width: 100%;
+  }
+}

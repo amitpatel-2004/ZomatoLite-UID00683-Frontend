@@ -1,10 +1,6 @@
 import { type ValueOf } from '@appTypes/common.types';
 
-export const RESEND_STATUS = {
-  ERROR: 'error',
-  SENDING: 'sending',
-  SENT: 'sent',
-} as const;
+import { RESEND_STATUS } from './VerifyEmailForm.constants';
 
 export type ResendStatus = ValueOf<typeof RESEND_STATUS>;
 
