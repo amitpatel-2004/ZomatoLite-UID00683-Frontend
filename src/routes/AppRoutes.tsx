@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
+import { USER_ROLES } from '@constants/auth.constants';
 import { ROUTES } from '@constants/route.constants';
 import { CenteredLayout } from '@layouts/CenteredLayout';
 import { LoginContainer, RegisterContainer, VerifyEmailContainer } from '@pages/auth';
@@ -59,7 +60,10 @@ export const router = createBrowserRouter([
             children: [
               {
                 element: (
-                  <AuthGuard check={hasRole(['owner'])} fallbackPath={ROUTES.ERROR.NOT_FOUND} />
+                  <AuthGuard
+                    check={hasRole([USER_ROLES.OWNER])}
+                    fallbackPath={ROUTES.ERROR.NOT_FOUND}
+                  />
                 ),
                 children: [
                   { path: ROUTES.RESTAURANT.DASHBOARD, element: <DashboardPlaceholder /> },

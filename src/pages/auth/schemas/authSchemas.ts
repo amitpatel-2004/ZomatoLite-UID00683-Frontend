@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 
+import { USER_ROLES } from '@constants/auth.constants';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
 
 const strictPasswordSchema = Yup.string()
@@ -32,6 +33,6 @@ export const registerValidationSchema = Yup.object({
     .oneOf([Yup.ref('password')], MESSAGES.VALIDATION.PASSWORD_MISMATCH)
     .required(MESSAGES.VALIDATION.PASSWORD_CONFIRM_REQUIRED),
   role: Yup.string()
-    .oneOf(['customer', 'owner'], MESSAGES.VALIDATION.ROLE_INVALID)
+    .oneOf(Object.values(USER_ROLES), MESSAGES.VALIDATION.ROLE_INVALID)
     .required(MESSAGES.VALIDATION.ROLE_REQUIRED),
 });

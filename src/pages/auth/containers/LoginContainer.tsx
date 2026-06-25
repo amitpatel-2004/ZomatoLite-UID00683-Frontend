@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useFormik } from 'formik';
+import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
 import { message } from 'antd';
@@ -18,27 +18,25 @@ export const LoginContainer = (): React.JSX.Element => {
   const { isLoading, login } = useAuth();
   const navigate = useNavigate();
 
-  const formik = useFormik<LoginFormValues>({
-    initialValues: { email: '', password: '' },
-    validationSchema: loginValidationSchema,
-    onSubmit: async (values) => {
-      try {
-        await login(values);
-        navigate(ROUTES.RESTAURANT.DASHBOARD);
-      } catch (error) {
-        const errorMsg = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
-        void message.error(`Login Failed: ${errorMsg}`);
-      }
-    },
-  });
+  const handleSubmit = async (values: LoginFormValues) => {
+    try {
+      await login(values);
+      navigate(ROUTES.RESTAURANT.DASHBOARD);
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
+      void message.error(`Login Failed: ${errorMsg}`);
+    }
+  };
 
   return (
-    <Card subtitle={DISPLAY.LABELS.LOGIN_SUBTITLE} title={DISPLAY.LABELS.LOGIN_TITLE}>
-      <LoginForm
-        formik={formik}
-        isLoading={isLoading}
-        onRegisterClick={() => navigate(ROUTES.AUTH.REGISTER)}
-      />
-    </Card>
+    <Formik
+      initialValues={{ email: '', password: '' }}
+      onSubmit={handleSubmit}
+      validationSchema={loginValidationSchema}
+    >
+      <Card subtitle={DISPLAY.LABELS.LOGIN_SUBTITLE} title={DISPLAY.LABELS.LOGIN_TITLE}>
+        <LoginForm isLoading={isLoading} onRegisterClick={() => navigate(ROUTES.AUTH.REGISTER)} />
+      </Card>
+    </Formik>
   );
 };

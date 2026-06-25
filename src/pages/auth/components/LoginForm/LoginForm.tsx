@@ -1,7 +1,10 @@
 import React from 'react';
 
-import { Button, Form, Input, Typography } from 'antd';
+import { Form as FormikForm } from 'formik';
 
+import { Button, Form, Typography } from 'antd';
+
+import { PasswordField, TextField } from '@components/FormFields';
 import { FORM_LAYOUTS } from '@constants/style.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 
@@ -12,55 +15,31 @@ import './LoginForm.scss';
 const { Link, Text } = Typography;
 
 export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
-  const { formik, isLoading, onRegisterClick } = props;
-  const { errors, handleBlur, handleChange, handleSubmit, touched, values } = formik;
+  const { isLoading, onRegisterClick } = props;
 
   return (
     <div className="login-form">
-      <Form
-        className="login-form__form"
-        layout={FORM_LAYOUTS.VERTICAL}
-        onFinish={handleSubmit}
-        noValidate
-      >
-        <Form.Item
-          help={touched.email && errors.email ? errors.email : undefined}
-          htmlFor="email"
-          label={DISPLAY.LABELS.EMAIL}
-          validateStatus={touched.email && errors.email ? 'error' : undefined}
-        >
-          <Input
-            id="email"
+      <Form component={false} layout={FORM_LAYOUTS.VERTICAL}>
+        <FormikForm className="login-form__form" noValidate>
+          <TextField
+            label={DISPLAY.LABELS.EMAIL}
             name="email"
             placeholder={DISPLAY.PLACEHOLDERS.EMAIL}
-            onBlur={handleBlur}
-            onChange={handleChange}
             type="email"
-            value={values.email}
           />
-        </Form.Item>
 
-        <Form.Item
-          help={touched.password && errors.password ? errors.password : undefined}
-          htmlFor="password"
-          label={DISPLAY.LABELS.PASSWORD}
-          validateStatus={touched.password && errors.password ? 'error' : undefined}
-        >
-          <Input.Password
-            id="password"
+          <PasswordField
+            label={DISPLAY.LABELS.PASSWORD}
             name="password"
             placeholder={DISPLAY.PLACEHOLDERS.PASSWORD}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={values.password}
           />
-        </Form.Item>
 
-        <Form.Item>
-          <Button block htmlType="submit" loading={isLoading} type="primary">
-            {DISPLAY.ACTIONS.LOGIN}
-          </Button>
-        </Form.Item>
+          <Form.Item>
+            <Button block htmlType="submit" loading={isLoading} type="primary">
+              {DISPLAY.ACTIONS.LOGIN}
+            </Button>
+          </Form.Item>
+        </FormikForm>
       </Form>
 
       <Text className="login-form__footer">

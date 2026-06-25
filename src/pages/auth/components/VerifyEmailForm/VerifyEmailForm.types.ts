@@ -1,4 +1,4 @@
-import { type ValueOf } from '@appTypes/common.types';
+import type { ValueOf } from '@appTypes/common.types';
 
 import { RESEND_STATUS } from './VerifyEmailForm.constants';
 
