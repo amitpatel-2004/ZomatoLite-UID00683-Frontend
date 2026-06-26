@@ -1,4 +1,4 @@
-import type { ValueOf } from '@appTypes/common.types';
+import type { Currency, ValueOf } from '@appTypes/common.types';
 import { USER_ROLES } from '@constants/auth.constants';
 
 export type UserRole = ValueOf<typeof USER_ROLES>;
@@ -8,6 +8,8 @@ export type AuthUser = {
   email: string;
   displayName: string;
   role: UserRole;
+  balance?: number;
+  currency?: Currency;
 };
 
 export type AuthState = {
