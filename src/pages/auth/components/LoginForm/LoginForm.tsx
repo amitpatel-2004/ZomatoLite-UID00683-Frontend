@@ -25,6 +25,7 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
             label={DISPLAY.LABELS.EMAIL}
             name="email"
             placeholder={DISPLAY.PLACEHOLDERS.EMAIL}
+            required
             type="email"
           />
 
@@ -32,6 +33,7 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
             label={DISPLAY.LABELS.PASSWORD}
             name="password"
             placeholder={DISPLAY.PLACEHOLDERS.PASSWORD}
+            required
           />
 
           <Form.Item>

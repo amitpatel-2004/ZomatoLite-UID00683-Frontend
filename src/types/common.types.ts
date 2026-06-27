@@ -5,12 +5,25 @@ import type { ROUTES } from '@constants/route.constants';
  */
 export type ValueOf<T> = T[keyof T];
 
-/**
- * Extracts all valid URL path strings from the nested ROUTES configuration object.
- */
 export type RoutePath = ValueOf<ValueOf<typeof ROUTES>>;
 
 export type Currency = {
   code: string;
   symbol: string;
+};
+
+export type PaginatedResult<T> = {
+  items: T[];
+  nextCursor: string | null;
+  hasMore: boolean;
+};
+
+export type ApiListResponse<T> = {
+  message: string;
+  data: PaginatedResult<T>;
+};
+
+export type ApiSingleResponse<T> = {
+  message: string;
+  data: T;
 };

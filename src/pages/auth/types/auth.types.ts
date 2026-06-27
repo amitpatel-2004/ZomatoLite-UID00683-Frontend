@@ -1,8 +1,10 @@
 import type { AuthUser, UserRole } from '@appTypes/auth.types';
 
+export type AuthResponseUser = Omit<AuthUser, 'balance' | 'currency'>;
+
 export type AuthResponseData = {
   customToken: string;
-  user: AuthUser;
+  user: AuthResponseUser;
 };
 
 export type AuthApiResponse = {

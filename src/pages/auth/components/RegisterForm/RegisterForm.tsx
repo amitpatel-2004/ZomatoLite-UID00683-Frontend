@@ -26,12 +26,14 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
             label={DISPLAY.LABELS.DISPLAY_NAME}
             name="displayName"
             placeholder={DISPLAY.PLACEHOLDERS.DISPLAY_NAME}
+            required
           />
 
           <TextField
             label={DISPLAY.LABELS.EMAIL}
             name="email"
             placeholder={DISPLAY.PLACEHOLDERS.EMAIL}
+            required
             type="email"
           />
 
@@ -39,15 +41,17 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
             label={DISPLAY.LABELS.PASSWORD}
             name="password"
             placeholder={DISPLAY.PLACEHOLDERS.CREATE_PASSWORD}
+            required
           />
 
           <PasswordField
             label={DISPLAY.LABELS.CONFIRM_PASSWORD}
             name="confirmPassword"
             placeholder={DISPLAY.PLACEHOLDERS.CONFIRM_PASSWORD}
+            required
           />
 
-          <RadioGroupField label={DISPLAY.LABELS.ROLE} name="role">
+          <RadioGroupField label={DISPLAY.LABELS.ROLE} name="role" required>
             <Radio value={USER_ROLES.CUSTOMER}>{DISPLAY.LABELS.ROLE_CUSTOMER}</Radio>
             <Radio value={USER_ROLES.OWNER}>{DISPLAY.LABELS.ROLE_OWNER}</Radio>
           </RadioGroupField>

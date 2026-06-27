@@ -25,7 +25,11 @@ export const authService = {
   login: async (payload: LoginPayload): Promise<AuthResult> => {
     const { data } = await apiClient.post<AuthApiResponse>(API_ENDPOINTS.AUTH.LOGIN, payload);
     const { idToken, isEmailVerified } = await exchangeCustomToken(data.data.customToken);
-    return { idToken, isEmailVerified, user: data.data.user };
+    return {
+      idToken,
+      isEmailVerified,
+      user: data.data.user,
+    };
   },
 
   register: async (payload: RegisterPayload): Promise<AuthResult> => {
@@ -36,7 +40,11 @@ export const authService = {
       await sendEmailVerification(firebaseAuth.currentUser, getActionCodeSettings());
     }
 
-    return { idToken, isEmailVerified, user: data.data.user };
+    return {
+      idToken,
+      isEmailVerified,
+      user: data.data.user,
+    };
   },
 
   resendVerification: async (): Promise<void> => {

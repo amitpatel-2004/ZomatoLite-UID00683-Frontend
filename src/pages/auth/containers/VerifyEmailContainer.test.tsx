@@ -39,7 +39,14 @@ describe('VerifyEmailContainer', () => {
   it('should show the user email when available', () => {
     mockUseAuth.mockReturnValue({
       ...defaultMock,
-      user: { _id: '1', email: 'user@example.com', displayName: 'Test', role: 'customer' },
+      user: {
+        _id: '1',
+        email: 'user@example.com',
+        displayName: 'Test',
+        role: 'customer',
+        balance: 0,
+        currency: { code: 'INR', symbol: '₹' },
+      },
     });
 
     render(<VerifyEmailContainer />);

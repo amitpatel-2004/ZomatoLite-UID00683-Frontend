@@ -1,0 +1,15 @@
+@use 'abstracts/mixins' as mixins;
+
+.restaurant-list {
+  display: flex;
+  flex-direction: column;
+  gap: mixins.pxToRem(12);
+
+  &__loading,
+  &__empty,
+  &__fetching {
+    display: flex;
+    justify-content: center;
+    padding: mixins.pxToRem(48) 0;
+  }
+}

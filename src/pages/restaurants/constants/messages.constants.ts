@@ -1,0 +1,30 @@
+export const MESSAGES = {
+  SUCCESS: {
+    RESTAURANT_UPDATED: 'Restaurant updated.',
+    RESTAURANT_DELETED: 'Restaurant deleted.',
+    MENU_ITEM_CREATED: 'Menu item added.',
+    MENU_ITEM_UPDATED: 'Menu item updated.',
+    MENU_ITEM_DELETED: 'Menu item deleted.',
+  },
+  ERRORS: {
+    FETCH_FAILED: 'Could not load restaurant details.',
+    UPDATE_FAILED: 'Could not update the restaurant.',
+    DELETE_FAILED: 'Could not delete the restaurant.',
+    MENU_LOAD_FAILED: 'Could not load menu items.',
+    MENU_MORE_FAILED: 'Could not load more menu items.',
+    MENU_ITEM_SAVE_FAILED: 'Could not save menu item.',
+    MENU_ITEM_DELETE_FAILED: 'Could not delete menu item.',
+    IMAGE_UPLOAD_FAILED: 'Image upload failed.',
+  },
+  VALIDATION: {
+    NAME_REQUIRED: 'Name is required.',
+    NAME_MAX: 'Name must be at most 100 characters.',
+    OPENING_TIME_REQUIRED: 'Opening time is required.',
+    CLOSING_TIME_REQUIRED: 'Closing time is required.',
+    PRICE_REQUIRED: 'Price is required.',
+    PRICE_INVALID: 'Price must be a number.',
+    PRICE_POSITIVE: 'Price must be greater than 0.',
+    QUANTITY_INVALID: 'Quantity must be a number.',
+    QUANTITY_NEGATIVE: 'Quantity cannot be negative.',
+  },
+} as const;

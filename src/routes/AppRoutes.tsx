@@ -2,14 +2,15 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { USER_ROLES } from '@constants/auth.constants';
 import { ROUTES } from '@constants/route.constants';
+import { AppLayout } from '@layouts/AppLayout';
 import { CenteredLayout } from '@layouts/CenteredLayout';
 import { LoginContainer, RegisterContainer, VerifyEmailContainer } from '@pages/auth';
 import { ErrorContainer } from '@pages/error';
+import { DashboardContainer } from '@pages/owner';
+import { RestaurantDetailContainer } from '@pages/restaurants';
 
 import { AuthGuard } from './guards/AuthGuard';
 import { hasRole, isAuthenticated, isGuest, isVerified } from './guards/authGuardChecks';
-
-const DashboardPlaceholder = () => <div>Restaurant Dashboard UI</div>;
 
 export const router = createBrowserRouter([
   {
@@ -66,8 +67,23 @@ export const router = createBrowserRouter([
                   />
                 ),
                 children: [
-                  { path: ROUTES.RESTAURANT.DASHBOARD, element: <DashboardPlaceholder /> },
+                  {
+                    path: ROUTES.RESTAURANT.DASHBOARD,
+                    element: (
+                      <AppLayout>
+                        <DashboardContainer />
+                      </AppLayout>
+                    ),
+                  },
                 ],
+              },
+              {
+                path: ROUTES.RESTAURANT.DETAIL(':id'),
+                element: (
+                  <AppLayout>
+                    <RestaurantDetailContainer />
+                  </AppLayout>
+                ),
               },
             ],
           },

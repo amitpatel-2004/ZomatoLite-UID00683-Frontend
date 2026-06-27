@@ -1,4 +1,4 @@
-import type { RootState } from '../rootReducer';
+import type { RootState } from '@store/rootReducer';
 
 export const selectIsAuthLoading = (state: RootState) => state.auth.isLoading;
 export const selectIsFirebaseInitializing = (state: RootState) => state.auth.isFirebaseInitializing;

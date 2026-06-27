@@ -14,9 +14,7 @@ const commonConfig: Configuration = {
     clean: true,
     publicPath: '/',
   },
-  plugins: [
-    new HtmlWebpackPlugin({ template: path.resolve(rootDir, 'public/index.html') }),
-  ],
+  plugins: [new HtmlWebpackPlugin({ template: path.resolve(rootDir, 'public/index.html') })],
   module: {
     rules: [
       {

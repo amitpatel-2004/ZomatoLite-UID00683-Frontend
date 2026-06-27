@@ -54,3 +54,61 @@ export const FORM_LAYOUTS = {
   HORIZONTAL: 'horizontal',
   INLINE: 'inline',
 } as const;
+
+export const MODAL_WIDTHS = {
+  FORM: 560,
+  MENU_ITEM_FORM: 480,
+  WIDE: 720,
+} as const;
+
+export const FORM_REQUIRED_MARKS = {
+  OPTIONAL: 'optional',
+} as const;
+
+export const TAG_COLORS = {
+  ACTIVE: 'success',
+  INACTIVE: 'default',
+} as const;
+
+export const SELECT_MODES = {
+  MULTIPLE: 'multiple',
+  TAGS: 'tags',
+  COMBOBOX: 'combobox',
+} as const;
+
+export const BUTTON_SIZES = {
+  LARGE: 'large',
+  MIDDLE: 'middle',
+  SMALL: 'small',
+} as const;
+
+export const TIME_FORMAT = {
+  HOURS_MINUTES: 'HH:mm',
+} as const;
+
+export const SIDER_WIDTHS = {
+  DEFAULT: 320,
+} as const;
+
+export const UPLOAD_LIST_TYPES = {
+  PICTURE_CARD: 'picture-card',
+} as const;
+
+export const BUTTON_SHAPES = {
+  ICON: 'circle',
+  PILL: 'round',
+} as const;
+
+export const POPOVER_PLACEMENT = {
+  BOTTOM_RIGHT: 'bottomRight',
+  BOTTOM_LEFT: 'bottomLeft',
+  TOP_RIGHT: 'topRight',
+  TOP_LEFT: 'topLeft',
+} as const;
+
+export const POPCONFIRM_PLACEMENT = {
+  TOP: 'top',
+  TOP_RIGHT: 'topRight',
+  BOTTOM_LEFT: 'bottomLeft',
+  BOTTOM_RIGHT: 'bottomRight',
+} as const;

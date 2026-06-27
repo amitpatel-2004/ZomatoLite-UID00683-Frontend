@@ -19,3 +19,12 @@ body {
   min-height: 100vh;
   width: 100%;
 }
+
+.ant-modal-content {
+  border-radius: mixins.pxToRem(16);
+  overflow: hidden;
+}
+
+.ant-modal-header {
+  border-radius: mixins.pxToRem(16) mixins.pxToRem(16) 0 0;
+}

@@ -7,7 +7,7 @@ import { Form, Input, Radio } from 'antd';
 import type { PasswordFieldProps, RadioGroupFieldProps, TextFieldProps } from './FormFields.types';
 
 export const TextField = (props: TextFieldProps): React.JSX.Element => {
-  const { label, ...fieldProps } = props;
+  const { label, required, maxLength, ...fieldProps } = props;
   const [field, meta] = useField(fieldProps);
 
   return (
@@ -15,15 +15,16 @@ export const TextField = (props: TextFieldProps): React.JSX.Element => {
       help={meta.touched && meta.error ? meta.error : undefined}
       htmlFor={fieldProps.name}
       label={label}
+      required={required}
       validateStatus={meta.touched && meta.error ? 'error' : undefined}
     >
-      <Input {...field} {...fieldProps} id={fieldProps.name} />
+      <Input {...field} {...fieldProps} id={fieldProps.name} maxLength={maxLength} />
     </Form.Item>
   );
 };
 
 export const PasswordField = (props: PasswordFieldProps): React.JSX.Element => {
-  const { label, ...fieldProps } = props;
+  const { label, required, ...fieldProps } = props;
   const [field, meta] = useField(fieldProps);
 
   return (
@@ -31,6 +32,7 @@ export const PasswordField = (props: PasswordFieldProps): React.JSX.Element => {
       help={meta.touched && meta.error ? meta.error : undefined}
       htmlFor={fieldProps.name}
       label={label}
+      required={required}
       validateStatus={meta.touched && meta.error ? 'error' : undefined}
     >
       <Input.Password {...field} {...fieldProps} id={fieldProps.name} />
@@ -39,13 +41,14 @@ export const PasswordField = (props: PasswordFieldProps): React.JSX.Element => {
 };
 
 export const RadioGroupField = (props: RadioGroupFieldProps): React.JSX.Element => {
-  const { children, label, name } = props;
+  const { children, label, required, name } = props;
   const [field, meta] = useField(name);
 
   return (
     <Form.Item
       help={meta.touched && meta.error ? meta.error : undefined}
       label={label}
+      required={required}
       validateStatus={meta.touched && meta.error ? 'error' : undefined}
     >
       <Radio.Group {...field}>{children}</Radio.Group>

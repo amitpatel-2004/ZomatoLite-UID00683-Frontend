@@ -1,0 +1,18 @@
+@use 'abstracts/mixins' as mixins;
+
+.menu-item-form__upload {
+  .ant-form-item-control-input-content {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.ant-upload-select-picture-card {
+  .ant-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: mixins.pxToRem(4);
+  }
+}

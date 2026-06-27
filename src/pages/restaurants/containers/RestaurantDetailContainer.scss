@@ -1,0 +1,30 @@
+@use 'abstracts/mixins' as mixins;
+
+.restaurant-detail-container {
+  &__nav {
+    margin-bottom: mixins.pxToRem(12);
+  }
+
+  &__loading,
+  &__error {
+    display: flex;
+    justify-content: center;
+    padding: mixins.pxToRem(80) 0;
+  }
+
+  &__menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: mixins.pxToRem(16);
+  }
+
+  .restaurant-detail-container__menu-header .ant-typography {
+    margin: 0;
+  }
+
+  &__menu-actions {
+    display: flex;
+    gap: mixins.pxToRem(8);
+  }
+}
