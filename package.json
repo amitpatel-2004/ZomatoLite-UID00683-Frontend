@@ -15,6 +15,7 @@
     "serve": "webpack serve --mode development --config config/webpack.config.ts",
     "watch": "webpack --mode development --config config/webpack.config.ts --watch",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

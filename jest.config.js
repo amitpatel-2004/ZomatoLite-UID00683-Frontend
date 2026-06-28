@@ -19,5 +19,6 @@ export default {
       prefix: '<rootDir>/',
     }),
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '@ant-design/colors/es/(.*)': '@ant-design/colors/lib/$1',
   },
 };
