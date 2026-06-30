@@ -6,7 +6,7 @@ import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { LoginContainer } from '@pages/auth/containers/LoginContainer';
 import { RegisterContainer } from '@pages/auth/containers/RegisterContainer';
 import { VerifyEmailContainer } from '@pages/auth/containers/VerifyEmailContainer';
-import { ErrorContainer } from '@pages/error';
+import { ErrorContainer } from '@pages/error/containers';
 
 import { AuthGuard } from './guards/AuthGuard';
 import { hasRole, isAuthenticated, isGuest, isVerified } from './guards/authGuardChecks';
