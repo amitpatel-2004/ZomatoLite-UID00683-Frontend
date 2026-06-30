@@ -1,4 +1,4 @@
-import type { AuthUser } from '@appTypes/auth.types';
+import type { AuthUser } from '@services/auth';
 
 export type AuthGuardAuthState = {
   user: AuthUser | null;
@@ -8,6 +8,6 @@ export type AuthGuardAuthState = {
 export type AuthGuardCheck = (auth: AuthGuardAuthState) => boolean;
 
 export type AuthGuardProps = {
-  check: AuthGuardCheck;
+  accessCheck: AuthGuardCheck;
   fallbackPath: string;
 };

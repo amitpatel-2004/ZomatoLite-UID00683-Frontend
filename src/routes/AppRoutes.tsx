@@ -3,13 +3,17 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { USER_ROLES } from '@constants/auth.constants';
 import { ROUTES } from '@constants/route.constants';
 import { CenteredLayout } from '@layouts/CenteredLayout';
-import { LoginContainer, RegisterContainer, VerifyEmailContainer } from '@pages/auth';
+import { LoginContainer } from '@pages/auth/containers/LoginContainer';
+import { RegisterContainer } from '@pages/auth/containers/RegisterContainer';
+import { VerifyEmailContainer } from '@pages/auth/containers/VerifyEmailContainer';
 import { ErrorContainer } from '@pages/error';
 
 import { AuthGuard } from './guards/AuthGuard';
 import { hasRole, isAuthenticated, isGuest, isVerified } from './guards/authGuardChecks';
 
-const DashboardPlaceholder = () => <div>Restaurant Dashboard UI</div>;
+const DashboardPlaceholder = () => {
+  return <div>Restaurant Dashboard UI</div>;
+};
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +27,7 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to={ROUTES.RESTAURANT.DASHBOARD} replace /> },
 
       {
-        element: <AuthGuard check={isGuest} fallbackPath={ROUTES.RESTAURANT.DASHBOARD} />,
+        element: <AuthGuard accessCheck={isGuest} fallbackPath={ROUTES.RESTAURANT.DASHBOARD} />,
         children: [
           {
             path: ROUTES.AUTH.LOGIN,
@@ -45,7 +49,7 @@ export const router = createBrowserRouter([
       },
 
       {
-        element: <AuthGuard check={isAuthenticated} fallbackPath={ROUTES.AUTH.LOGIN} />,
+        element: <AuthGuard accessCheck={isAuthenticated} fallbackPath={ROUTES.AUTH.LOGIN} />,
         children: [
           {
             path: ROUTES.AUTH.VERIFY_EMAIL,
@@ -56,12 +60,12 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            element: <AuthGuard check={isVerified} fallbackPath={ROUTES.AUTH.VERIFY_EMAIL} />,
+            element: <AuthGuard accessCheck={isVerified} fallbackPath={ROUTES.AUTH.VERIFY_EMAIL} />,
             children: [
               {
                 element: (
                   <AuthGuard
-                    check={hasRole([USER_ROLES.OWNER])}
+                    accessCheck={hasRole([USER_ROLES.OWNER])}
                     fallbackPath={ROUTES.ERROR.NOT_FOUND}
                   />
                 ),

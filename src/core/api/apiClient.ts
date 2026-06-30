@@ -20,11 +20,15 @@ apiClient.interceptors.request.use(
     }
     return config;
   },
-  (error: AxiosError): Promise<never> => Promise.reject(error),
+  (error: AxiosError): Promise<never> => {
+    return Promise.reject(error);
+  },
 );
 
 apiClient.interceptors.response.use(
-  (response: AxiosResponse) => response,
+  (response: AxiosResponse) => {
+    return response;
+  },
   (error: AxiosError<{ message?: string }>): Promise<never> => {
     const backendMessage = error.response?.data?.message;
     const errorMessage = backendMessage ?? error.message ?? MESSAGES.ERRORS.GENERIC;

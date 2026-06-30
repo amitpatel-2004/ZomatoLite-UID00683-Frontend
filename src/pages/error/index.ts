@@ -1,1 +1,1 @@
-export { ErrorContainer } from './ErrorContainer';
+export { ErrorContainer } from './containers';

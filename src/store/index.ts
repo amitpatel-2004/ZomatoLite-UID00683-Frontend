@@ -5,4 +5,4 @@ import { rootReducer } from './rootReducer';
 export const store = createStore(rootReducer);
 
 export type AppDispatch = typeof store.dispatch;
-export type { RootState } from './rootReducer';
+export type RootState = ReturnType<typeof rootReducer>;

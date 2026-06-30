@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 
 import { onAuthStateChanged } from 'firebase/auth';
 
-import type { UserRole } from '@appTypes/auth.types';
+import type { UserRole } from '@constants/auth.constants';
 import { USER_ROLES } from '@constants/auth.constants';
 import { firebaseAuth } from '@core/firebase/firebase.config';
-import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@store/auth';
+import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@pages/auth/store';
 import { useAppDispatch } from '@store/hooks';
 
 export const AuthInit = (props: React.PropsWithChildren): React.JSX.Element => {
@@ -38,7 +38,9 @@ export const AuthInit = (props: React.PropsWithChildren): React.JSX.Element => {
       dispatch(firebaseInitialized());
     });
 
-    return () => unsubscribe();
+    return () => {
+      return unsubscribe();
+    };
   }, [dispatch]);
 
   return <>{children}</>;

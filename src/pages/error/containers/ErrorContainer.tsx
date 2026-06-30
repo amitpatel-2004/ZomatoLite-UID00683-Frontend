@@ -11,5 +11,12 @@ export const ErrorContainer = (props: ErrorContainerProps): React.JSX.Element =>
   const { redirectTo = ERROR_PAGE_DEFAULTS.REDIRECT_TO, ...rest } = props;
   const navigate = useNavigate();
 
-  return <ErrorComponent {...rest} onAction={() => navigate(redirectTo)} />;
+  return (
+    <ErrorComponent
+      {...rest}
+      onAction={() => {
+        return navigate(redirectTo);
+      }}
+    />
+  );
 };
