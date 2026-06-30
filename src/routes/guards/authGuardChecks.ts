@@ -1,4 +1,4 @@
-import type { UserRole } from '@constants/auth.constants';
+import type { UserRole } from '@pages/auth/types/auth.types';
 
 import type { AuthGuardAuthState } from './AuthGuard.types';
 

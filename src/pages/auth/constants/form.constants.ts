@@ -1,5 +1,4 @@
-import { USER_ROLES } from '@constants/auth.constants';
-
+import { USER_ROLES } from './auth.constants';
 import { DISPLAY } from './display.constants';
 
 export const LOGIN_INITIAL_VALUES = {

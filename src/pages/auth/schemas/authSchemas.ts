@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { USER_ROLES } from '@constants/auth.constants';
+import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
 
 const strictPasswordSchema = Yup.string()

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 
 import { onAuthStateChanged } from 'firebase/auth';
 
-import type { UserRole } from '@constants/auth.constants';
-import { USER_ROLES } from '@constants/auth.constants';
 import { firebaseAuth } from '@core/firebase/firebase.config';
+import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@pages/auth/store';
+import type { UserRole } from '@pages/auth/types/auth.types';
 import { useAppDispatch } from '@store/hooks';
 
 export const AuthInit = (props: React.PropsWithChildren): React.JSX.Element => {

@@ -1,5 +1,5 @@
 import type { Currency } from '@appTypes/common.types';
-import type { UserRole } from '@constants/auth.constants';
+import type { UserRole } from '@pages/auth/types/auth.types';
 
 export type AuthUser = {
   _id: string;

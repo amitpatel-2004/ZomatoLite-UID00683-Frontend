@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
-import { USER_ROLES } from '@constants/auth.constants';
 import { ROUTES } from '@constants/route.constants';
 import { CenteredLayout } from '@layouts/CenteredLayout';
+import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { LoginContainer } from '@pages/auth/containers/LoginContainer';
 import { RegisterContainer } from '@pages/auth/containers/RegisterContainer';
 import { VerifyEmailContainer } from '@pages/auth/containers/VerifyEmailContainer';
