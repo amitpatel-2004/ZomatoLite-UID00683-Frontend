@@ -1,13 +1,13 @@
 import React from 'react';
 
-import type { MenuProps } from 'antd';
 import { Button, Dropdown, Modal, Typography } from 'antd';
 
-import { DeleteOutlined, EditOutlined, MoreOutlined, StarFilled } from '@ant-design/icons';
+import { MoreOutlined, StarFilled } from '@ant-design/icons';
 import { getImageUrl } from '@constants/firebase.constants';
 import { BUTTON_SIZES, BUTTON_TYPES } from '@constants/style.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 
+import { getOwnerActions } from './MenuItemCard.config';
 import type { MenuItemCardProps } from './MenuItemCard.types';
 
 import './MenuItemCard.scss';
@@ -24,27 +24,14 @@ export const MenuItemCard = (props: MenuItemCardProps): React.JSX.Element => {
       cancelText: DISPLAY.POPCONFIRM.CANCEL_TEXT,
       okText: DISPLAY.POPCONFIRM.OK_TEXT,
       okType: 'danger',
-      onOk: () => onDelete(_id),
+      onOk: () => {
+        return onDelete(_id);
+      },
       title: DISPLAY.POPCONFIRM.DELETE_MENU_ITEM_TITLE,
     });
   };
 
-  const ownerActions: MenuProps['items'] = [
-    {
-      key: 'edit',
-      icon: <EditOutlined />,
-      label: DISPLAY.ACTIONS.EDIT,
-      onClick: () => onEdit(item),
-    },
-    { type: 'divider' },
-    {
-      key: 'delete',
-      danger: true,
-      icon: <DeleteOutlined />,
-      label: DISPLAY.ACTIONS.DELETE,
-      onClick: handleDeleteClick,
-    },
-  ];
+  const ownerActions = getOwnerActions({ item, onEdit, onDeleteClick: handleDeleteClick });
 
   return (
     <div className="menu-item-card">

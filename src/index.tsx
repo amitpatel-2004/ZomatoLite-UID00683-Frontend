@@ -4,15 +4,19 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
-import { ConfigProvider } from 'antd';
-import type { ConfigProviderProps } from 'antd/lib/config-provider';
+import { ConfigProvider, message } from 'antd';
 
-import { FORM_REQUIRED_MARKS } from '@constants/style.constants';
+import { FORM_REQUIRED_MARKS, MESSAGE_CONFIG } from '@constants/style.constants';
 import { AuthInit } from '@core/auth/AuthInit';
 import { router } from '@routes/AppRoutes';
 import { store } from '@store/index';
 
-const antdConfig: ConfigProviderProps = {
+message.config({
+  duration: MESSAGE_CONFIG.DURATION,
+  maxCount: MESSAGE_CONFIG.MAX_COUNT,
+});
+
+const antdConfig = {
   form: { requiredMark: FORM_REQUIRED_MARKS.OPTIONAL },
 };
 

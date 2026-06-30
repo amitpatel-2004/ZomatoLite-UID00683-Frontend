@@ -15,6 +15,8 @@ export type Restaurant = {
   closingTime: string;
 };
 
+export type MenuItemStatus = 'active' | 'deleted';
+
 export type MenuItem = {
   _id: string;
   name: string;
@@ -24,4 +26,5 @@ export type MenuItem = {
   imagePath: string | null;
   rating: number;
   quantity: number | null;
+  status: MenuItemStatus;
 };

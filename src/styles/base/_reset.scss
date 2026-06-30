@@ -20,6 +20,10 @@ body {
   width: 100%;
 }
 
+.u-full-width {
+  width: 100%;
+}
+
 .ant-modal-content {
   border-radius: mixins.pxToRem(16);
   overflow: hidden;

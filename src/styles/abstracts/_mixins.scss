@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use 'sass:math';
 @use './variables' as variables;
 
@@ -27,12 +28,12 @@
  * Desktop breakpoint styles.
  *
  * @example
- *   @include respond-desktop {
+ *   @include respond-desktop-up {
  *     padding: pxToRem(32);
  *   }
  */
-@mixin respond-desktop {
-  @media (min-width: variables.$bp-lg) {
+@mixin respond-desktop-up {
+  @media (min-width: map.get(variables.$breakpoints, 'lg')) {
     @content;
   }
 }
@@ -41,12 +42,12 @@
  * Tablet breakpoint styles.
  *
  * @example
- *   @include respond-tablet {
+ *   @include respond-tablet-up {
  *     font-size: pxToRem(14);
  *   }
  */
-@mixin respond-tablet {
-  @media (min-width: variables.$bp-md) {
+@mixin respond-tablet-up {
+  @media (min-width: map.get(variables.$breakpoints, 'md')) {
     @content;
   }
 }

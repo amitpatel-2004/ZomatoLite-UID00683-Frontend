@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
-import type { UserRole } from '@appTypes/auth.types';
 import type { Currency } from '@appTypes/common.types';
-import { USER_ROLES } from '@constants/auth.constants';
 import { FIREBASE_COLLECTIONS } from '@constants/firebase.constants';
 import { firebaseAuth, firebaseDb } from '@core/firebase/firebase.config';
-import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@store/auth';
+import { USER_ROLES } from '@pages/auth/constants/auth.constants';
+import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@pages/auth/store';
+import type { UserRole } from '@pages/auth/types/auth.types';
 import { useAppDispatch } from '@store/hooks';
 
 const DEFAULT_CURRENCY: Currency = { code: 'INR', symbol: '₹' };
@@ -50,7 +50,9 @@ export const AuthInit = (props: React.PropsWithChildren): React.JSX.Element => {
       dispatch(firebaseInitialized());
     });
 
-    return () => unsubscribe();
+    return () => {
+      return unsubscribe();
+    };
   }, [dispatch]);
 
   return <>{children}</>;

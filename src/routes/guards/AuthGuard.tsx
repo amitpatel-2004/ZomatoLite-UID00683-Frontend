@@ -8,15 +8,15 @@ import { Spin } from 'antd';
 import { SPIN_SIZES } from '@constants/style.constants';
 import { CenteredLayout } from '@layouts/CenteredLayout';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
-import { selectAuthUser, selectIsEmailVerified, selectIsFirebaseInitializing } from '@store/auth';
+import { getAuthUser, getIsEmailVerified, getIsFirebaseInitializing } from '@pages/auth/store';
 
 import type { AuthGuardProps } from './AuthGuard.types';
 
 export const AuthGuard = (props: AuthGuardProps): React.JSX.Element => {
-  const { check, fallbackPath } = props;
-  const user = useSelector(selectAuthUser);
-  const isEmailVerified = useSelector(selectIsEmailVerified);
-  const isFirebaseInitializing = useSelector(selectIsFirebaseInitializing);
+  const { accessCheck, fallbackPath } = props;
+  const user = useSelector(getAuthUser);
+  const isEmailVerified = useSelector(getIsEmailVerified);
+  const isFirebaseInitializing = useSelector(getIsFirebaseInitializing);
 
   if (isFirebaseInitializing) {
     return (
@@ -26,7 +26,7 @@ export const AuthGuard = (props: AuthGuardProps): React.JSX.Element => {
     );
   }
 
-  if (!check({ user, isEmailVerified })) {
+  if (!accessCheck({ user, isEmailVerified })) {
     return <Navigate to={fallbackPath} replace />;
   }
 

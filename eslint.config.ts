@@ -57,7 +57,7 @@ export default defineConfig([
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
       'no-shadow': 'error',
-      'arrow-body-style': ['error', 'as-needed'],
+      'arrow-body-style': ['error', 'always'],
 
       'simple-import-sort/imports': [
         'error',

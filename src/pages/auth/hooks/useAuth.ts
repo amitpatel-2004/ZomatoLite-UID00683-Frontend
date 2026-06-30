@@ -1,23 +1,23 @@
 import { useSelector } from 'react-redux';
 
 import { MESSAGES } from '@constants/message.constants';
-import type { LoginPayload, RegisterPayload } from '@pages/auth/types/auth.types';
-import { authService } from '@services/authService';
 import {
   authRequestFailed,
   authRequestStarted,
   authRequestSucceeded,
-  selectAuthUser,
-  selectIsAuthLoading,
-  selectIsEmailVerified,
-} from '@store/auth';
+  getAuthUser,
+  getIsAuthLoading,
+  getIsEmailVerified,
+} from '@pages/auth/store';
+import type { LoginPayload, RegisterPayload } from '@services/auth';
+import { authService } from '@services/auth';
 import { useAppDispatch } from '@store/hooks';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const isLoading = useSelector(selectIsAuthLoading);
-  const user = useSelector(selectAuthUser);
-  const isEmailVerified = useSelector(selectIsEmailVerified);
+  const isLoading = useSelector(getIsAuthLoading);
+  const user = useSelector(getAuthUser);
+  const isEmailVerified = useSelector(getIsEmailVerified);
 
   const login = async (payload: LoginPayload): Promise<void> => {
     dispatch(authRequestStarted());

@@ -87,11 +87,13 @@ export const RestaurantDetails = (props: RestaurantDetailsProps): React.JSX.Elem
       <div className="restaurant-details__meta">
         {cuisineTypes.length > 0 && (
           <div className="restaurant-details__cuisine-row">
-            {cuisineTypes.map((c) => (
-              <Tag className="restaurant-details__cuisine-tag" key={c}>
-                {c.charAt(0).toUpperCase() + c.slice(1)}
-              </Tag>
-            ))}
+            {cuisineTypes.map((c) => {
+              return (
+                <Tag className="restaurant-details__cuisine-tag" key={c}>
+                  {c.charAt(0).toUpperCase() + c.slice(1)}
+                </Tag>
+              );
+            })}
           </div>
         )}
 

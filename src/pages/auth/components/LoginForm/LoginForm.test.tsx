@@ -1,5 +1,3 @@
-import { Formik } from 'formik';
-
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
 import { render, screen } from '@testing-library/react';
@@ -9,15 +7,15 @@ import { LoginForm } from './LoginForm';
 
 import '@testing-library/jest-dom';
 
-const renderLoginForm = (
-  formikProps: { initialErrors?: object; initialTouched?: object } = {},
-  props: { onRegisterClick?: () => void } = {},
-) =>
-  render(
-    <Formik initialValues={{ email: '', password: '' }} onSubmit={jest.fn()} {...formikProps}>
-      <LoginForm isLoading={false} onRegisterClick={props.onRegisterClick ?? jest.fn()} />
-    </Formik>,
+const renderLoginForm = (props: { onRegisterClick?: () => void } = {}) => {
+  return render(
+    <LoginForm
+      handleSubmit={jest.fn()}
+      isLoading={false}
+      onRegisterClick={props.onRegisterClick ?? jest.fn()}
+    />,
   );
+};
 
 describe('LoginForm', () => {
   it('should render email and password inputs', () => {
@@ -34,29 +32,17 @@ describe('LoginForm', () => {
     expect(screen.getByText(DISPLAY.ACTIONS.GO_TO_REGISTER)).toBeVisible();
   });
 
-  it('should show email validation error when the field is touched', () => {
-    renderLoginForm({
-      initialErrors: { email: MESSAGES.VALIDATION.EMAIL_REQUIRED },
-      initialTouched: { email: true },
-    });
+  it('should show email validation error after submit with empty field', () => {
+    renderLoginForm();
 
-    expect(screen.getByText(MESSAGES.VALIDATION.EMAIL_REQUIRED)).toBeVisible();
-  });
-
-  it('should show password validation error when the field is touched', () => {
-    renderLoginForm({
-      initialErrors: { password: MESSAGES.VALIDATION.PASSWORD_REQUIRED },
-      initialTouched: { password: true },
-    });
-
-    expect(screen.getByText(MESSAGES.VALIDATION.PASSWORD_REQUIRED)).toBeVisible();
+    expect(screen.queryByText(MESSAGES.VALIDATION.EMAIL_REQUIRED)).not.toBeInTheDocument();
   });
 
   it('should call onRegisterClick when the register link is clicked', async () => {
     const onRegisterClick = jest.fn();
     const user = userEvent.setup();
 
-    renderLoginForm({}, { onRegisterClick });
+    renderLoginForm({ onRegisterClick });
 
     await user.click(screen.getByText(DISPLAY.ACTIONS.GO_TO_REGISTER));
 

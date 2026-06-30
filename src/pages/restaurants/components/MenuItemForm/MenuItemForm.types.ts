@@ -3,7 +3,10 @@ import type { MenuItem } from '@appTypes/restaurant.types';
 export type MenuItemFormProps = {
   open: boolean;
   onClose: () => void;
-  onSubmit: (values: MenuItemFormSubmitValues) => Promise<void>;
+  handleSubmit: (
+    values: MenuItemFormSubmitValues,
+    setFieldError: (field: string, message: string) => void,
+  ) => Promise<void>;
   initialValues?: MenuItem | null;
   isSubmitting: boolean;
 };

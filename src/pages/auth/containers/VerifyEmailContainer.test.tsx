@@ -9,9 +9,11 @@ import { VerifyEmailContainer } from './VerifyEmailContainer';
 
 import '@testing-library/jest-dom';
 
-jest.mock('@pages/auth/hooks/useAuth', () => ({
-  useAuth: jest.fn(),
-}));
+jest.mock('@pages/auth/hooks/useAuth', () => {
+  return {
+    useAuth: jest.fn(),
+  };
+});
 
 const mockUseAuth = jest.mocked(useAuth);
 

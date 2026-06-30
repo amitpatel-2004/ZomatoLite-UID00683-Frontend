@@ -19,7 +19,7 @@
     align-self: stretch;
     padding-left: 0;
 
-    @include mixins.respond-tablet {
+    @include mixins.respond-tablet-up {
       padding-left: mixins.pxToRem(24);
     }
   }
@@ -41,7 +41,7 @@
       background: var(--color-white-overlay);
     }
 
-    @include mixins.respond-tablet {
+    @include mixins.respond-tablet-up {
       &.ant-btn {
         display: none;
       }

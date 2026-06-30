@@ -9,18 +9,19 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import type { MenuItem } from '@appTypes/restaurant.types';
 import { ROUTES } from '@constants/route.constants';
 import { BUTTON_TYPES, SPIN_SIZES, TITLE_LEVELS } from '@constants/style.constants';
+import { isConflictError } from '@core/api/apiError';
+import { getAuthUser } from '@pages/auth/store';
 import { MenuItemForm } from '@pages/restaurants/components/MenuItemForm';
 import type { MenuItemFormSubmitValues } from '@pages/restaurants/components/MenuItemForm/MenuItemForm.types';
 import { MenuItemList } from '@pages/restaurants/components/MenuItemList';
 import { RestaurantDetails } from '@pages/restaurants/components/RestaurantDetails';
+import type { RestaurantFormValues } from '@pages/restaurants/components/RestaurantForm';
 import { RestaurantForm } from '@pages/restaurants/components/RestaurantForm';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import { useMenuItems } from '@pages/restaurants/hooks/useMenuItems';
 import { useRestaurantDetail } from '@pages/restaurants/hooks/useRestaurantDetail';
-import type { RestaurantFormValues } from '@pages/restaurants/types/restaurant.types';
 import { menuItemService } from '@services/menuItemService';
-import { selectAuthUser } from '@store/auth';
 
 import './RestaurantDetailContainer.scss';
 
@@ -29,7 +30,7 @@ const { Title } = Typography;
 export const RestaurantDetailContainer = (): React.JSX.Element => {
   const { id: restaurantId = '' } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const user = useSelector(selectAuthUser);
+  const user = useSelector(getAuthUser);
 
   const { deleteRestaurant, error, isLoading, restaurant, updateRestaurant } =
     useRestaurantDetail(restaurantId);
@@ -54,15 +55,22 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
 
   const isOwner = !!user && !!restaurant && restaurant.ownerId === user._id;
 
-  const handleRestaurantUpdate = async (values: RestaurantFormValues) => {
+  const handleRestaurantUpdate = async (
+    values: RestaurantFormValues,
+    setFieldError: (field: string, msg: string) => void,
+  ) => {
     setIsRestaurantSubmitting(true);
     try {
       await updateRestaurant(values);
       void message.success(MESSAGES.SUCCESS.RESTAURANT_UPDATED);
       setIsEditRestaurantOpen(false);
-    } catch {
-      void message.error(MESSAGES.ERRORS.UPDATE_FAILED);
-      throw new Error('update failed');
+    } catch (err) {
+      if (isConflictError(err)) {
+        setFieldError('name', err.message);
+      } else {
+        const msg = err instanceof Error ? err.message : MESSAGES.ERRORS.UPDATE_FAILED;
+        void message.error(msg);
+      }
     } finally {
       setIsRestaurantSubmitting(false);
     }
@@ -73,8 +81,9 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
       await deleteRestaurant();
       void message.success(MESSAGES.SUCCESS.RESTAURANT_DELETED);
       void navigate(ROUTES.RESTAURANT.DASHBOARD);
-    } catch {
-      void message.error(MESSAGES.ERRORS.DELETE_FAILED);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : MESSAGES.ERRORS.DELETE_FAILED;
+      void message.error(msg);
     }
   };
 
@@ -88,9 +97,11 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
     setMenuItemModalOpen(true);
   };
 
-  const handleMenuItemSubmit = async (values: MenuItemFormSubmitValues) => {
+  const handleMenuItemSubmit = async (
+    values: MenuItemFormSubmitValues,
+    setFieldError: (field: string, msg: string) => void,
+  ) => {
     setIsMenuItemSubmitting(true);
-    let shownError = false;
     try {
       let imagePath: string | null = values.existingImagePath;
 
@@ -106,10 +117,10 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
           );
           await menuItemService.uploadImage(uploadUrl, values.imageFile);
           imagePath = newImagePath;
-        } catch {
-          shownError = true;
-          void message.error(MESSAGES.ERRORS.IMAGE_UPLOAD_FAILED);
-          throw new Error('image upload failed');
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : MESSAGES.ERRORS.IMAGE_UPLOAD_FAILED;
+          void message.error(msg);
+          return;
         }
       }
 
@@ -132,11 +143,13 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
 
       setMenuItemModalOpen(false);
       setEditingMenuItem(null);
-    } catch {
-      if (!shownError) {
-        void message.error(MESSAGES.ERRORS.MENU_ITEM_SAVE_FAILED);
+    } catch (err) {
+      if (isConflictError(err)) {
+        setFieldError('name', err.message);
+      } else {
+        const msg = err instanceof Error ? err.message : MESSAGES.ERRORS.MENU_ITEM_SAVE_FAILED;
+        void message.error(msg);
       }
-      throw new Error('menu item save failed');
     } finally {
       setIsMenuItemSubmitting(false);
     }
@@ -146,8 +159,9 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
     try {
       await deleteMenuItem(id);
       void message.success(MESSAGES.SUCCESS.MENU_ITEM_DELETED);
-    } catch {
-      void message.error(MESSAGES.ERRORS.MENU_ITEM_DELETE_FAILED);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : MESSAGES.ERRORS.MENU_ITEM_DELETE_FAILED;
+      void message.error(msg);
     }
   };
 
@@ -170,7 +184,13 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
   return (
     <div className="restaurant-detail-container">
       <div className="restaurant-detail-container__nav">
-        <Button icon={<ArrowLeftOutlined />} onClick={() => navigate(-1)} type={BUTTON_TYPES.TEXT}>
+        <Button
+          icon={<ArrowLeftOutlined />}
+          onClick={() => {
+            return navigate(-1);
+          }}
+          type={BUTTON_TYPES.TEXT}
+        >
           {DISPLAY.ACTIONS.BACK}
         </Button>
       </div>
@@ -178,15 +198,19 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
       <RestaurantDetails
         isOwner={isOwner}
         onDelete={handleRestaurantDelete}
-        onEdit={() => setIsEditRestaurantOpen(true)}
+        onEdit={() => {
+          return setIsEditRestaurantOpen(true);
+        }}
         restaurant={restaurant}
       />
 
       <RestaurantForm
+        handleSubmit={handleRestaurantUpdate}
         initialValues={restaurant}
         isSubmitting={isRestaurantSubmitting}
-        onClose={() => setIsEditRestaurantOpen(false)}
-        onSubmit={handleRestaurantUpdate}
+        onClose={() => {
+          return setIsEditRestaurantOpen(false);
+        }}
         open={isEditRestaurantOpen}
       />
 
@@ -215,13 +239,13 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
       />
 
       <MenuItemForm
+        handleSubmit={handleMenuItemSubmit}
         initialValues={editingMenuItem}
         isSubmitting={isMenuItemSubmitting}
         onClose={() => {
           setMenuItemModalOpen(false);
           setEditingMenuItem(null);
         }}
-        onSubmit={handleMenuItemSubmit}
         open={menuItemModalOpen}
       />
     </div>

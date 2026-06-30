@@ -7,7 +7,9 @@ export const ROUTES = {
   RESTAURANT: {
     DASHBOARD: '/dashboard',
     DETAIL_BASE: '/dashboard/restaurant',
-    DETAIL: (id: string) => `/dashboard/restaurant/${id}`,
+    DETAIL: (id: string) => {
+      return `/dashboard/restaurant/${id}`;
+    },
   },
   ERROR: {
     NOT_FOUND: '/not-found',

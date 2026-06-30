@@ -1,9 +1,9 @@
 import type { MenuProps } from 'antd';
 
 import { HomeOutlined, SearchOutlined } from '@ant-design/icons';
-import type { UserRole } from '@appTypes/auth.types';
-import { USER_ROLES } from '@constants/auth.constants';
 import { ROUTES } from '@constants/route.constants';
+import { USER_ROLES } from '@pages/auth/constants/auth.constants';
+import type { UserRole } from '@pages/auth/types/auth.types';
 
 type MenuItem = Required<MenuProps>['items'][number];
 

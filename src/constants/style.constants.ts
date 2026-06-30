@@ -1,3 +1,8 @@
+export const MESSAGE_CONFIG = {
+  MAX_COUNT: 3,
+  DURATION: 3,
+};
+
 export const BUTTON_TYPES = {
   DEFAULT: 'default',
   PRIMARY: 'primary',
@@ -56,8 +61,8 @@ export const FORM_LAYOUTS = {
 } as const;
 
 export const MODAL_WIDTHS = {
-  FORM: 560,
-  MENU_ITEM_FORM: 480,
+  NARROW: 480,
+  MEDIUM: 560,
   WIDE: 720,
 } as const;
 

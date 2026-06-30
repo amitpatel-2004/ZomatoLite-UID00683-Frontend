@@ -40,7 +40,9 @@ export const VerifyEmailForm = (props: VerifyEmailFormProps): React.JSX.Element 
       <Button
         block
         loading={isResending}
-        onClick={() => void onResend()}
+        onClick={() => {
+          return void onResend();
+        }}
         type={BUTTON_TYPES.PRIMARY}
       >
         {DISPLAY.ACTIONS.RESEND_VERIFICATION}

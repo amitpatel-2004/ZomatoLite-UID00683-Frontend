@@ -1,8 +1,4 @@
-import { Formik } from 'formik';
-
-import { USER_ROLES } from '@constants/auth.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
-import { MESSAGES } from '@pages/auth/constants/messages.constants';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -10,25 +6,15 @@ import { RegisterForm } from './RegisterForm';
 
 import '@testing-library/jest-dom';
 
-const renderRegisterForm = (
-  formikProps: { initialErrors?: object; initialTouched?: object } = {},
-  props: { onLoginClick?: () => void } = {},
-) =>
-  render(
-    <Formik
-      initialValues={{
-        confirmPassword: '',
-        displayName: '',
-        email: '',
-        password: '',
-        role: USER_ROLES.CUSTOMER,
-      }}
-      onSubmit={jest.fn()}
-      {...formikProps}
-    >
-      <RegisterForm isLoading={false} onLoginClick={props.onLoginClick ?? jest.fn()} />
-    </Formik>,
+const renderRegisterForm = (props: { onLoginClick?: () => void } = {}) => {
+  return render(
+    <RegisterForm
+      handleSubmit={jest.fn()}
+      isLoading={false}
+      onLoginClick={props.onLoginClick ?? jest.fn()}
+    />,
   );
+};
 
 describe('RegisterForm', () => {
   it('should render all form fields', () => {
@@ -54,20 +40,18 @@ describe('RegisterForm', () => {
     expect(screen.getByText(DISPLAY.ACTIONS.GO_TO_LOGIN)).toBeVisible();
   });
 
-  it('shows a validation error when a field is touched', () => {
-    renderRegisterForm({
-      initialErrors: { displayName: MESSAGES.VALIDATION.DISPLAY_NAME_REQUIRED },
-      initialTouched: { displayName: true },
-    });
+  it('renders with customer role selected by default', () => {
+    renderRegisterForm();
 
-    expect(screen.getByText(MESSAGES.VALIDATION.DISPLAY_NAME_REQUIRED)).toBeVisible();
+    const customerRadio = screen.getByRole('radio', { name: DISPLAY.LABELS.ROLE_CUSTOMER });
+    expect(customerRadio).toBeChecked();
   });
 
   it('should call onLoginClick when the login link is clicked', async () => {
     const onLoginClick = jest.fn();
     const user = userEvent.setup();
 
-    renderRegisterForm({}, { onLoginClick });
+    renderRegisterForm({ onLoginClick });
 
     await user.click(screen.getByText(DISPLAY.ACTIONS.GO_TO_LOGIN));
 

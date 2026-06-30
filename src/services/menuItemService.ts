@@ -69,7 +69,7 @@ export const menuItemService = {
     payload: UploadUrlPayload,
   ): Promise<UploadUrlResponse> => {
     const { data } = await apiClient.post<ApiSingleResponse<UploadUrlResponse>>(
-      API_ENDPOINTS.RESTAURANTS.menuItemUploadUrl(restaurantId),
+      API_ENDPOINTS.RESTAURANTS.menuItemImageUpload(restaurantId),
       payload,
     );
     return data.data;

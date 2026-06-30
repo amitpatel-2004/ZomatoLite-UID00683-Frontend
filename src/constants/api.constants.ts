@@ -13,12 +13,18 @@ export const API_ENDPOINTS = {
   RESTAURANTS: {
     BASE: `${V1}/restaurants`,
     MINE: `${V1}/restaurants/mine`,
-    byId: (id: string) => `${V1}/restaurants/${id}`,
-    menuItems: (id: string) => `${V1}/restaurants/${id}/menu-items`,
-    menuItemById: (restaurantId: string, itemId: string) =>
-      `${V1}/restaurants/${restaurantId}/menu-items/${itemId}`,
-    menuItemUploadUrl: (restaurantId: string) =>
-      `${V1}/restaurants/${restaurantId}/menu-items/upload-url`,
+    byId: (id: string) => {
+      return `${V1}/restaurants/${id}`;
+    },
+    menuItems: (id: string) => {
+      return `${V1}/restaurants/${id}/menu-items`;
+    },
+    menuItemById: (restaurantId: string, itemId: string) => {
+      return `${V1}/restaurants/${restaurantId}/menu-items/${itemId}`;
+    },
+    menuItemImageUpload: (restaurantId: string) => {
+      return `${V1}/restaurants/${restaurantId}/menu-items/image-upload`;
+    },
   },
 };
 

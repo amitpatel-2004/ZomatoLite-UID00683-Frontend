@@ -15,7 +15,9 @@ export const menuItemValidationSchema = Yup.object({
   isVeg: Yup.boolean().required(),
   quantity: Yup.number()
     .typeError(MESSAGES.VALIDATION.QUANTITY_INVALID)
+    .integer(MESSAGES.VALIDATION.QUANTITY_INTEGER)
     .min(0, MESSAGES.VALIDATION.QUANTITY_NEGATIVE)
+    .max(9999, MESSAGES.VALIDATION.QUANTITY_MAX)
     .nullable()
     .optional(),
 });

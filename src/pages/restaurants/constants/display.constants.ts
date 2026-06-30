@@ -40,6 +40,13 @@ export const DISPLAY = {
     NO_MENU_ITEMS: 'No menu items yet.',
     NO_RATING: 'No ratings yet',
   },
+  PLACEHOLDERS: {
+    RESTAURANT_NAME: 'e.g. Tandoori Palace',
+    RESTAURANT_DESCRIPTION: 'Describe your restaurant...',
+    CUISINE_TYPES: 'Select cuisine types',
+    MENU_ITEM_NAME: 'e.g. Chicken Biryani',
+    MENU_ITEM_DESCRIPTION: 'Describe the dish...',
+  },
   FOOD_TYPE: {
     VEG: 'veg',
     NON_VEG: 'nonveg',

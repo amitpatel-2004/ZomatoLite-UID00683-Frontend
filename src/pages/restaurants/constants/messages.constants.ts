@@ -19,12 +19,16 @@ export const MESSAGES = {
   VALIDATION: {
     NAME_REQUIRED: 'Name is required.',
     NAME_MAX: 'Name must be at most 100 characters.',
+    CUISINE_TYPES_REQUIRED: 'Please select at least one cuisine type.',
     OPENING_TIME_REQUIRED: 'Opening time is required.',
     CLOSING_TIME_REQUIRED: 'Closing time is required.',
+    TIME_FORMAT_INVALID: 'Time must be in HH:MM (24-hour) format.',
     PRICE_REQUIRED: 'Price is required.',
     PRICE_INVALID: 'Price must be a number.',
     PRICE_POSITIVE: 'Price must be greater than 0.',
     QUANTITY_INVALID: 'Quantity must be a number.',
+    QUANTITY_INTEGER: 'Quantity must be a whole number.',
     QUANTITY_NEGATIVE: 'Quantity cannot be negative.',
+    QUANTITY_MAX: 'Quantity cannot exceed 9999.',
   },
 } as const;

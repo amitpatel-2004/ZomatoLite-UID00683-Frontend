@@ -1,15 +1,21 @@
-import type { UserRole } from '@appTypes/auth.types';
+import type { UserRole } from '@pages/auth/types/auth.types';
 
 import type { AuthGuardAuthState } from './AuthGuard.types';
 
-export const isAuthenticated = ({ user }: AuthGuardAuthState): boolean => !!user;
+export const isAuthenticated = ({ user }: AuthGuardAuthState): boolean => {
+  return !!user;
+};
 
-export const isGuest = ({ user }: AuthGuardAuthState): boolean => !user;
+export const isGuest = ({ user }: AuthGuardAuthState): boolean => {
+  return !user;
+};
 
-export const isVerified = ({ user, isEmailVerified }: AuthGuardAuthState): boolean =>
-  !!user && isEmailVerified;
+export const isVerified = ({ user, isEmailVerified }: AuthGuardAuthState): boolean => {
+  return !!user && isEmailVerified;
+};
 
-export const hasRole =
-  (roles: UserRole[]) =>
-  ({ user }: AuthGuardAuthState): boolean =>
-    !!user && roles.includes(user.role);
+export const hasRole = (roles: UserRole[]) => {
+  return ({ user }: AuthGuardAuthState): boolean => {
+    return !!user && roles.includes(user.role);
+  };
+};
