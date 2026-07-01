@@ -24,8 +24,12 @@
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@containers/*": ["./src/containers/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@core/*": ["./src/core/*"],
+      "@utils/*": ["./src/utils/*"],
       "@appTypes/*": ["./src/types/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@store/*": ["./src/store/*"],
+      "@services/*": ["./src/services/*"]
     },
     "types": ["jest", "node"]
   },

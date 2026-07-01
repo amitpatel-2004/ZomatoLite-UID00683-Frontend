@@ -1,15 +1,47 @@
+@use 'sass:map';
+
 $colors: (
   'primary': #e81d43,
+  'primary-hover': #c8183a,
+  'error': #e03546,
   'success': #24963f,
-  'danger': #e03546,
+  'white': #ffffff,
+  'text-primary': #1a1a1a,
+  'text-secondary': #666666,
+  'border': #d9d9d9,
   'dark': #1c1c1c,
   'light': #f8f8f8,
 );
 
 $font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
+$breakpoints: (
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+  'xxl': 1600px,
+);
+
 :root {
-  --ant-primary-color: #{map-get($colors, 'primary')};
-  --ant-success-color: #{map-get($colors, 'success')};
-  --ant-error-color: #{map-get($colors, 'danger')};
+  // Ant Design Colors
+  --ant-primary-color: #{map.get($colors, 'primary')};
+  --ant-error-color: #{map.get($colors, 'error')};
+  --ant-success-color: #{map.get($colors, 'success')};
+
+  // General Colors
+  --color-primary: #{map.get($colors, 'primary')};
+  --color-primary-hover: #{map.get($colors, 'primary-hover')};
+  --color-error: #{map.get($colors, 'error')};
+  --color-success: #{map.get($colors, 'success')};
+  --color-white: #{map.get($colors, 'white')};
+  --color-text-primary: #{map.get($colors, 'text-primary')};
+  --color-text-secondary: #{map.get($colors, 'text-secondary')};
+  --color-border: #{map.get($colors, 'border')};
+  --color-bg-page: #{map.get($colors, 'light')};
+
+  // Alpha Variants
+  --color-primary-shadow: #{rgba(map.get($colors, 'primary'), 0.1)};
+  --color-error-shadow: #{rgba(map.get($colors, 'error'), 0.1)};
+  --color-card-shadow: #{rgba(map.get($colors, 'dark'), 0.5)};
 }

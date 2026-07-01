@@ -1,11 +1,14 @@
 export const ROUTES = {
   AUTH: {
-    ROOT: '/auth',
     LOGIN: '/auth/login',
-    SIGNUP: '/auth/signup',
+    REGISTER: '/auth/register',
+    VERIFY_EMAIL: '/auth/verify-email',
   },
   RESTAURANT: {
     ROOT: '/restaurant',
     DASHBOARD: '/restaurant/dashboard',
+  },
+  ERROR: {
+    NOT_FOUND: '/not-found',
   },
 } as const;

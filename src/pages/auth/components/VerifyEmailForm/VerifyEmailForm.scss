@@ -1,0 +1,13 @@
+@use 'abstracts/mixins' as mixins;
+
+.verify-email-form {
+  display: flex;
+  flex-direction: column;
+  gap: mixins.pxToRem(16);
+  text-align: center;
+  width: 100%;
+
+  &__email {
+    display: block;
+  }
+}

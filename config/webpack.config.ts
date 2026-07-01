@@ -1,4 +1,4 @@
-import { Configuration } from 'webpack';
+import type { Configuration } from 'webpack';
 
 import commonConfig from './webpack.common.ts';
 import devConfig from './webpack.dev.ts';

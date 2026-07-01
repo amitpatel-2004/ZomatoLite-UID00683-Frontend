@@ -1,5 +1,6 @@
+@use 'sass:map';
 @use 'sass:math';
-@use './variables' as *;
+@use './variables' as variables;
 
 /**
  * Converts a pixel value to rem units.
@@ -21,4 +22,32 @@
   }
 
   @return math.div($size, 16px) * 1rem;
+}
+
+/**
+ * Desktop breakpoint styles.
+ *
+ * @example
+ *   @include respond-desktop-up {
+ *     padding: pxToRem(32);
+ *   }
+ */
+@mixin respond-desktop-up {
+  @media (min-width: map.get(variables.$breakpoints, 'lg')) {
+    @content;
+  }
+}
+
+/**
+ * Tablet breakpoint styles.
+ *
+ * @example
+ *   @include respond-tablet-up {
+ *     font-size: pxToRem(14);
+ *   }
+ */
+@mixin respond-tablet-up {
+  @media (min-width: map.get(variables.$breakpoints, 'md')) {
+    @content;
+  }
 }
