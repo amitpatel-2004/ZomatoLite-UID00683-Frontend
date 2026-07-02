@@ -34,4 +34,9 @@ export const API_HEADERS = {
   BASE: {
     'Content-Type': 'application/json',
   },
+  AUTHORIZATION: (token: string) => {
+    return {
+      Authorization: `Bearer ${token}`,
+    };
+  },
 } as const;

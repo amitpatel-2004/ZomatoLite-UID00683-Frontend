@@ -7,4 +7,5 @@ export type NumberFieldProps = {
   min?: number;
   max?: number;
   placeholder?: string;
+  required?: boolean;
 };

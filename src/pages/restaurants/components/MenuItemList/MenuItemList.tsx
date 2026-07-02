@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Empty, Spin } from 'antd';
 
+import { SPIN_SIZES } from '@constants/style.constants';
 import { useInfiniteScroll } from '@hooks/useInfiniteScroll';
 import { MenuItemCard } from '@pages/restaurants/components/MenuItemCard';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
@@ -48,7 +49,7 @@ export const MenuItemList = (props: MenuItemListProps): React.JSX.Element => {
 
       {isFetching && (
         <div className="menu-item-list__fetching">
-          <Spin size="small" />
+          <Spin size={SPIN_SIZES.LARGE} />
         </div>
       )}
     </div>

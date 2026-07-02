@@ -3,9 +3,11 @@ import React from 'react';
 import { Button, Dropdown, Modal, Typography } from 'antd';
 
 import { MoreOutlined, StarFilled } from '@ant-design/icons';
-import { getImageUrl } from '@constants/firebase.constants';
+import { DEFAULT_CURRENCY } from '@constants/app.constants';
+import { FIREBASE_BUCKETS } from '@constants/firebase.constants';
 import { BUTTON_SIZES, BUTTON_TYPES } from '@constants/style.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
+import { getFileUrl } from '@utils/firebase';
 
 import { getOwnerActions } from './MenuItemCard.config';
 import type { MenuItemCardProps } from './MenuItemCard.types';
@@ -17,7 +19,7 @@ const { Text } = Typography;
 export const MenuItemCard = (props: MenuItemCardProps): React.JSX.Element => {
   const { isOwner, item, onDelete, onEdit } = props;
   const { _id, description, imagePath, isVeg, name, price, rating } = item;
-  const imageUrl = getImageUrl(imagePath);
+  const imageUrl = getFileUrl(imagePath, FIREBASE_BUCKETS.IMAGE_UPLOAD_BUCKET);
 
   const handleDeleteClick = () => {
     Modal.confirm({
@@ -60,13 +62,16 @@ export const MenuItemCard = (props: MenuItemCardProps): React.JSX.Element => {
         </div>
 
         {description && (
-          <Text className="typography__meta typography--secondary" ellipsis={{ tooltip: true }}>
+          <Text
+            className="typography__meta typography--secondary menu-item-card__description"
+            ellipsis={{ tooltip: true }}
+          >
             {description}
           </Text>
         )}
 
         <div className="menu-item-card__footer">
-          <Text className="typography__accent">{`₹${price.toFixed(2)}/-`}</Text>
+          <Text className="typography__accent">{`${DEFAULT_CURRENCY.symbol}${price.toFixed(2)}/-`}</Text>
 
           {isOwner && (
             <Dropdown menu={{ items: ownerActions }} trigger={['click']}>

@@ -1,4 +1,4 @@
-import type { Restaurant } from '@appTypes/restaurant.types';
+import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
 
 export type RestaurantFormValues = {
   name: string;

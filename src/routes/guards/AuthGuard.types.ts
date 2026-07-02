@@ -1,4 +1,4 @@
-import type { AuthUser } from '@services/auth';
+import type { AuthUser } from '@services/auth/authService.types';
 
 export type AuthGuardAuthState = {
   user: AuthUser | null;

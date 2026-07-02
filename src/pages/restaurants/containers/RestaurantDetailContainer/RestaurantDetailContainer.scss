@@ -1,0 +1,14 @@
+@use 'abstracts/mixins' as mixins;
+
+.restaurant-detail-container {
+  &__nav {
+    margin-bottom: mixins.pxToRem(12);
+  }
+
+  &__loading,
+  &__error {
+    display: flex;
+    justify-content: center;
+    padding: mixins.pxToRem(80) 0;
+  }
+}

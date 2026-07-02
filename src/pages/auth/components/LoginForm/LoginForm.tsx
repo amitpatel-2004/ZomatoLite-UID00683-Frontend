@@ -9,9 +9,9 @@ import { PasswordField } from '@components/FormFields/PasswordField';
 import { TextField } from '@components/FormFields/TextField';
 import { BUTTON_TYPES } from '@constants/style.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
-import { FIELD_CONFIGS, LOGIN_INITIAL_VALUES } from '@pages/auth/constants/form.constants';
-import { loginValidationSchema } from '@pages/auth/schemas/authSchemas';
 
+import { FIELD_CONFIGS, LOGIN_INITIAL_VALUES } from './LoginForm.constants';
+import { loginValidationSchema } from './LoginForm.schema';
 import type { LoginFormProps } from './LoginForm.types';
 
 import './LoginForm.scss';

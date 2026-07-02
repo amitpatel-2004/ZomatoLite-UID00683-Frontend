@@ -9,8 +9,8 @@ import {
   getIsAuthLoading,
   getIsEmailVerified,
 } from '@pages/auth/store';
-import type { LoginPayload, RegisterPayload } from '@services/auth';
-import { authService } from '@services/auth';
+import { authService } from '@services/auth/authService';
+import type { LoginPayload, RegisterPayload } from '@services/auth/authService.types';
 import { useAppDispatch } from '@store/hooks';
 
 export const useAuth = () => {

@@ -3,9 +3,9 @@ import React from 'react';
 import { Card, Tag, Typography } from 'antd';
 
 import { StarFilled } from '@ant-design/icons';
-import { RESTAURANT_STATUS } from '@constants/restaurant.constants';
 import { TAG_COLORS, TITLE_LEVELS } from '@constants/style.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
+import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
 import { formatTo12Hour } from '@utils/time';
 
 import type { RestaurantCardProps } from './RestaurantCard.types';

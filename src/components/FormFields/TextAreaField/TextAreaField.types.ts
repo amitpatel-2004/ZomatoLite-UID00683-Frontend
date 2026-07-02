@@ -7,4 +7,5 @@ export type TextAreaFieldProps = {
   rows?: number;
   maxLength?: number;
   placeholder?: string;
+  required?: boolean;
 };

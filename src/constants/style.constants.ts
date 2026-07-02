@@ -66,10 +66,6 @@ export const MODAL_WIDTHS = {
   WIDE: 720,
 } as const;
 
-export const FORM_REQUIRED_MARKS = {
-  OPTIONAL: 'optional',
-} as const;
-
 export const TAG_COLORS = {
   ACTIVE: 'success',
   INACTIVE: 'default',

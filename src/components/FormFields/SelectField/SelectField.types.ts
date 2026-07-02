@@ -12,4 +12,5 @@ export type SelectFieldProps = {
   options: readonly SelectOption[];
   mode?: 'multiple' | 'tags';
   placeholder?: string;
+  required?: boolean;
 };

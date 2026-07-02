@@ -2,7 +2,6 @@ import { useCallback, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import type { Restaurant } from '@appTypes/restaurant.types';
 import { MESSAGES } from '@pages/dashboard/constants/messages.constants';
 import {
   getIsRestaurantsFetching,
@@ -17,9 +16,10 @@ import {
   restaurantListFetchStarted,
   restaurantListLoaded,
   restaurantListRequested,
-} from '@pages/restaurants/store';
-import type { CreateRestaurantPayload } from '@services/restaurantService';
-import { restaurantService } from '@services/restaurantService';
+} from '@pages/restaurants/store/restaurantStore';
+import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
+import type { CreateRestaurantPayload } from '@services/restaurant/restaurantService';
+import { restaurantService } from '@services/restaurant/restaurantService';
 import { useAppDispatch } from '@store/hooks';
 
 export const useOwnerRestaurants = () => {

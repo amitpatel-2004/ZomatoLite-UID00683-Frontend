@@ -2,7 +2,6 @@ import { useCallback, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import type { MenuItem } from '@appTypes/restaurant.types';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import {
   getIsMenuItemsFetching,
@@ -19,9 +18,13 @@ import {
   menuItemListRequested,
   menuItemsCleared,
   menuItemUpdated,
-} from '@pages/restaurants/store';
-import type { CreateMenuItemPayload, UpdateMenuItemPayload } from '@services/menuItemService';
-import { menuItemService } from '@services/menuItemService';
+} from '@pages/restaurants/store/menuItemStore';
+import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
+import type {
+  CreateMenuItemPayload,
+  UpdateMenuItemPayload,
+} from '@services/restaurant/menuItemService';
+import { menuItemService } from '@services/restaurant/menuItemService';
 import { useAppDispatch } from '@store/hooks';
 
 export const useMenuItems = (restaurantId: string) => {

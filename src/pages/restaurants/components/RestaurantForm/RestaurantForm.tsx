@@ -10,12 +10,9 @@ import { TextField } from '@components/FormFields/TextField';
 import { TimeField } from '@components/FormFields/TimeField';
 import { FORM_LAYOUTS, MODAL_WIDTHS } from '@constants/style.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
-import {
-  getRestaurantInitialValues,
-  RESTAURANT_FIELD_CONFIGS,
-} from '@pages/restaurants/constants/form.constants';
-import { restaurantValidationSchema } from '@pages/restaurants/schemas/restaurantSchemas';
 
+import { getRestaurantInitialValues, RESTAURANT_FIELD_CONFIGS } from './RestaurantForm.constants';
+import { restaurantValidationSchema } from './RestaurantForm.schema';
 import type { RestaurantFormProps } from './RestaurantForm.types';
 
 export const RestaurantForm = (props: RestaurantFormProps): React.JSX.Element => {
@@ -44,7 +41,7 @@ export const RestaurantForm = (props: RestaurantFormProps): React.JSX.Element =>
             title={title}
             width={MODAL_WIDTHS.MEDIUM}
           >
-            <Form layout={FORM_LAYOUTS.VERTICAL} noValidate requiredMark={false}>
+            <Form layout={FORM_LAYOUTS.VERTICAL} noValidate>
               <Field {...RESTAURANT_FIELD_CONFIGS.NAME} component={TextField} />
               <Field {...RESTAURANT_FIELD_CONFIGS.DESCRIPTION} component={TextAreaField} />
               <Field {...RESTAURANT_FIELD_CONFIGS.CUISINE_TYPES} component={SelectField} />

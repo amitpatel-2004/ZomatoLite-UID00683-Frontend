@@ -17,7 +17,7 @@ apiClient.interceptors.request.use(
     const currentUser = firebaseAuth.currentUser;
     if (currentUser) {
       const token = await currentUser.getIdToken();
-      config.headers.set('Authorization', `Bearer ${token}`);
+      config.headers.set(API_HEADERS.AUTHORIZATION(token));
     }
     return config;
   },

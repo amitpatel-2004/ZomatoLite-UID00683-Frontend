@@ -9,15 +9,13 @@ import { NumberField } from '@components/FormFields/NumberField';
 import { RadioGroupField } from '@components/FormFields/RadioGroupField';
 import { TextAreaField } from '@components/FormFields/TextAreaField';
 import { TextField } from '@components/FormFields/TextField';
-import { getImageUrl } from '@constants/firebase.constants';
+import { FIREBASE_BUCKETS } from '@constants/firebase.constants';
 import { FORM_LAYOUTS, MODAL_WIDTHS, UPLOAD_LIST_TYPES } from '@constants/style.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
-import {
-  getMenuItemInitialValues,
-  MENU_ITEM_FIELD_CONFIGS,
-} from '@pages/restaurants/constants/form.constants';
-import { menuItemValidationSchema } from '@pages/restaurants/schemas/menuItemSchemas';
+import { getFileUrl } from '@utils/firebase';
 
+import { getMenuItemInitialValues, MENU_ITEM_FIELD_CONFIGS } from './MenuItemForm.constants';
+import { menuItemValidationSchema } from './MenuItemForm.schema';
 import type { MenuItemFormProps, MenuItemFormSubmitValues } from './MenuItemForm.types';
 
 import './MenuItemForm.scss';
@@ -32,7 +30,7 @@ export const MenuItemForm = (props: MenuItemFormProps): React.JSX.Element => {
         uid: '-1',
         name: 'current-image',
         status: 'done',
-        url: getImageUrl(initialValues.imagePath) ?? undefined,
+        url: getFileUrl(initialValues.imagePath, FIREBASE_BUCKETS.IMAGE_UPLOAD_BUCKET) ?? undefined,
       },
     ];
   });
@@ -71,7 +69,7 @@ export const MenuItemForm = (props: MenuItemFormProps): React.JSX.Element => {
             title={title}
             width={MODAL_WIDTHS.NARROW}
           >
-            <Form layout={FORM_LAYOUTS.VERTICAL} noValidate requiredMark={false}>
+            <Form layout={FORM_LAYOUTS.VERTICAL} noValidate>
               <Form.Item
                 className="menu-item-form__upload"
                 extra={DISPLAY.LABELS.IMAGE_UPLOAD_HINT}

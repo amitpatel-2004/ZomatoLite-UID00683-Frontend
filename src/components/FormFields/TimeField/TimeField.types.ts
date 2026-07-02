@@ -4,4 +4,5 @@ export type TimeFieldProps = {
   field: FieldInputProps<string>;
   form: FormikProps<unknown>;
   label: string;
+  required?: boolean;
 };

@@ -5,13 +5,14 @@ import { Form, InputNumber } from 'antd';
 import type { NumberFieldProps } from './NumberField.types';
 
 export const NumberField = (props: NumberFieldProps): React.JSX.Element => {
-  const { field, form, label, max, min, placeholder } = props;
+  const { field, form, label, max, min, placeholder, required } = props;
   const { touched, error } = form.getFieldMeta(field.name);
 
   return (
     <Form.Item
       help={touched && error ? error : undefined}
       label={label}
+      required={required}
       validateStatus={touched && error ? 'error' : undefined}
     >
       <InputNumber
@@ -23,7 +24,6 @@ export const NumberField = (props: NumberFieldProps): React.JSX.Element => {
         onChange={(val) => {
           return form.setFieldValue(field.name, val ?? '');
         }}
-        className="u-full-width"
         placeholder={placeholder}
         value={field.value as number}
       />

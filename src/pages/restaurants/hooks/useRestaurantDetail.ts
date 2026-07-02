@@ -2,19 +2,20 @@ import { useCallback, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import type { Restaurant } from '@appTypes/restaurant.types';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import {
   getCurrentRestaurant,
   getIsRestaurantsLoading,
   getRestaurantsError,
   restaurantDeleted,
+  restaurantDetailRequested,
   restaurantFetched,
   restaurantFetchFailed,
   restaurantUpdated,
-} from '@pages/restaurants/store';
-import type { UpdateRestaurantPayload } from '@services/restaurantService';
-import { restaurantService } from '@services/restaurantService';
+} from '@pages/restaurants/store/restaurantStore';
+import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
+import type { UpdateRestaurantPayload } from '@services/restaurant/restaurantService';
+import { restaurantService } from '@services/restaurant/restaurantService';
 import { useAppDispatch } from '@store/hooks';
 
 export const useRestaurantDetail = (restaurantId: string) => {
@@ -25,6 +26,7 @@ export const useRestaurantDetail = (restaurantId: string) => {
 
   const fetchRestaurant = useCallback(async () => {
     try {
+      dispatch(restaurantDetailRequested());
       const result = await restaurantService.getById(restaurantId);
       dispatch(restaurantFetched(result));
     } catch (err) {

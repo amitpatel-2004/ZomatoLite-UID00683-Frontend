@@ -1,4 +1,4 @@
-import type { MenuItem } from '@appTypes/restaurant.types';
+import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
 
 export type MenuItemFormProps = {
   open: boolean;

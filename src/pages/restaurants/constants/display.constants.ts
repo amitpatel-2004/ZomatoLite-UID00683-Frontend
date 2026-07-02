@@ -1,3 +1,5 @@
+import { DEFAULT_CURRENCY } from '@constants/app.constants';
+
 export const DISPLAY = {
   TITLES: {
     CREATE_RESTAURANT: 'Add Restaurant',
@@ -12,7 +14,7 @@ export const DISPLAY = {
     CUISINE_TYPES: 'Cuisine Types',
     OPENING_TIME: 'Opening Time',
     CLOSING_TIME: 'Closing Time',
-    PRICE: 'Price (₹)',
+    PRICE: `Price (${DEFAULT_CURRENCY.symbol})`,
     IS_VEG: 'Type',
     VEG: 'Veg',
     NON_VEG: 'Non-Veg',

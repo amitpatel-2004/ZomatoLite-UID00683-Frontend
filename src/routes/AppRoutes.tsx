@@ -8,11 +8,17 @@ import { LoginContainer } from '@pages/auth/containers/LoginContainer';
 import { RegisterContainer } from '@pages/auth/containers/RegisterContainer';
 import { VerifyEmailContainer } from '@pages/auth/containers/VerifyEmailContainer';
 import { DashboardContainer } from '@pages/dashboard/containers/DashboardContainer';
-import { ErrorContainer } from '@pages/error/containers';
+import { ErrorContainer } from '@pages/error/containers/ErrorContainer';
 import { RestaurantDetailContainer } from '@pages/restaurants/containers/RestaurantDetailContainer';
 
 import { AuthGuard } from './guards/AuthGuard';
-import { hasRole, isAuthenticated, isGuest, isVerified } from './guards/authGuardChecks';
+import {
+  hasRole,
+  isAuthenticated,
+  isGuest,
+  isUnverified,
+  isVerified,
+} from './guards/authGuardChecks';
 
 export const router = createBrowserRouter([
   {
@@ -51,12 +57,19 @@ export const router = createBrowserRouter([
         element: <AuthGuard accessCheck={isAuthenticated} fallbackPath={ROUTES.AUTH.LOGIN} />,
         children: [
           {
-            path: ROUTES.AUTH.VERIFY_EMAIL,
             element: (
-              <CenteredLayout>
-                <VerifyEmailContainer />
-              </CenteredLayout>
+              <AuthGuard accessCheck={isUnverified} fallbackPath={ROUTES.RESTAURANT.DASHBOARD} />
             ),
+            children: [
+              {
+                path: ROUTES.AUTH.VERIFY_EMAIL,
+                element: (
+                  <CenteredLayout>
+                    <VerifyEmailContainer />
+                  </CenteredLayout>
+                ),
+              },
+            ],
           },
           {
             element: <AuthGuard accessCheck={isVerified} fallbackPath={ROUTES.AUTH.VERIFY_EMAIL} />,

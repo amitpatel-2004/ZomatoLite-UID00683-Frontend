@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Button, Popconfirm, Space, Tag, Typography } from 'antd';
 
 import { DeleteOutlined, EditOutlined, StarFilled } from '@ant-design/icons';
-import { RESTAURANT_STATUS } from '@constants/restaurant.constants';
 import {
   BUTTON_TYPES,
   POPCONFIRM_PLACEMENT,
@@ -11,6 +10,7 @@ import {
   TITLE_LEVELS,
 } from '@constants/style.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
+import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
 import { formatTo12Hour } from '@utils/time';
 
 import type { RestaurantDetailsProps } from './RestaurantDetails.types';

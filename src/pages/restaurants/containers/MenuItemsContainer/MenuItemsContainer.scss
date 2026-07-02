@@ -1,0 +1,19 @@
+@use 'abstracts/mixins' as mixins;
+
+.menu-items-container {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: mixins.pxToRem(16);
+  }
+
+  .menu-items-container__header .ant-typography {
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    gap: mixins.pxToRem(8);
+  }
+}

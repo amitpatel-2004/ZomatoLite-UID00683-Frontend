@@ -26,7 +26,7 @@ export const RegisterContainer = (): React.JSX.Element => {
       navigate(ROUTES.AUTH.VERIFY_EMAIL);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
-      void message.error(`Registration Failed: ${errorMsg}`);
+      void message.error(errorMsg);
     }
   };
 

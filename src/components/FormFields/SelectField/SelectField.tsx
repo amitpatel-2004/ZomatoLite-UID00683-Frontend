@@ -5,13 +5,14 @@ import { Form, Select } from 'antd';
 import type { SelectFieldProps } from './SelectField.types';
 
 export const SelectField = (props: SelectFieldProps): React.JSX.Element => {
-  const { field, form, label, mode, options, placeholder } = props;
+  const { field, form, label, mode, options, placeholder, required } = props;
   const { touched, error } = form.getFieldMeta(field.name);
 
   return (
     <Form.Item
       help={touched && error ? String(error) : undefined}
       label={label}
+      required={required}
       validateStatus={touched && error ? 'error' : undefined}
     >
       <Select

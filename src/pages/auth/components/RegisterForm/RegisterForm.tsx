@@ -11,9 +11,9 @@ import { TextField } from '@components/FormFields/TextField';
 import { BUTTON_TYPES, FORM_LAYOUTS } from '@constants/style.constants';
 import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
-import { FIELD_CONFIGS, REGISTER_INITIAL_VALUES } from '@pages/auth/constants/form.constants';
-import { registerValidationSchema } from '@pages/auth/schemas/authSchemas';
 
+import { FIELD_CONFIGS, REGISTER_INITIAL_VALUES } from './RegisterForm.constants';
+import { registerValidationSchema } from './RegisterForm.schema';
 import type { RegisterFormProps } from './RegisterForm.types';
 
 import './RegisterForm.scss';
