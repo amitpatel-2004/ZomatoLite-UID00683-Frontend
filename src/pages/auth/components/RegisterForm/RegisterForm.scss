@@ -81,19 +81,9 @@
   }
 
   &__footer {
-    color: var(--color-text-secondary);
     margin-top: mixins.pxToRem(24);
     display: block;
     text-align: center;
-  }
-
-  &__link {
-    color: var(--color-primary);
-    text-decoration: underline;
-
-    &:hover {
-      opacity: 0.8;
-    }
   }
 
   .ant-radio-group {

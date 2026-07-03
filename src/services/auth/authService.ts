@@ -1,16 +1,23 @@
 import { sendEmailVerification, signInWithCustomToken, signOut } from 'firebase/auth';
 
-import type { AuthResult } from '@appTypes/auth.types';
 import { API_ENDPOINTS } from '@constants/api.constants';
 import { apiClient } from '@core/api/apiClient';
 import { firebaseAuth } from '@core/firebase/firebase.config';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
-import type { AuthApiResponse, LoginPayload, RegisterPayload } from '@pages/auth/types/auth.types';
 
-const getActionCodeSettings = () => ({
-  url: `${window.location.origin}`,
-  handleCodeInApp: false,
-});
+import type {
+  AuthApiResponse,
+  AuthResult,
+  LoginPayload,
+  RegisterPayload,
+} from './authService.types';
+
+const getActionCodeSettings = () => {
+  return {
+    url: `${window.location.origin}`,
+    handleCodeInApp: false,
+  };
+};
 
 const exchangeCustomToken = async (
   customToken: string,

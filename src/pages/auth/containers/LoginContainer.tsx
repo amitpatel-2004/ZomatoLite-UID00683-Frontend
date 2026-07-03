@@ -1,18 +1,14 @@
 import React from 'react';
 
-import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
 import { message } from 'antd';
 
-import { Card } from '@components/Card';
 import { MESSAGES } from '@constants/message.constants';
 import { ROUTES } from '@constants/route.constants';
+import type { LoginFormValues } from '@pages/auth/components/LoginForm';
 import { LoginForm } from '@pages/auth/components/LoginForm';
-import { DISPLAY } from '@pages/auth/constants/display.constants';
 import { useAuth } from '@pages/auth/hooks/useAuth';
-import { loginValidationSchema } from '@pages/auth/schemas/authSchemas';
-import type { LoginFormValues } from '@pages/auth/types/auth.types';
 
 export const LoginContainer = (): React.JSX.Element => {
   const { isLoading, login } = useAuth();
@@ -24,19 +20,17 @@ export const LoginContainer = (): React.JSX.Element => {
       navigate(ROUTES.RESTAURANT.DASHBOARD);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
-      void message.error(`Login Failed: ${errorMsg}`);
+      void message.error(errorMsg);
     }
   };
 
   return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      onSubmit={handleSubmit}
-      validationSchema={loginValidationSchema}
-    >
-      <Card subtitle={DISPLAY.LABELS.LOGIN_SUBTITLE} title={DISPLAY.LABELS.LOGIN_TITLE}>
-        <LoginForm isLoading={isLoading} onRegisterClick={() => navigate(ROUTES.AUTH.REGISTER)} />
-      </Card>
-    </Formik>
+    <LoginForm
+      isLoading={isLoading}
+      handleSubmit={handleSubmit}
+      onRegisterClick={() => {
+        return navigate(ROUTES.AUTH.REGISTER);
+      }}
+    />
   );
 };

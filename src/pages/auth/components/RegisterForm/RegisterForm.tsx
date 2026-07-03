@@ -1,14 +1,19 @@
 import React from 'react';
 
-import { Form as FormikForm } from 'formik';
+import { Field, Form as FormikForm, Formik } from 'formik';
 
 import { Button, Form, Radio, Typography } from 'antd';
 
-import { PasswordField, RadioGroupField, TextField } from '@components/FormFields';
-import { USER_ROLES } from '@constants/auth.constants';
+import { Card } from '@components/Card';
+import { PasswordField } from '@components/FormFields/PasswordField';
+import { RadioGroupField } from '@components/FormFields/RadioGroupField';
+import { TextField } from '@components/FormFields/TextField';
 import { BUTTON_TYPES, FORM_LAYOUTS } from '@constants/style.constants';
+import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 
+import { FIELD_CONFIGS, REGISTER_INITIAL_VALUES } from './RegisterForm.constants';
+import { registerValidationSchema } from './RegisterForm.schema';
 import type { RegisterFormProps } from './RegisterForm.types';
 
 import './RegisterForm.scss';
@@ -16,56 +21,47 @@ import './RegisterForm.scss';
 const { Link, Text } = Typography;
 
 export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
-  const { isLoading, onLoginClick } = props;
+  const { isLoading, handleSubmit, onLoginClick } = props;
 
   return (
     <div className="register-form">
-      <Form component={false} layout={FORM_LAYOUTS.VERTICAL}>
-        <FormikForm className="register-form__form" noValidate>
-          <TextField
-            label={DISPLAY.LABELS.DISPLAY_NAME}
-            name="displayName"
-            placeholder={DISPLAY.PLACEHOLDERS.DISPLAY_NAME}
-          />
+      <Formik
+        initialValues={REGISTER_INITIAL_VALUES}
+        onSubmit={handleSubmit}
+        validationSchema={registerValidationSchema}
+      >
+        <Card subtitle={DISPLAY.LABELS.REGISTER_SUBTITLE} title={DISPLAY.LABELS.REGISTER_TITLE}>
+          <Form component={false} layout={FORM_LAYOUTS.VERTICAL}>
+            <FormikForm className="register-form__form" noValidate>
+              <Field {...FIELD_CONFIGS.DISPLAY_NAME} component={TextField} />
 
-          <TextField
-            label={DISPLAY.LABELS.EMAIL}
-            name="email"
-            placeholder={DISPLAY.PLACEHOLDERS.EMAIL}
-            type="email"
-          />
+              <Field {...FIELD_CONFIGS.EMAIL} component={TextField} />
 
-          <PasswordField
-            label={DISPLAY.LABELS.PASSWORD}
-            name="password"
-            placeholder={DISPLAY.PLACEHOLDERS.CREATE_PASSWORD}
-          />
+              <Field {...FIELD_CONFIGS.CREATE_PASSWORD} component={PasswordField} />
 
-          <PasswordField
-            label={DISPLAY.LABELS.CONFIRM_PASSWORD}
-            name="confirmPassword"
-            placeholder={DISPLAY.PLACEHOLDERS.CONFIRM_PASSWORD}
-          />
+              <Field {...FIELD_CONFIGS.CONFIRM_PASSWORD} component={PasswordField} />
 
-          <RadioGroupField label={DISPLAY.LABELS.ROLE} name="role">
-            <Radio value={USER_ROLES.CUSTOMER}>{DISPLAY.LABELS.ROLE_CUSTOMER}</Radio>
-            <Radio value={USER_ROLES.OWNER}>{DISPLAY.LABELS.ROLE_OWNER}</Radio>
-          </RadioGroupField>
+              <Field {...FIELD_CONFIGS.ROLE} component={RadioGroupField}>
+                <Radio value={USER_ROLES.CUSTOMER}>{DISPLAY.LABELS.ROLE_CUSTOMER}</Radio>
+                <Radio value={USER_ROLES.OWNER}>{DISPLAY.LABELS.ROLE_OWNER}</Radio>
+              </Field>
 
-          <Form.Item>
-            <Button block htmlType="submit" loading={isLoading} type={BUTTON_TYPES.PRIMARY}>
-              {DISPLAY.ACTIONS.REGISTER}
-            </Button>
-          </Form.Item>
-        </FormikForm>
-      </Form>
+              <Form.Item>
+                <Button block htmlType="submit" loading={isLoading} type={BUTTON_TYPES.PRIMARY}>
+                  {DISPLAY.ACTIONS.REGISTER}
+                </Button>
+              </Form.Item>
+            </FormikForm>
+          </Form>
 
-      <Text className="register-form__footer">
-        {DISPLAY.ACTIONS.ALREADY_HAVE_ACCOUNT}{' '}
-        <Link className="register-form__link" onClick={onLoginClick}>
-          {DISPLAY.ACTIONS.GO_TO_LOGIN}
-        </Link>
-      </Text>
+          <Text className="register-form__footer typography__subtitle">
+            {DISPLAY.ACTIONS.ALREADY_HAVE_ACCOUNT}{' '}
+            <Link className="register-form__link" onClick={onLoginClick}>
+              {DISPLAY.ACTIONS.GO_TO_LOGIN}
+            </Link>
+          </Text>
+        </Card>
+      </Formik>
     </div>
   );
 };

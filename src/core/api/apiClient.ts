@@ -16,15 +16,19 @@ apiClient.interceptors.request.use(
     const currentUser = firebaseAuth.currentUser;
     if (currentUser) {
       const token = await currentUser.getIdToken();
-      config.headers.set('Authorization', `Bearer ${token}`);
+      config.headers.set(API_HEADERS.AUTHORIZATION(token));
     }
     return config;
   },
-  (error: AxiosError): Promise<never> => Promise.reject(error),
+  (error: AxiosError): Promise<never> => {
+    return Promise.reject(error);
+  },
 );
 
 apiClient.interceptors.response.use(
-  (response: AxiosResponse) => response,
+  (response: AxiosResponse) => {
+    return response;
+  },
   (error: AxiosError<{ message?: string }>): Promise<never> => {
     const backendMessage = error.response?.data?.message;
     const errorMessage = backendMessage ?? error.message ?? MESSAGES.ERRORS.GENERIC;

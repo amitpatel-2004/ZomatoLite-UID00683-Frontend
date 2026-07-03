@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { Form as FormikForm } from 'formik';
+import { Field, Form as FormikForm, Formik } from 'formik';
 
 import { Button, Form, Typography } from 'antd';
 
-import { PasswordField, TextField } from '@components/FormFields';
-import { FORM_LAYOUTS } from '@constants/style.constants';
+import { Card } from '@components/Card';
+import { PasswordField } from '@components/FormFields/PasswordField';
+import { TextField } from '@components/FormFields/TextField';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 
+import { FIELD_CONFIGS, LOGIN_INITIAL_VALUES } from './LoginForm.constants';
+import { loginValidationSchema } from './LoginForm.schema';
 import type { LoginFormProps } from './LoginForm.types';
 
 import './LoginForm.scss';
@@ -15,39 +18,35 @@ import './LoginForm.scss';
 const { Link, Text } = Typography;
 
 export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
-  const { isLoading, onRegisterClick } = props;
+  const { isLoading, handleSubmit, onRegisterClick } = props;
 
   return (
     <div className="login-form">
-      <Form component={false} layout={FORM_LAYOUTS.VERTICAL}>
-        <FormikForm className="login-form__form" noValidate>
-          <TextField
-            label={DISPLAY.LABELS.EMAIL}
-            name="email"
-            placeholder={DISPLAY.PLACEHOLDERS.EMAIL}
-            type="email"
-          />
+      <Formik
+        initialValues={LOGIN_INITIAL_VALUES}
+        onSubmit={handleSubmit}
+        validationSchema={loginValidationSchema}
+      >
+        <Card subtitle={DISPLAY.LABELS.LOGIN_SUBTITLE} title={DISPLAY.LABELS.LOGIN_TITLE}>
+          <FormikForm className="login-form__form" noValidate>
+            <Field {...FIELD_CONFIGS.EMAIL} component={TextField} />
 
-          <PasswordField
-            label={DISPLAY.LABELS.PASSWORD}
-            name="password"
-            placeholder={DISPLAY.PLACEHOLDERS.PASSWORD}
-          />
+            <Field {...FIELD_CONFIGS.PASSWORD} component={PasswordField} />
 
-          <Form.Item>
-            <Button block htmlType="submit" loading={isLoading} type="primary">
-              {DISPLAY.ACTIONS.LOGIN}
-            </Button>
-          </Form.Item>
-        </FormikForm>
-      </Form>
-
-      <Text className="login-form__footer">
-        {DISPLAY.ACTIONS.NO_ACCOUNT}{' '}
-        <Link className="login-form__link" onClick={onRegisterClick}>
-          {DISPLAY.ACTIONS.GO_TO_REGISTER}
-        </Link>
-      </Text>
+            <Form.Item>
+              <Button block htmlType="submit" loading={isLoading} type="primary">
+                {DISPLAY.ACTIONS.LOGIN}
+              </Button>
+            </Form.Item>
+          </FormikForm>
+          <Text className="login-form__footer typography__subtitle">
+            {DISPLAY.ACTIONS.NO_ACCOUNT}{' '}
+            <Link className="login-form__link" onClick={onRegisterClick}>
+              {DISPLAY.ACTIONS.GO_TO_REGISTER}
+            </Link>
+          </Text>
+        </Card>
+      </Formik>
     </div>
   );
 };

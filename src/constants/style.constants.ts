@@ -1,3 +1,8 @@
+export const MESSAGE_CONFIG = {
+  MAX_COUNT: 3,
+  DURATION: 3,
+};
+
 export const BUTTON_TYPES = {
   DEFAULT: 'default',
   PRIMARY: 'primary',
