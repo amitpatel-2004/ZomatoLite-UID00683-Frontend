@@ -20,7 +20,7 @@ export const LoginContainer = (): React.JSX.Element => {
       navigate(ROUTES.RESTAURANT.DASHBOARD);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
-      void message.error(`Login Failed: ${errorMsg}`);
+      void message.error(errorMsg);
     }
   };
 

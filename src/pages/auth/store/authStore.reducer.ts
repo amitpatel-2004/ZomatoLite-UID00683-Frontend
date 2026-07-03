@@ -1,6 +1,5 @@
-import { initialState } from './authSlice.constants';
-import type { AuthAction, AuthState } from './authSlice.types';
-import { AUTH_ACTIONS } from './authSlice.types';
+import { AUTH_ACTIONS, initialState } from './authStore.constants';
+import type { AuthAction, AuthState } from './authStore.types';
 
 export const authReducer = (state: AuthState = initialState, action: AuthAction): AuthState => {
   switch (action.type) {

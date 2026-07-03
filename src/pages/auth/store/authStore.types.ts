@@ -1,15 +1,6 @@
 import type { AuthResult, AuthUser } from '@services/auth';
 
-export const AUTH_ACTIONS = {
-  AUTH_REQUEST_FAILED: 'auth/authRequestFailed',
-  AUTH_REQUEST_STARTED: 'auth/authRequestStarted',
-  AUTH_REQUEST_SUCCEEDED: 'auth/authRequestSucceeded',
-  EMAIL_VERIFICATION_STATUS_UPDATED: 'auth/emailVerificationStatusUpdated',
-  FIREBASE_INITIALIZED: 'auth/firebaseInitialized',
-  ID_TOKEN_REFRESHED: 'auth/idTokenRefreshed',
-  SESSION_CLEARED: 'auth/sessionCleared',
-  USER_UPDATED: 'auth/userUpdated',
-} as const;
+import { AUTH_ACTIONS } from './authStore.constants';
 
 export type AuthRequestFailedAction = {
   type: typeof AUTH_ACTIONS.AUTH_REQUEST_FAILED;

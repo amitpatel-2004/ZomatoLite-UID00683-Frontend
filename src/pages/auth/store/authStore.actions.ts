@@ -1,5 +1,6 @@
 import type { AuthResult, AuthUser } from '@services/auth';
 
+import { AUTH_ACTIONS } from './authStore.constants';
 import type {
   AuthRequestFailedAction,
   AuthRequestStartedAction,
@@ -9,8 +10,7 @@ import type {
   IdTokenRefreshedAction,
   SessionClearedAction,
   UserUpdatedAction,
-} from './authSlice.types';
-import { AUTH_ACTIONS } from './authSlice.types';
+} from './authStore.types';
 
 export const authRequestFailed = (payload: string): AuthRequestFailedAction => {
   return {

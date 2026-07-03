@@ -1,10 +1,5 @@
-import { USER_ROLES } from './auth.constants';
-import { DISPLAY } from './display.constants';
-
-export const LOGIN_INITIAL_VALUES = {
-  email: '',
-  password: '',
-};
+import { USER_ROLES } from '@pages/auth/constants/auth.constants';
+import { DISPLAY } from '@pages/auth/constants/display.constants';
 
 export const REGISTER_INITIAL_VALUES = {
   confirmPassword: '',
@@ -35,11 +30,6 @@ export const FIELD_CONFIGS = {
     name: 'email',
     placeholder: DISPLAY.PLACEHOLDERS.EMAIL,
     type: 'email',
-  },
-  PASSWORD: {
-    label: DISPLAY.LABELS.PASSWORD,
-    name: 'password',
-    placeholder: DISPLAY.PLACEHOLDERS.PASSWORD,
   },
   ROLE: {
     label: DISPLAY.LABELS.ROLE,

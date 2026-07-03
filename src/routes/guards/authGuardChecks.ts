@@ -14,6 +14,10 @@ export const isVerified = ({ user, isEmailVerified }: AuthGuardAuthState): boole
   return !!user && isEmailVerified;
 };
 
+export const isUnverified = ({ user, isEmailVerified }: AuthGuardAuthState): boolean => {
+  return !!user && !isEmailVerified;
+};
+
 export const hasRole = (roles: UserRole[]) => {
   return ({ user }: AuthGuardAuthState): boolean => {
     return !!user && roles.includes(user.role);
