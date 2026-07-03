@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Drawer, Grid, Layout, Menu, Modal, Popover, Typography } from 'antd';
 
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons';
-import { APP_NAME } from '@constants/app.constants';
+import { APP_NAME, DEFAULT_CURRENCY } from '@constants/app.constants';
 import { ROUTES } from '@constants/route.constants';
 import {
   BUTTON_SHAPES,
@@ -19,6 +19,7 @@ import { useLogout } from '@pages/auth/hooks/useLogout';
 import { getAuthUser } from '@pages/auth/store';
 
 import type { AppLayoutProps } from './AppLayout.types';
+import { getSelectedKey } from './AppLayout.utils';
 import { getNavItems } from './nav.config';
 
 import './AppLayout.scss';
@@ -39,24 +40,6 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
 
   const navItems = user ? getNavItems(user.role) : [];
 
-  const getSelectedKey = (): string => {
-    const active = navItems.find((item) => {
-      return (
-        item !== null &&
-        item !== undefined &&
-        'key' in item &&
-        location.pathname.startsWith(`${String(item.key)}/`)
-      );
-    });
-    return active !== null && active !== undefined && 'key' in active
-      ? String(active.key)
-      : location.pathname;
-  };
-
-  const handleNavClick = ({ key }: { key: string }) => {
-    if (key !== location.pathname) void navigate(key);
-  };
-
   const handleLogoutClick = () => {
     Modal.confirm({
       cancelText: MESSAGES.CONFIRM.LOGOUT_CANCEL,
@@ -74,7 +57,7 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
       <Text className="typography__heading">{user.displayName}</Text>
       <Text className="typography__caption typography--secondary">{user.role}</Text>
       <Text className="typography__caption typography--secondary">
-        {user.currency?.symbol ?? ''}
+        {user.currency?.symbol ?? DEFAULT_CURRENCY.symbol}
         {user.balance?.toFixed(2) ?? '0.00'}
       </Text>
       <div className="app-layout__profile-divider" />
@@ -89,8 +72,10 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
       className="app-layout__nav"
       items={navItems}
       mode="inline"
-      onClick={handleNavClick}
-      selectedKeys={[getSelectedKey()]}
+      onClick={(e) => {
+        return void navigate(e.key);
+      }}
+      selectedKeys={[getSelectedKey(navItems, location)]}
     />
   );
 
@@ -140,7 +125,6 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
       <Layout className="app-layout__inner">
         {isMobile && (
           <Drawer
-            bodyStyle={{ padding: 0 }}
             className="app-layout__drawer"
             closable={false}
             onClose={() => {
