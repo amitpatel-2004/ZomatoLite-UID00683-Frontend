@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Button, Popconfirm, Space, Tag, Typography } from 'antd';
 
 import { DeleteOutlined, EditOutlined, StarFilled } from '@ant-design/icons';
-import { RESTAURANT_STATUS } from '@constants/restaurant.constants';
 import {
   BUTTON_TYPES,
   POPCONFIRM_PLACEMENT,
@@ -11,6 +10,7 @@ import {
   TITLE_LEVELS,
 } from '@constants/style.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
+import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
 import { formatTo12Hour } from '@utils/time';
 
 import type { RestaurantDetailsProps } from './RestaurantDetails.types';
@@ -87,11 +87,13 @@ export const RestaurantDetails = (props: RestaurantDetailsProps): React.JSX.Elem
       <div className="restaurant-details__meta">
         {cuisineTypes.length > 0 && (
           <div className="restaurant-details__cuisine-row">
-            {cuisineTypes.map((c) => (
-              <Tag className="restaurant-details__cuisine-tag" key={c}>
-                {c.charAt(0).toUpperCase() + c.slice(1)}
-              </Tag>
-            ))}
+            {cuisineTypes.map((c) => {
+              return (
+                <Tag className="restaurant-details__cuisine-tag" key={c}>
+                  {c.charAt(0).toUpperCase() + c.slice(1)}
+                </Tag>
+              );
+            })}
           </div>
         )}
 

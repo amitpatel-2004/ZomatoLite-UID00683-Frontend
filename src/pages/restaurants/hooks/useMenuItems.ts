@@ -2,11 +2,13 @@ import { useCallback, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import type { MenuItem } from '@appTypes/restaurant.types';
-import type { CreateMenuItemPayload, UpdateMenuItemPayload } from '@services/menuItemService';
-import { menuItemService } from '@services/menuItemService';
-import { useAppDispatch } from '@store/hooks';
+import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import {
+  getIsMenuItemsFetching,
+  getIsMenuItemsLoading,
+  getMenuItems,
+  getMenuItemsHasMore,
+  getMenuItemsNextCursor,
   menuItemCreated,
   menuItemDeleted,
   menuItemListAppended,
@@ -16,28 +18,31 @@ import {
   menuItemListRequested,
   menuItemsCleared,
   menuItemUpdated,
-  selectIsMenuItemsFetching,
-  selectIsMenuItemsLoading,
-  selectMenuItems,
-  selectMenuItemsHasMore,
-  selectMenuItemsNextCursor,
-} from '@store/menuItem';
+} from '@pages/restaurants/store/menuItemStore';
+import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
+import type {
+  CreateMenuItemPayload,
+  UpdateMenuItemPayload,
+} from '@services/restaurant/menuItemService';
+import { menuItemService } from '@services/restaurant/menuItemService';
+import { useAppDispatch } from '@store/hooks';
 
 export const useMenuItems = (restaurantId: string) => {
   const dispatch = useAppDispatch();
-  const items = useSelector(selectMenuItems);
-  const hasMore = useSelector(selectMenuItemsHasMore);
-  const nextCursor = useSelector(selectMenuItemsNextCursor);
-  const isLoading = useSelector(selectIsMenuItemsLoading);
-  const isFetching = useSelector(selectIsMenuItemsFetching);
+  const items = useSelector(getMenuItems);
+  const hasMore = useSelector(getMenuItemsHasMore);
+  const nextCursor = useSelector(getMenuItemsNextCursor);
+  const isLoading = useSelector(getIsMenuItemsLoading);
+  const isFetching = useSelector(getIsMenuItemsFetching);
 
   const fetchInitial = useCallback(async () => {
     dispatch(menuItemListRequested());
     try {
       const result = await menuItemService.list(restaurantId);
       dispatch(menuItemListLoaded(result));
-    } catch {
-      dispatch(menuItemListFailed('Could not load menu items.'));
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : MESSAGES.ERRORS.MENU_LOAD_FAILED;
+      dispatch(menuItemListFailed(msg));
     }
   }, [dispatch, restaurantId]);
 
@@ -54,8 +59,9 @@ export const useMenuItems = (restaurantId: string) => {
     try {
       const result = await menuItemService.list(restaurantId, 20, nextCursor);
       dispatch(menuItemListAppended(result));
-    } catch {
-      dispatch(menuItemListFailed('Could not load more menu items.'));
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : MESSAGES.ERRORS.MENU_MORE_FAILED;
+      dispatch(menuItemListFailed(msg));
     }
   }, [dispatch, hasMore, isFetching, nextCursor, restaurantId]);
 

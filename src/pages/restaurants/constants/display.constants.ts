@@ -1,3 +1,5 @@
+import { DEFAULT_CURRENCY } from '@constants/app.constants';
+
 export const DISPLAY = {
   TITLES: {
     CREATE_RESTAURANT: 'Add Restaurant',
@@ -12,7 +14,7 @@ export const DISPLAY = {
     CUISINE_TYPES: 'Cuisine Types',
     OPENING_TIME: 'Opening Time',
     CLOSING_TIME: 'Closing Time',
-    PRICE: 'Price (₹)',
+    PRICE: `Price (${DEFAULT_CURRENCY.symbol})`,
     IS_VEG: 'Type',
     VEG: 'Veg',
     NON_VEG: 'Non-Veg',
@@ -39,6 +41,13 @@ export const DISPLAY = {
   EMPTY: {
     NO_MENU_ITEMS: 'No menu items yet.',
     NO_RATING: 'No ratings yet',
+  },
+  PLACEHOLDERS: {
+    RESTAURANT_NAME: 'e.g. Tandoori Palace',
+    RESTAURANT_DESCRIPTION: 'Describe your restaurant...',
+    CUISINE_TYPES: 'Select cuisine types',
+    MENU_ITEM_NAME: 'e.g. Chicken Biryani',
+    MENU_ITEM_DESCRIPTION: 'Describe the dish...',
   },
   FOOD_TYPE: {
     VEG: 'veg',

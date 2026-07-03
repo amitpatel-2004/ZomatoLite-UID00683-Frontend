@@ -1,11 +1,7 @@
-import type { ROUTES } from '@constants/route.constants';
-
 /**
  * Extracts the value types of an object.
  */
 export type ValueOf<T> = T[keyof T];
-
-export type RoutePath = ValueOf<ValueOf<typeof ROUTES>>;
 
 export type Currency = {
   code: string;

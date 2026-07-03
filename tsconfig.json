@@ -26,6 +26,7 @@
       "@containers/*": ["./src/containers/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@core/*": ["./src/core/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/utils/*"],
       "@appTypes/*": ["./src/types/*"],
       "@store/*": ["./src/store/*"],

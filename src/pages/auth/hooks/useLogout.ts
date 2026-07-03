@@ -4,8 +4,8 @@ import { message } from 'antd';
 
 import { ROUTES } from '@constants/route.constants';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
-import { authService } from '@services/authService';
-import { sessionCleared } from '@store/auth';
+import { sessionCleared } from '@pages/auth/store';
+import { authService } from '@services/auth/authService';
 import { useAppDispatch } from '@store/hooks';
 
 export const useLogout = () => {

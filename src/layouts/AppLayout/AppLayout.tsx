@@ -16,7 +16,7 @@ import {
 } from '@constants/style.constants';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
 import { useLogout } from '@pages/auth/hooks/useLogout';
-import { selectAuthUser } from '@store/auth';
+import { getAuthUser } from '@pages/auth/store';
 
 import type { AppLayoutProps } from './AppLayout.types';
 import { getNavItems } from './nav.config';
@@ -28,7 +28,7 @@ const { Text } = Typography;
 
 export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
   const { children } = props;
-  const user = useSelector(selectAuthUser);
+  const user = useSelector(getAuthUser);
   const navigate = useNavigate();
   const location = useLocation();
   const { logout } = useLogout();
@@ -40,13 +40,14 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
   const navItems = user ? getNavItems(user.role) : [];
 
   const getSelectedKey = (): string => {
-    const active = navItems.find(
-      (item) =>
+    const active = navItems.find((item) => {
+      return (
         item !== null &&
         item !== undefined &&
         'key' in item &&
-        location.pathname.startsWith(`${String(item.key)}/`),
-    );
+        location.pathname.startsWith(`${String(item.key)}/`)
+      );
+    });
     return active !== null && active !== undefined && 'key' in active
       ? String(active.key)
       : location.pathname;
@@ -61,7 +62,9 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
       cancelText: MESSAGES.CONFIRM.LOGOUT_CANCEL,
       okText: MESSAGES.CONFIRM.LOGOUT_OK,
       okType: 'danger',
-      onOk: () => void logout(),
+      onOk: () => {
+        return void logout();
+      },
       title: MESSAGES.CONFIRM.LOGOUT_TITLE,
     });
   };
@@ -98,12 +101,18 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
           <Button
             className="app-layout__sider-toggle typography--white"
             icon={drawerOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
-            onClick={() => setDrawerOpen((prev) => !prev)}
+            onClick={() => {
+              return setDrawerOpen((prev) => {
+                return !prev;
+              });
+            }}
             type={BUTTON_TYPES.TEXT}
           />
           <Text
             className="typography__display typography--white app-layout__brand"
-            onClick={() => navigate(ROUTES.RESTAURANT.DASHBOARD)}
+            onClick={() => {
+              return navigate(ROUTES.RESTAURANT.DASHBOARD);
+            }}
           >
             {APP_NAME}
           </Text>
@@ -134,7 +143,9 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
             bodyStyle={{ padding: 0 }}
             className="app-layout__drawer"
             closable={false}
-            onClose={() => setDrawerOpen(false)}
+            onClose={() => {
+              return setDrawerOpen(false);
+            }}
             open={drawerOpen}
             placement="left"
             width={SIDER_WIDTHS.DEFAULT}

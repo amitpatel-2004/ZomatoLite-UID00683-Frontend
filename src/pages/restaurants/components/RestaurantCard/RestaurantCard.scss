@@ -1,0 +1,79 @@
+@use 'abstracts/mixins' as mixins;
+
+.restaurant-card {
+  cursor: pointer;
+  border-radius: mixins.pxToRem(10);
+
+  .ant-card-body {
+    padding: mixins.pxToRem(16) mixins.pxToRem(20);
+    display: flex;
+    flex-direction: column;
+    gap: mixins.pxToRem(6);
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: mixins.pxToRem(12);
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: center;
+    gap: mixins.pxToRem(8);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ant-typography.restaurant-card__name {
+    margin: 0;
+    min-width: 0;
+  }
+
+  &__status-tag {
+    border-radius: mixins.pxToRem(12);
+    padding: 0 mixins.pxToRem(8);
+    text-transform: capitalize;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: mixins.pxToRem(4);
+    flex-shrink: 0;
+  }
+
+  &__star.anticon {
+    color: var(--color-star);
+  }
+
+  &__description {
+    display: block;
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: mixins.pxToRem(8);
+    margin-top: mixins.pxToRem(4);
+  }
+
+  &__cuisine-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: mixins.pxToRem(4);
+  }
+
+  &__cuisine-tag {
+    border-radius: mixins.pxToRem(12);
+    text-transform: capitalize;
+    margin: 0;
+  }
+
+  &__time {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}

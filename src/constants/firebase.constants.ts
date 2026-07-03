@@ -3,14 +3,12 @@ export const firebaseConfig = {
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
   projectId: process.env.FIREBASE_PROJECT_ID,
   appId: process.env.FIREBASE_APP_ID,
-};
+} as const;
 
 export const FIREBASE_COLLECTIONS = {
   USERS: 'users',
 } as const;
 
-const GCS_BASE_URL = `https://storage.googleapis.com/${process.env.GCS_BUCKET_NAME ?? ''}`;
-export const getImageUrl = (imagePath: string | null): string | null => {
-  if (!imagePath || !process.env.GCS_BUCKET_NAME) return null;
-  return `${GCS_BASE_URL}/${imagePath}`;
-};
+export const FIREBASE_BUCKETS = {
+  IMAGE_UPLOAD_BUCKET: process.env.GCS_BUCKET_NAME,
+} as const;

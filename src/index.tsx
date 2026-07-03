@@ -5,16 +5,10 @@ import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
 import { ConfigProvider } from 'antd';
-import type { ConfigProviderProps } from 'antd/lib/config-provider';
 
-import { FORM_REQUIRED_MARKS } from '@constants/style.constants';
-import { AuthInit } from '@core/auth/AuthInit';
+import { AuthInit } from '@containers/AuthInit';
 import { router } from '@routes/AppRoutes';
 import { store } from '@store/index';
-
-const antdConfig: ConfigProviderProps = {
-  form: { requiredMark: FORM_REQUIRED_MARKS.OPTIONAL },
-};
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(document.getElementById('root')!);
@@ -23,7 +17,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <AuthInit>
-        <ConfigProvider {...antdConfig}>
+        <ConfigProvider>
           <RouterProvider router={router} />
         </ConfigProvider>
       </AuthInit>

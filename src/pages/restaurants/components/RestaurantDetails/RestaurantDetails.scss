@@ -65,7 +65,7 @@
     gap: mixins.pxToRem(4);
   }
 
-  &__star {
+  &__star.anticon {
     color: var(--color-star);
   }
 
