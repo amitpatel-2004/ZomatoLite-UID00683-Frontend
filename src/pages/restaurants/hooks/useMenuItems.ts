@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import { DEFAULT_PAGE_LIMIT } from '@constants/api.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import {
   getIsMenuItemsFetching,
@@ -20,11 +21,11 @@ import {
   menuItemUpdated,
 } from '@pages/restaurants/store/menuItemStore';
 import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
+import { menuItemService } from '@services/restaurant/menuItemService';
 import type {
   CreateMenuItemPayload,
   UpdateMenuItemPayload,
-} from '@services/restaurant/menuItemService';
-import { menuItemService } from '@services/restaurant/menuItemService';
+} from '@services/restaurant/menuItemService.types';
 import { useAppDispatch } from '@store/hooks';
 
 export const useMenuItems = (restaurantId: string) => {
@@ -57,7 +58,7 @@ export const useMenuItems = (restaurantId: string) => {
     if (!hasMore || isFetching || !nextCursor) return;
     dispatch(menuItemListFetchStarted());
     try {
-      const result = await menuItemService.list(restaurantId, 20, nextCursor);
+      const result = await menuItemService.list(restaurantId, DEFAULT_PAGE_LIMIT, nextCursor);
       dispatch(menuItemListAppended(result));
     } catch (error) {
       const msg = error instanceof Error ? error.message : MESSAGES.ERRORS.MENU_MORE_FAILED;

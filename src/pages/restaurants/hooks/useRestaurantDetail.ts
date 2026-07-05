@@ -14,8 +14,8 @@ import {
   restaurantUpdated,
 } from '@pages/restaurants/store/restaurantStore';
 import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
-import type { UpdateRestaurantPayload } from '@services/restaurant/restaurantService';
 import { restaurantService } from '@services/restaurant/restaurantService';
+import type { UpdateRestaurantPayload } from '@services/restaurant/restaurantService.types';
 import { useAppDispatch } from '@store/hooks';
 
 export const useRestaurantDetail = (restaurantId: string) => {

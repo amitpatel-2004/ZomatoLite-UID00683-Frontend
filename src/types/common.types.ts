@@ -19,7 +19,7 @@ export type ApiListResponse<T> = {
   data: PaginatedResult<T>;
 };
 
-export type ApiSingleResponse<T> = {
+export type ApiEntityResponse<T> = {
   message: string;
   data: T;
 };

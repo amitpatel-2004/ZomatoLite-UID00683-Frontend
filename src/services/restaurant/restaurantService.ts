@@ -1,20 +1,15 @@
-import type { ApiListResponse, ApiSingleResponse, PaginatedResult } from '@appTypes/common.types';
-import { API_ENDPOINTS } from '@constants/api.constants';
+import type { ApiEntityResponse, ApiListResponse, PaginatedResult } from '@appTypes/common.types';
+import { API_ENDPOINTS, DEFAULT_PAGE_LIMIT } from '@constants/api.constants';
 import { apiClient } from '@core/api/apiClient';
 import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
 
-export type CreateRestaurantPayload = {
-  name: string;
-  description: string;
-  cuisineTypes: string[];
-  openingTime: string;
-  closingTime: string;
-};
-
-export type UpdateRestaurantPayload = Partial<CreateRestaurantPayload>;
+import type { CreateRestaurantPayload, UpdateRestaurantPayload } from './restaurantService.types';
 
 export const restaurantService = {
-  listMine: async (limit = 20, after?: string): Promise<PaginatedResult<Restaurant>> => {
+  listMine: async (
+    limit = DEFAULT_PAGE_LIMIT,
+    after?: string,
+  ): Promise<PaginatedResult<Restaurant>> => {
     const params: Record<string, string | number> = { limit };
     if (after) params.after = after;
     const { data } = await apiClient.get<ApiListResponse<Restaurant>>(
@@ -27,14 +22,14 @@ export const restaurantService = {
   },
 
   getById: async (id: string): Promise<Restaurant> => {
-    const { data } = await apiClient.get<ApiSingleResponse<Restaurant>>(
+    const { data } = await apiClient.get<ApiEntityResponse<Restaurant>>(
       API_ENDPOINTS.RESTAURANTS.byId(id),
     );
     return data.data;
   },
 
   create: async (payload: CreateRestaurantPayload): Promise<Restaurant> => {
-    const { data } = await apiClient.post<ApiSingleResponse<Restaurant>>(
+    const { data } = await apiClient.post<ApiEntityResponse<Restaurant>>(
       API_ENDPOINTS.RESTAURANTS.BASE,
       payload,
     );
@@ -42,7 +37,7 @@ export const restaurantService = {
   },
 
   update: async (id: string, payload: UpdateRestaurantPayload): Promise<Restaurant> => {
-    const { data } = await apiClient.put<ApiSingleResponse<Restaurant>>(
+    const { data } = await apiClient.patch<ApiEntityResponse<Restaurant>>(
       API_ENDPOINTS.RESTAURANTS.byId(id),
       payload,
     );
