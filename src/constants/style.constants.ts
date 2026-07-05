@@ -25,6 +25,13 @@ export const SPIN_SIZES = {
   LARGE: 'large',
 } as const;
 
+export const BADGE_SIZES = {
+  DEFAULT: 'default',
+  SMALL: 'small',
+} as const;
+
+export const PENDING_ORDERS_BADGE_OFFSET: [number, number] = [10, 0];
+
 export const ROW_ALIGN = {
   TOP: 'top',
   MIDDLE: 'middle',
