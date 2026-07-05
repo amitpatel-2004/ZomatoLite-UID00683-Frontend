@@ -8,9 +8,9 @@ import { DEFAULT_CURRENCY } from '@constants/app.constants';
 import { FIREBASE_COLLECTIONS } from '@constants/firebase.constants';
 import { firebaseAuth, firebaseDb } from '@core/firebase/firebase.config';
 import { USER_ROLES } from '@pages/auth/constants/auth.constants';
-import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@pages/auth/store';
 import type { UserRole } from '@pages/auth/types/auth.types';
-import { useAppDispatch } from '@store/hooks';
+import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@redux/authStore';
+import { useAppDispatch } from '@redux/hooks';
 
 export const AuthInit = (props: React.PropsWithChildren): React.JSX.Element => {
   const { children } = props;

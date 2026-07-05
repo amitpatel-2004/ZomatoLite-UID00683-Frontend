@@ -12,7 +12,20 @@ import type { MenuItemListProps } from './MenuItemList.types';
 import './MenuItemList.scss';
 
 export const MenuItemList = (props: MenuItemListProps): React.JSX.Element => {
-  const { hasMore, isFetching, isLoading, isOwner, items, onDelete, onEdit, onLoadMore } = props;
+  const {
+    cartItems,
+    hasMore,
+    isFetching,
+    isLoading,
+    isOwner,
+    items,
+    onAddToCart,
+    onDecrement,
+    onDelete,
+    onEdit,
+    onIncrement,
+    onLoadMore,
+  } = props;
   const sentinelRef = useInfiniteScroll({ hasMore, isFetching, onLoadMore });
 
   if (isLoading) {
@@ -34,13 +47,22 @@ export const MenuItemList = (props: MenuItemListProps): React.JSX.Element => {
   return (
     <div className="menu-item-list">
       {items.map((item) => {
+        const cartQuantity =
+          cartItems.find((cartItem) => {
+            return cartItem.menuItemId === item._id;
+          })?.quantity ?? 0;
+
         return (
           <MenuItemCard
+            cartQuantity={cartQuantity}
             isOwner={isOwner}
             item={item}
             key={item._id}
+            onAddToCart={onAddToCart}
+            onDecrement={onDecrement}
             onDelete={onDelete}
             onEdit={onEdit}
+            onIncrement={onIncrement}
           />
         );
       })}

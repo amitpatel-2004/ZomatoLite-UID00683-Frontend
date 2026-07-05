@@ -16,4 +16,8 @@
     display: flex;
     gap: mixins.pxToRem(8);
   }
+
+  &--with-cart-bar {
+    padding-bottom: mixins.pxToRem(88);
+  }
 }

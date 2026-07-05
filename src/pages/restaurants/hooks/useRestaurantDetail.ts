@@ -3,6 +3,8 @@ import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
+import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
+import { useAppDispatch } from '@redux/hooks';
 import {
   getCurrentRestaurant,
   getIsRestaurantsLoading,
@@ -12,11 +14,9 @@ import {
   restaurantFetched,
   restaurantFetchFailed,
   restaurantUpdated,
-} from '@pages/restaurants/store/restaurantStore';
-import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
+} from '@redux/restaurantStore';
 import { restaurantService } from '@services/restaurant/restaurantService';
 import type { UpdateRestaurantPayload } from '@services/restaurant/restaurantService.types';
-import { useAppDispatch } from '@store/hooks';
 
 export const useRestaurantDetail = (restaurantId: string) => {
   const dispatch = useAppDispatch();

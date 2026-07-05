@@ -9,7 +9,10 @@ import { RegisterContainer } from '@pages/auth/containers/RegisterContainer';
 import { VerifyEmailContainer } from '@pages/auth/containers/VerifyEmailContainer';
 import { DashboardContainer } from '@pages/dashboard/containers/DashboardContainer';
 import { ErrorContainer } from '@pages/error/containers/ErrorContainer';
+import { BrowseContainer } from '@pages/restaurants/containers/BrowseContainer';
+import { MyOrdersContainer } from '@pages/restaurants/containers/MyOrdersContainer';
 import { RestaurantDetailContainer } from '@pages/restaurants/containers/RestaurantDetailContainer';
+import { RestaurantOrdersContainer } from '@pages/restaurants/containers/RestaurantOrdersContainer';
 
 import { AuthGuard } from './guards/AuthGuard';
 import {
@@ -90,6 +93,14 @@ export const router = createBrowserRouter([
                       </AppLayout>
                     ),
                   },
+                  {
+                    path: ROUTES.RESTAURANT.ORDERS(':id'),
+                    element: (
+                      <AppLayout>
+                        <RestaurantOrdersContainer />
+                      </AppLayout>
+                    ),
+                  },
                 ],
               },
               {
@@ -97,6 +108,22 @@ export const router = createBrowserRouter([
                 element: (
                   <AppLayout>
                     <RestaurantDetailContainer />
+                  </AppLayout>
+                ),
+              },
+              {
+                path: ROUTES.BROWSE,
+                element: (
+                  <AppLayout>
+                    <BrowseContainer />
+                  </AppLayout>
+                ),
+              },
+              {
+                path: ROUTES.ORDERS.MINE,
+                element: (
+                  <AppLayout>
+                    <MyOrdersContainer />
                   </AppLayout>
                 ),
               },

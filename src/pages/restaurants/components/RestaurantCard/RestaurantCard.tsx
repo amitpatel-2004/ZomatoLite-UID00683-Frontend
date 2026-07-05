@@ -4,15 +4,15 @@ import { Card, Tag, Typography } from 'antd';
 
 import { StarFilled } from '@ant-design/icons';
 import { TAG_COLORS, TITLE_LEVELS } from '@constants/style.constants';
-import { DISPLAY } from '@pages/restaurants/constants/display.constants';
-import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
+import { DESCRIPTION_MAX_ROWS, DISPLAY } from '@pages/restaurants/constants/display.constants';
+import { RESTAURANT_STATUS, SHOW_RATING } from '@pages/restaurants/constants/restaurant.constants';
 import { formatTo12Hour } from '@utils/time';
 
 import type { RestaurantCardProps } from './RestaurantCard.types';
 
 import './RestaurantCard.scss';
 
-const { Text, Title } = Typography;
+const { Text, Title, Paragraph } = Typography;
 
 export const RestaurantCard = (props: RestaurantCardProps): React.JSX.Element => {
   const { restaurant, onClick } = props;
@@ -44,21 +44,23 @@ export const RestaurantCard = (props: RestaurantCardProps): React.JSX.Element =>
           </Tag>
         </div>
 
-        <span className="restaurant-card__rating">
-          <StarFilled className="restaurant-card__star" />
-          <Text className="typography__meta">
-            {rating > 0 ? rating.toFixed(1) : DISPLAY.EMPTY.NO_RATING}
-          </Text>
-        </span>
+        {SHOW_RATING && (
+          <span className="restaurant-card__rating">
+            <StarFilled className="restaurant-card__star" />
+            <Text className="typography__meta">
+              {rating > 0 ? rating.toFixed(1) : DISPLAY.EMPTY.NO_RATING}
+            </Text>
+          </span>
+        )}
       </div>
 
       {description && (
-        <Text
-          className="typography__meta typography--secondary restaurant-card__description"
-          ellipsis={{ tooltip: true }}
+        <Paragraph
+          className="typography__body typography--secondary restaurant-card__description"
+          ellipsis={{ rows: DESCRIPTION_MAX_ROWS, tooltip: true }}
         >
           {description}
-        </Text>
+        </Paragraph>
       )}
 
       <div className="restaurant-card__bottom">

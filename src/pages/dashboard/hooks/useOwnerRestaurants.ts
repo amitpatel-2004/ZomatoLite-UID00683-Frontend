@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 
 import { DEFAULT_PAGE_LIMIT } from '@constants/api.constants';
 import { MESSAGES } from '@pages/dashboard/constants/messages.constants';
+import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
+import { useAppDispatch } from '@redux/hooks';
 import {
   getIsRestaurantsFetching,
   getIsRestaurantsLoading,
@@ -17,11 +19,9 @@ import {
   restaurantListFetchStarted,
   restaurantListLoaded,
   restaurantListRequested,
-} from '@pages/restaurants/store/restaurantStore';
-import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
+} from '@redux/restaurantStore';
 import { restaurantService } from '@services/restaurant/restaurantService';
 import type { CreateRestaurantPayload } from '@services/restaurant/restaurantService.types';
-import { useAppDispatch } from '@store/hooks';
 
 export const useOwnerRestaurants = () => {
   const dispatch = useAppDispatch();

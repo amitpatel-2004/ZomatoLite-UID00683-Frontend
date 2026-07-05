@@ -10,7 +10,7 @@ import {
   TITLE_LEVELS,
 } from '@constants/style.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
-import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
+import { RESTAURANT_STATUS, SHOW_RATING } from '@pages/restaurants/constants/restaurant.constants';
 import { formatTo12Hour } from '@utils/time';
 
 import type { RestaurantDetailsProps } from './RestaurantDetails.types';
@@ -20,7 +20,7 @@ import './RestaurantDetails.scss';
 const { Text, Title } = Typography;
 
 export const RestaurantDetails = (props: RestaurantDetailsProps): React.JSX.Element => {
-  const { isOwner, onDelete, onEdit, restaurant } = props;
+  const { isOwner, onDelete, onEdit, onGoToOrders, restaurant } = props;
   const { cuisineTypes, closingTime, description, name, openingTime, rating, status } = restaurant;
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -75,7 +75,9 @@ export const RestaurantDetails = (props: RestaurantDetailsProps): React.JSX.Elem
                 {DISPLAY.ACTIONS.DELETE}
               </Button>
             </Popconfirm>
-            <Button disabled>{DISPLAY.ACTIONS.GO_TO_ORDERS}</Button>
+            <Button onClick={onGoToOrders} type={BUTTON_TYPES.DEFAULT}>
+              {DISPLAY.ACTIONS.GO_TO_ORDERS}
+            </Button>
           </Space>
         )}
       </div>
@@ -98,12 +100,14 @@ export const RestaurantDetails = (props: RestaurantDetailsProps): React.JSX.Elem
         )}
 
         <div className="restaurant-details__meta-right">
-          <span className="restaurant-details__rating">
-            <StarFilled className="restaurant-details__star" />
-            <Text className="typography__meta">
-              {rating > 0 ? rating.toFixed(1) : DISPLAY.EMPTY.NO_RATING}
-            </Text>
-          </span>
+          {SHOW_RATING && (
+            <span className="restaurant-details__rating">
+              <StarFilled className="restaurant-details__star" />
+              <Text className="typography__meta">
+                {rating > 0 ? rating.toFixed(1) : DISPLAY.EMPTY.NO_RATING}
+              </Text>
+            </span>
+          )}
           <Text className="typography__caption typography--secondary">
             {DISPLAY.LABELS.OPENS}: {formatTo12Hour(openingTime)} - {formatTo12Hour(closingTime)}
           </Text>

@@ -1,4 +1,7 @@
 import { DEFAULT_CURRENCY } from '@constants/app.constants';
+import { ORDER_STATUS_LABELS } from '@pages/restaurants/constants/order.constants';
+
+export const DESCRIPTION_MAX_ROWS = 3;
 
 export const DISPLAY = {
   TITLES: {
@@ -7,6 +10,10 @@ export const DISPLAY = {
     MENU_ITEMS: 'Menu',
     CREATE_MENU_ITEM: 'Add Menu Item',
     EDIT_MENU_ITEM: 'Edit Menu Item',
+    BROWSE: 'Browse Restaurants',
+    RESTAURANT_ORDERS: 'Orders',
+    MY_ORDERS: 'My Orders',
+    ORDER_SUMMARY: 'Order Summary',
   },
   LABELS: {
     NAME: 'Name',
@@ -25,6 +32,12 @@ export const DISPLAY = {
     CUISINE: 'Cuisine',
     OPENS: 'Open',
     IMAGE_UPLOAD_HINT: 'JPG, PNG or WEBP. Max 5 MB.',
+    SUBTOTAL: 'Subtotal',
+    BOOKING_FEE: 'Booking Fee',
+    TOTAL: 'Total',
+    ITEMS_SELECTED: 'items selected',
+    ORDER_STATUS: ORDER_STATUS_LABELS,
+    ORDER_ID: 'Order',
   },
   ACTIONS: {
     SAVE: 'Save',
@@ -37,10 +50,22 @@ export const DISPLAY = {
     UPLOAD_CSV: 'Upload CSV',
     UPLOAD_IMAGE: 'Upload Image',
     BACK: 'Back',
+    ADD_TO_CART: 'Add',
+    CLEAR_CART: 'Clear Cart',
+    PROCEED_TO_ORDER: 'Proceed to Order',
+    PLACE_ORDER: 'Place Order',
+    CANCEL_ORDER: 'Cancel Order',
+    ACCEPT: 'Accept',
+    REJECT: 'Reject',
+    MARK_PREPARING: 'Mark Preparing',
+    MARK_OUT_FOR_DELIVERY: 'Mark Out for Delivery',
+    MARK_DELIVERED: 'Mark Delivered',
   },
   EMPTY: {
     NO_MENU_ITEMS: 'No menu items yet.',
     NO_RATING: 'No ratings yet',
+    NO_RESTAURANTS: 'No restaurants found.',
+    NO_ORDERS: 'No orders yet.',
   },
   PLACEHOLDERS: {
     RESTAURANT_NAME: 'e.g. Tandoori Palace',
@@ -56,6 +81,10 @@ export const DISPLAY = {
   POPCONFIRM: {
     DELETE_RESTAURANT_TITLE: 'Delete this restaurant? This cannot be undone.',
     DELETE_MENU_ITEM_TITLE: 'Delete this item? This cannot be undone.',
+    CLEAR_CART_TITLE: (restaurant?: string | null) => {
+      return `'Clear your cart? Items from ${restaurant ? `"${restaurant}"` : 'current restaurant'} will be removed.'`;
+    },
+    CANCEL_ORDER_TITLE: 'Cancel this order?',
     OK_TEXT: 'Yes, delete',
     CANCEL_TEXT: 'No',
   },

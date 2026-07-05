@@ -15,7 +15,8 @@ import './VerifyEmailForm.scss';
 const { Text } = Typography;
 
 export const VerifyEmailForm = (props: VerifyEmailFormProps): React.JSX.Element => {
-  const { localEmail, isResending, resendStatus, onResend } = props;
+  const { localEmail, isResending, resendStatus, cooldownSeconds, onResend } = props;
+  const isCoolingDown = cooldownSeconds > 0;
 
   return (
     <div className="verify-email-form">
@@ -39,13 +40,16 @@ export const VerifyEmailForm = (props: VerifyEmailFormProps): React.JSX.Element 
 
       <Button
         block
+        disabled={isCoolingDown}
         loading={isResending}
         onClick={() => {
           return void onResend();
         }}
         type={BUTTON_TYPES.PRIMARY}
       >
-        {DISPLAY.ACTIONS.RESEND_VERIFICATION}
+        {isCoolingDown
+          ? DISPLAY.ACTIONS.RESEND_VERIFICATION_COOLDOWN(cooldownSeconds)
+          : DISPLAY.ACTIONS.RESEND_VERIFICATION}
       </Button>
     </div>
   );

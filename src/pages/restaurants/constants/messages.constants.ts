@@ -5,6 +5,9 @@ export const MESSAGES = {
     MENU_ITEM_CREATED: 'Menu item added.',
     MENU_ITEM_UPDATED: 'Menu item updated.',
     MENU_ITEM_DELETED: 'Menu item deleted.',
+    ORDER_PLACED: 'Order placed successfully.',
+    ORDER_CANCELLED: 'Order cancelled.',
+    ORDER_STATUS_UPDATED: 'Order status updated.',
   },
   ERRORS: {
     FETCH_FAILED: 'Could not load restaurant details.',
@@ -15,6 +18,11 @@ export const MESSAGES = {
     MENU_ITEM_SAVE_FAILED: 'Could not save menu item.',
     MENU_ITEM_DELETE_FAILED: 'Could not delete menu item.',
     IMAGE_UPLOAD_FAILED: 'Image upload failed.',
+    BROWSE_LOAD_FAILED: 'Could not load restaurants.',
+    ORDER_PLACE_FAILED: 'Could not place your order.',
+    ORDER_CANCEL_FAILED: 'Could not cancel the order.',
+    ORDER_STATUS_UPDATE_FAILED: 'Could not update the order status.',
+    ORDERS_LOAD_FAILED: 'Could not load orders.',
   },
   VALIDATION: {
     NAME_REQUIRED: 'Name is required.',

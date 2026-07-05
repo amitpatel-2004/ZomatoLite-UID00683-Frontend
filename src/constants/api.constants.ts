@@ -25,6 +25,9 @@ export const API_ENDPOINTS = {
     menuItemImageUpload: (restaurantId: string) => {
       return `${V1}/restaurants/${restaurantId}/menu-items/image-upload`;
     },
+    orders: (restaurantId: string) => {
+      return `${V1}/restaurants/${restaurantId}/orders`;
+    },
   },
 };
 

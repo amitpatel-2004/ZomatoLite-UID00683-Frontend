@@ -4,9 +4,9 @@ import { message } from 'antd';
 
 import { ROUTES } from '@constants/route.constants';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
-import { sessionCleared } from '@pages/auth/store';
+import { sessionCleared } from '@redux/authStore';
+import { useAppDispatch } from '@redux/hooks';
 import { authService } from '@services/auth/authService';
-import { useAppDispatch } from '@store/hooks';
 
 export const useLogout = () => {
   const dispatch = useAppDispatch();

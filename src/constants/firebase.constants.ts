@@ -7,8 +7,11 @@ export const firebaseConfig = {
 
 export const FIREBASE_COLLECTIONS = {
   USERS: 'users',
+  RESTAURANTS: 'restaurants',
+  MENU_ITEMS: 'menuItems',
+  ORDERS: 'orders',
 } as const;
 
 export const FIREBASE_BUCKETS = {
-  IMAGE_UPLOAD_BUCKET: process.env.GCS_BUCKET_NAME,
+  IMAGE_UPLOAD_BUCKET: process.env.IMAGE_UPLOAD_BUCKET,
 } as const;

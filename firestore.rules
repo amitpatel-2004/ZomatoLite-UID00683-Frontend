@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+  	match /users/{userId} {
+      allow read, update, delete: if request.auth != null && request.auth.uid == userId;      
+    }
+
+    match /restaurants/{restaurantId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+
+      match /menuItems/{itemId} {
+        allow read: if request.auth != null;
+        allow write: if false;
+      }
+    }
+
+    match /{path=**}/orders/{orderId} {
+      function isRestaurantOwner() {
+        return request.auth != null &&
+          get(/databases/$(database)/documents/restaurants/$(path[1])).data.ownerId == request.auth.uid;
+      }
+
+      function isOrderCustomer() {
+        return request.auth != null && resource.data.customerId == request.auth.uid;
+      }
+
+      allow read: if isOrderCustomer() || isRestaurantOwner();
+
+      allow create: if false;
+
+      allow update: if isRestaurantOwner() ||
+        (isOrderCustomer() &&
+          resource.data.status == 'pending' &&
+          request.resource.data.status == 'cancelled');
+
+      allow delete: if false;
+    }
+  }
+}

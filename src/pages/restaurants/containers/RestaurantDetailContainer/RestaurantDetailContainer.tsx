@@ -9,13 +9,13 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { ROUTES } from '@constants/route.constants';
 import { BUTTON_TYPES, SPIN_SIZES, TITLE_LEVELS } from '@constants/style.constants';
 import { isConflictError } from '@core/api/apiError';
-import { getAuthUser } from '@pages/auth/store';
 import { RestaurantDetails } from '@pages/restaurants/components/RestaurantDetails';
 import type { RestaurantFormValues } from '@pages/restaurants/components/RestaurantForm';
 import { RestaurantForm } from '@pages/restaurants/components/RestaurantForm';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import { useRestaurantDetail } from '@pages/restaurants/hooks/useRestaurantDetail';
+import { getAuthUser } from '@redux/authStore';
 import { getDirtyValues } from '@utils/formik';
 
 import { MenuItemsContainer } from '../MenuItemsContainer';
@@ -113,6 +113,9 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
         onEdit={() => {
           return setIsEditRestaurantOpen(true);
         }}
+        onGoToOrders={() => {
+          return navigate(ROUTES.RESTAURANT.ORDERS(restaurantId));
+        }}
         restaurant={restaurant}
       />
 
@@ -126,7 +129,11 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
         open={isEditRestaurantOpen}
       />
 
-      <MenuItemsContainer isOwner={isOwner} restaurantId={restaurantId} />
+      <MenuItemsContainer
+        isOwner={isOwner}
+        restaurantId={restaurantId}
+        restaurantName={restaurant.name}
+      />
     </div>
   );
 };

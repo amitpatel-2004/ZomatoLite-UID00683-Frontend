@@ -69,6 +69,10 @@ export const MODAL_WIDTHS = {
 export const TAG_COLORS = {
   ACTIVE: 'success',
   INACTIVE: 'default',
+  PENDING: 'default',
+  PROCESSING: 'processing',
+  SUCCESS: 'success',
+  ERROR: 'error',
 } as const;
 
 export const SELECT_MODES = {
