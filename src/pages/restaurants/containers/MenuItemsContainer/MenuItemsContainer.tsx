@@ -12,6 +12,7 @@ import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import { useMenuItems } from '@pages/restaurants/hooks/useMenuItems';
 import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
 import { menuItemService } from '@services/restaurant/menuItemService';
+import { getDirtyValues } from '@utils/formik';
 
 import type { MenuItemsContainerProps } from './MenuItemsContainer.types';
 
@@ -84,8 +85,11 @@ export const MenuItemsContainer = (props: MenuItemsContainerProps): React.JSX.El
       };
 
       if (editingItem) {
-        await updateMenuItem(editingItem._id, payload);
-        void message.success(MESSAGES.SUCCESS.MENU_ITEM_UPDATED);
+        const changedFields = getDirtyValues(payload, editingItem);
+        if (Object.keys(changedFields).length > 0) {
+          await updateMenuItem(editingItem._id, changedFields);
+          void message.success(MESSAGES.SUCCESS.MENU_ITEM_UPDATED);
+        }
       } else {
         await createMenuItem(payload);
         void message.success(MESSAGES.SUCCESS.MENU_ITEM_CREATED);

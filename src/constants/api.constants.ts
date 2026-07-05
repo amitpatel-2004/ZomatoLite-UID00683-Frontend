@@ -40,3 +40,5 @@ export const API_HEADERS = {
     };
   },
 } as const;
+
+export const DEFAULT_PAGE_LIMIT = 20;

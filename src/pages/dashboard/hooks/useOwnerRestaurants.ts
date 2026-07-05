@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import { DEFAULT_PAGE_LIMIT } from '@constants/api.constants';
 import { MESSAGES } from '@pages/dashboard/constants/messages.constants';
 import {
   getIsRestaurantsFetching,
@@ -18,8 +19,8 @@ import {
   restaurantListRequested,
 } from '@pages/restaurants/store/restaurantStore';
 import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
-import type { CreateRestaurantPayload } from '@services/restaurant/restaurantService';
 import { restaurantService } from '@services/restaurant/restaurantService';
+import type { CreateRestaurantPayload } from '@services/restaurant/restaurantService.types';
 import { useAppDispatch } from '@store/hooks';
 
 export const useOwnerRestaurants = () => {
@@ -49,7 +50,7 @@ export const useOwnerRestaurants = () => {
     if (!hasMore || isFetching || !nextCursor) return;
     dispatch(restaurantListFetchStarted());
     try {
-      const result = await restaurantService.listMine(2, nextCursor);
+      const result = await restaurantService.listMine(DEFAULT_PAGE_LIMIT, nextCursor);
       dispatch(restaurantListAppended(result));
     } catch (error) {
       const msg = error instanceof Error ? error.message : MESSAGES.ERRORS.FETCH_MORE_FAILED;

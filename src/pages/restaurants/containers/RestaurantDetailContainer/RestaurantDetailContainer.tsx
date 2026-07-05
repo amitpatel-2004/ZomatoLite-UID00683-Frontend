@@ -16,6 +16,7 @@ import { RestaurantForm } from '@pages/restaurants/components/RestaurantForm';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import { useRestaurantDetail } from '@pages/restaurants/hooks/useRestaurantDetail';
+import { getDirtyValues } from '@utils/formik';
 
 import { MenuItemsContainer } from '../MenuItemsContainer';
 
@@ -40,9 +41,17 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
     values: RestaurantFormValues,
     setFieldError: (field: string, msg: string) => void,
   ) => {
+    if (!restaurant) return;
+
+    const changedFields = getDirtyValues(values, restaurant);
+    if (Object.keys(changedFields).length === 0) {
+      setIsEditRestaurantOpen(false);
+      return;
+    }
+
     setIsRestaurantSubmitting(true);
     try {
-      await updateRestaurant(values);
+      await updateRestaurant(changedFields);
       void message.success(MESSAGES.SUCCESS.RESTAURANT_UPDATED);
       setIsEditRestaurantOpen(false);
     } catch (err) {
