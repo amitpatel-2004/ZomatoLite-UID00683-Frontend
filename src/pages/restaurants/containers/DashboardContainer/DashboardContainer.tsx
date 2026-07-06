@@ -7,12 +7,12 @@ import { Button, message, Typography } from 'antd';
 import { ROUTES } from '@constants/route.constants';
 import { BUTTON_TYPES, TITLE_LEVELS } from '@constants/style.constants';
 import { isConflictError } from '@core/api/apiError';
-import { DISPLAY } from '@pages/dashboard/constants/display.constants';
-import { MESSAGES } from '@pages/dashboard/constants/messages.constants';
-import { useOwnerRestaurants } from '@pages/dashboard/hooks/useOwnerRestaurants';
 import type { RestaurantFormValues } from '@pages/restaurants/components/RestaurantForm';
 import { RestaurantForm } from '@pages/restaurants/components/RestaurantForm';
 import { RestaurantList } from '@pages/restaurants/components/RestaurantList';
+import { DISPLAY } from '@pages/restaurants/constants/display.constants';
+import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
+import { useOwnerRestaurants } from '@pages/restaurants/hooks/useOwnerRestaurants';
 
 import './DashboardContainer.scss';
 
@@ -66,7 +66,7 @@ export const DashboardContainer = (): React.JSX.Element => {
       </div>
 
       <RestaurantList
-        emptyText={DISPLAY.OTHERS.NO_RESTAURANTS}
+        emptyText={DISPLAY.EMPTY.NO_RESTAURANTS}
         hasMore={hasMore}
         isFetching={isFetching}
         isLoading={isLoading}
