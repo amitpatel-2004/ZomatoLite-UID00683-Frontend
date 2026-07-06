@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,9 +9,11 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { ROUTES } from '@constants/route.constants';
 import { BUTTON_TYPES, SPIN_SIZES, TITLE_LEVELS } from '@constants/style.constants';
 import { OrderCard } from '@pages/restaurants/components/OrderCard';
+import { OrderTrackingModal } from '@pages/restaurants/components/OrderTrackingModal';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import { ORDER_STATUS } from '@pages/restaurants/constants/order.constants';
+import { useOrderTracking } from '@pages/restaurants/hooks/useOrderTracking';
 import { useRestaurantDetail } from '@pages/restaurants/hooks/useRestaurantDetail';
 import { useRestaurantOrders } from '@pages/restaurants/hooks/useRestaurantOrders';
 import type { Order, OrderStatus } from '@pages/restaurants/types/order.types';
@@ -53,6 +55,12 @@ export const RestaurantOrdersContainer = (): React.JSX.Element => {
     restaurantId,
     restaurant?.name ?? '',
   );
+  const [trackingOrderId, setTrackingOrderId] = useState<string | null>(null);
+  const trackingOrder =
+    orders.find((o) => {
+      return o._id === trackingOrderId;
+    }) ?? null;
+  const tracking = useOrderTracking(trackingOrder);
 
   useEffect(() => {
     if (error) void message.error(error);
@@ -130,11 +138,24 @@ export const RestaurantOrdersContainer = (): React.JSX.Element => {
                   );
                 })}
                 key={order._id}
+                onTrack={(trackedOrder) => {
+                  return setTrackingOrderId(trackedOrder._id);
+                }}
                 order={order}
               />
             );
           })}
         </div>
+      )}
+
+      {trackingOrder && tracking && (
+        <OrderTrackingModal
+          onClose={() => {
+            return setTrackingOrderId(null);
+          }}
+          order={trackingOrder}
+          {...tracking}
+        />
       )}
     </div>
   );

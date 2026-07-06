@@ -6,4 +6,5 @@ export type OrderCardProps = {
   order: Order;
   showRestaurantName?: boolean;
   actions?: React.ReactNode;
+  onTrack: (order: Order) => void;
 };

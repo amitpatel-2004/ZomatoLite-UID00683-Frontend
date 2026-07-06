@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Tag, Typography } from 'antd';
+import { Button, Tag, Typography } from 'antd';
 
-import { TITLE_LEVELS } from '@constants/style.constants';
+import { NodeIndexOutlined } from '@ant-design/icons';
+import { BUTTON_TYPES, TITLE_LEVELS } from '@constants/style.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { ORDER_STATUS_TAG_COLORS } from '@pages/restaurants/constants/order.constants';
 
@@ -13,7 +14,7 @@ import './OrderCard.scss';
 const { Text, Title } = Typography;
 
 export const OrderCard = (props: OrderCardProps): React.JSX.Element => {
-  const { actions, order, showRestaurantName } = props;
+  const { actions, onTrack, order, showRestaurantName } = props;
 
   return (
     <div className="order-card">
@@ -57,7 +58,18 @@ export const OrderCard = (props: OrderCardProps): React.JSX.Element => {
         </Text>
       </div>
 
-      {actions && <div className="order-card__actions">{actions}</div>}
+      <div className="order-card__actions">
+        <Button
+          icon={<NodeIndexOutlined />}
+          onClick={() => {
+            return onTrack(order);
+          }}
+          type={BUTTON_TYPES.DEFAULT}
+        >
+          {DISPLAY.ACTIONS.TRACK_ORDER}
+        </Button>
+        {actions}
+      </div>
     </div>
   );
 };

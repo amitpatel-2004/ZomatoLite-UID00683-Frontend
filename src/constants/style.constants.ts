@@ -25,6 +25,13 @@ export const SPIN_SIZES = {
   LARGE: 'large',
 } as const;
 
+export const BADGE_SIZES = {
+  DEFAULT: 'default',
+  SMALL: 'small',
+} as const;
+
+export const PENDING_ORDERS_BADGE_OFFSET: [number, number] = [10, 0];
+
 export const ROW_ALIGN = {
   TOP: 'top',
   MIDDLE: 'middle',
@@ -61,6 +68,7 @@ export const FORM_LAYOUTS = {
 } as const;
 
 export const MODAL_WIDTHS = {
+  SLIM: 360,
   NARROW: 480,
   MEDIUM: 560,
   WIDE: 720,
@@ -116,4 +124,16 @@ export const POPCONFIRM_PLACEMENT = {
   TOP_RIGHT: 'topRight',
   BOTTOM_LEFT: 'bottomLeft',
   BOTTOM_RIGHT: 'bottomRight',
+} as const;
+
+export const STEPS_STATUS = {
+  WAIT: 'wait',
+  PROCESS: 'process',
+  FINISH: 'finish',
+  ERROR: 'error',
+} as const;
+
+export const STEPS_DIRECTION = {
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical',
 } as const;
