@@ -1,4 +1,5 @@
 import type { Currency, ValueOf } from '@appTypes/common.types';
+import { STEPS_STATUS } from '@constants/style.constants';
 import { ORDER_STATUS } from '@pages/restaurants/constants/order.constants';
 
 export type OrderStatus = ValueOf<typeof ORDER_STATUS>;
@@ -26,4 +27,18 @@ export type Order = {
   items: OrderItem[];
   _createdAt: number;
   _updatedAt: number;
+};
+
+export type OrderTrackingStep = {
+  title: string;
+};
+
+export type OrderTrackingStepsStatus = ValueOf<typeof STEPS_STATUS>;
+
+export type OrderTrackingInfo = {
+  steps: OrderTrackingStep[];
+  currentStepIndex: number;
+  stepsStatus: OrderTrackingStepsStatus;
+  countdownText: string | null;
+  statusMessage: string;
 };

@@ -1,5 +1,8 @@
 import { DEFAULT_CURRENCY } from '@constants/app.constants';
-import { ORDER_STATUS_LABELS } from '@pages/restaurants/constants/order.constants';
+import {
+  ORDER_STATUS_LABELS,
+  ORDER_TRACKING_STEP_TITLES,
+} from '@pages/restaurants/constants/order.constants';
 
 export const DESCRIPTION_MAX_ROWS = 3;
 
@@ -14,6 +17,7 @@ export const DISPLAY = {
     RESTAURANT_ORDERS: 'Orders',
     MY_ORDERS: 'My Orders',
     ORDER_SUMMARY: 'Order Summary',
+    TRACK_ORDER: 'Track Order',
   },
   LABELS: {
     NAME: 'Name',
@@ -38,6 +42,7 @@ export const DISPLAY = {
     ITEMS_SELECTED: 'items selected',
     ORDER_STATUS: ORDER_STATUS_LABELS,
     ORDER_ID: 'Order',
+    ORDER_TRACKING_STEPS: ORDER_TRACKING_STEP_TITLES,
   },
   ACTIONS: {
     SAVE: 'Save',
@@ -60,6 +65,7 @@ export const DISPLAY = {
     MARK_PREPARING: 'Mark Preparing',
     MARK_OUT_FOR_DELIVERY: 'Mark Out for Delivery',
     MARK_DELIVERED: 'Mark Delivered',
+    TRACK_ORDER: 'Track',
   },
   EMPTY: {
     NO_MENU_ITEMS: 'No menu items yet.',
@@ -87,5 +93,12 @@ export const DISPLAY = {
     CANCEL_ORDER_TITLE: 'Cancel this order?',
     OK_TEXT: 'Yes, delete',
     CANCEL_TEXT: 'No',
+  },
+  TRACKING: {
+    TIME_REMAINING_LABEL: 'Time Remaining',
+    RUNNING_LATE: 'This order is taking a little longer than expected.',
+    DELIVERED: 'Order Delivered!',
+    REJECTED: 'This order was rejected.',
+    CANCELLED: 'This order was cancelled.',
   },
 } as const;
