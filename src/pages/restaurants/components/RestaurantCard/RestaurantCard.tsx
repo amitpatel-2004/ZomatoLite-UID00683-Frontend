@@ -15,7 +15,7 @@ import './RestaurantCard.scss';
 const { Text, Title, Paragraph } = Typography;
 
 export const RestaurantCard = (props: RestaurantCardProps): React.JSX.Element => {
-  const { restaurant, onClick } = props;
+  const { restaurant, onClick, isOwnRestaurant } = props;
   const { _id, cuisineTypes, description, name, openingTime, closingTime, rating, status } =
     restaurant;
 
@@ -42,6 +42,11 @@ export const RestaurantCard = (props: RestaurantCardProps): React.JSX.Element =>
           >
             {status}
           </Tag>
+          {isOwnRestaurant && (
+            <Tag className="restaurant-card__owned-tag" color={TAG_COLORS.OWNED}>
+              {DISPLAY.LABELS.OWN_RESTAURANT}
+            </Tag>
+          )}
         </div>
 
         {SHOW_RATING && (

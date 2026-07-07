@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { DEFAULT_PAGE_LIMIT } from '@constants/api.constants';
-import { MESSAGES } from '@pages/dashboard/constants/messages.constants';
+import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
 import { useAppDispatch } from '@redux/hooks';
 import {

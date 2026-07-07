@@ -8,4 +8,5 @@ export type RestaurantListProps = {
   onCardClick: (id: string) => void;
   onLoadMore: () => void;
   emptyText: string;
+  currentUserId?: string | null;
 };

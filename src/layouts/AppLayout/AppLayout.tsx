@@ -22,8 +22,7 @@ import type { Order } from '@pages/restaurants/types/order.types';
 import { getAuthUser } from '@redux/authStore';
 
 import type { AppLayoutProps } from './AppLayout.types';
-import { getSelectedKey } from './AppLayout.utils';
-import { getNavItems } from './nav.config';
+import { getNavItems, getSelectedKey } from './AppLayout.utils';
 
 import './AppLayout.scss';
 

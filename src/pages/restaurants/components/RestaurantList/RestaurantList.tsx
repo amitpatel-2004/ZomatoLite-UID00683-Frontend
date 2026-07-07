@@ -11,7 +11,16 @@ import type { RestaurantListProps } from './RestaurantList.types';
 import './RestaurantList.scss';
 
 export const RestaurantList = (props: RestaurantListProps): React.JSX.Element => {
-  const { isLoading, isFetching, hasMore, items, onCardClick, onLoadMore, emptyText } = props;
+  const {
+    currentUserId,
+    isLoading,
+    isFetching,
+    hasMore,
+    items,
+    onCardClick,
+    onLoadMore,
+    emptyText,
+  } = props;
   const sentinelRef = useInfiniteScroll({ hasMore, isFetching, onLoadMore });
 
   if (isLoading) {
@@ -34,7 +43,12 @@ export const RestaurantList = (props: RestaurantListProps): React.JSX.Element =>
     <div className="restaurant-list">
       {items.map((restaurant) => {
         return (
-          <RestaurantCard key={restaurant._id} onClick={onCardClick} restaurant={restaurant} />
+          <RestaurantCard
+            isOwnRestaurant={Boolean(currentUserId) && restaurant.ownerId === currentUserId}
+            key={restaurant._id}
+            onClick={onCardClick}
+            restaurant={restaurant}
+          />
         );
       })}
 

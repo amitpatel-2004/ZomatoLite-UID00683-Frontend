@@ -80,6 +80,7 @@ export const TAG_COLORS = {
   PROCESSING: 'processing',
   SUCCESS: 'success',
   ERROR: 'error',
+  OWNED: 'blue',
 } as const;
 
 export const SELECT_MODES = {

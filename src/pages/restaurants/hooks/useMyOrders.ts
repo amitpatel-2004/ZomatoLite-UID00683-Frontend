@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import type { Order } from '@pages/restaurants/types/order.types';
-import { getAuthUser } from '@redux/authStore';
+import { getAuthUser, userUpdated } from '@redux/authStore';
 import {
   getCustomerError,
   getIsMyOrdersLoading,
@@ -46,6 +46,10 @@ export const useMyOrders = () => {
 
   const cancelOrder = async (order: Order): Promise<void> => {
     await orderService.cancel(order.restaurantId, order._id);
+
+    if (user) {
+      dispatch(userUpdated({ ...user, balance: (user.balance ?? 0) + order.pricingSummary.total }));
+    }
   };
 
   return { cancelOrder, error, isLoading, orders };
