@@ -1,14 +1,11 @@
-import type { MenuItem } from '@appTypes/restaurant.types';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
+import { MENU_ITEM_STATUS } from '@pages/restaurants/constants/restaurant.constants';
+import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
 import { render, screen } from '@testing-library/react';
 
 import { MenuItemCard } from './MenuItemCard';
 
 import '@testing-library/jest-dom';
-
-jest.mock('@constants/firebase.constants', () => ({
-  getImageUrl: () => null,
-}));
 
 const mockItem: MenuItem = {
   _id: 'item1',
@@ -19,6 +16,7 @@ const mockItem: MenuItem = {
   imagePath: null,
   rating: 0,
   quantity: 10,
+  status: MENU_ITEM_STATUS.ACTIVE,
 };
 
 describe('MenuItemCard', () => {

@@ -2,6 +2,7 @@ import { DEFAULT_CURRENCY } from '@constants/app.constants';
 
 export const DISPLAY = {
   TITLES: {
+    DASHBOARD: 'My Restaurants',
     CREATE_RESTAURANT: 'Add Restaurant',
     EDIT_RESTAURANT: 'Edit Restaurant',
     MENU_ITEMS: 'Menu',
@@ -27,6 +28,7 @@ export const DISPLAY = {
     IMAGE_UPLOAD_HINT: 'JPG, PNG or WEBP. Max 5 MB.',
   },
   ACTIONS: {
+    ADD_RESTAURANT: 'Add Restaurant',
     SAVE: 'Save',
     CANCEL: 'Cancel',
     EDIT: 'Edit',
@@ -39,6 +41,7 @@ export const DISPLAY = {
     BACK: 'Back',
   },
   EMPTY: {
+    NO_RESTAURANTS: "You haven't added any restaurants yet.",
     NO_MENU_ITEMS: 'No menu items yet.',
     NO_RATING: 'No ratings yet',
   },

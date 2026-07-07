@@ -19,8 +19,7 @@ import { useLogout } from '@pages/auth/hooks/useLogout';
 import { getAuthUser } from '@pages/auth/store';
 
 import type { AppLayoutProps } from './AppLayout.types';
-import { getSelectedKey } from './AppLayout.utils';
-import { getNavItems } from './nav.config';
+import { getNavItems, getSelectedKey } from './AppLayout.utils';
 
 import './AppLayout.scss';
 

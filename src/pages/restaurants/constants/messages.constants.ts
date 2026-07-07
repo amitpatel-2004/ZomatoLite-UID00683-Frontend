@@ -1,5 +1,6 @@
 export const MESSAGES = {
   SUCCESS: {
+    RESTAURANT_CREATED: 'Restaurant created.',
     RESTAURANT_UPDATED: 'Restaurant updated.',
     RESTAURANT_DELETED: 'Restaurant deleted.',
     MENU_ITEM_CREATED: 'Menu item added.',
@@ -7,7 +8,9 @@ export const MESSAGES = {
     MENU_ITEM_DELETED: 'Menu item deleted.',
   },
   ERRORS: {
-    FETCH_FAILED: 'Could not load restaurant details.',
+    FETCH_FAILED: 'Could not load restaurants.',
+    FETCH_MORE_FAILED: 'Could not load more restaurants.',
+    CREATE_FAILED: 'Could not create the restaurant.',
     UPDATE_FAILED: 'Could not update the restaurant.',
     DELETE_FAILED: 'Could not delete the restaurant.',
     MENU_LOAD_FAILED: 'Could not load menu items.',
