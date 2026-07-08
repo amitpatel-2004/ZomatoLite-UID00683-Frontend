@@ -8,6 +8,6 @@ export class ApiError extends Error {
   }
 }
 
-export const isConflictError = (error: unknown): error is ApiError => {
-  return error instanceof ApiError && error.status === 409;
+export const isApiErrorWithStatus = (error: unknown, status: number): error is ApiError => {
+  return error instanceof ApiError && error.status === status;
 };

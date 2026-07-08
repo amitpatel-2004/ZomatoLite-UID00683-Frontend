@@ -1,0 +1,1 @@
+export { CuisineTags } from './CuisineTags';

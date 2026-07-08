@@ -21,6 +21,7 @@ const defaultMock = {
   isEmailVerified: false,
   isLoading: false,
   login: jest.fn(),
+  logout: jest.fn(),
   register: jest.fn(),
   resendVerification: jest.fn().mockResolvedValue(undefined),
   user: null,
