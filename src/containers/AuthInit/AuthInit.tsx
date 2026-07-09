@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
 import { FIREBASE_COLLECTIONS } from '@constants/firebase.constants';
-import { firebaseAuth, firebaseDb } from '@core/firebase/firebase.config';
+import { firebaseAuth, firebaseDb } from '@core/firebase/firebaseClient';
 import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@pages/auth/store';
 import { useAppDispatch } from '@store/hooks';
 
