@@ -20,12 +20,11 @@ import {
   menuItemsCleared,
   menuItemUpdated,
 } from '@pages/restaurants/store/menuItemStore';
-import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
-import { menuItemService } from '@services/restaurant/menuItemService';
+import { menuItemService } from '@services/menuItem/menuItemService';
 import type {
   CreateMenuItemPayload,
   UpdateMenuItemPayload,
-} from '@services/restaurant/menuItemService.types';
+} from '@services/menuItem/menuItemService.types';
 import { useAppDispatch } from '@store/hooks';
 
 export const useMenuItems = (restaurantId: string) => {
@@ -66,19 +65,17 @@ export const useMenuItems = (restaurantId: string) => {
     }
   }, [dispatch, hasMore, isFetching, nextCursor, restaurantId]);
 
-  const createMenuItem = async (payload: CreateMenuItemPayload): Promise<MenuItem> => {
+  const createMenuItem = async (payload: CreateMenuItemPayload): Promise<void> => {
     const result = await menuItemService.create(restaurantId, payload);
     dispatch(menuItemCreated(result));
-    return result;
   };
 
   const updateMenuItem = async (
     menuItemId: string,
     payload: UpdateMenuItemPayload,
-  ): Promise<MenuItem> => {
+  ): Promise<void> => {
     const result = await menuItemService.update(restaurantId, menuItemId, payload);
     dispatch(menuItemUpdated(result));
-    return result;
   };
 
   const deleteMenuItem = async (menuItemId: string): Promise<void> => {

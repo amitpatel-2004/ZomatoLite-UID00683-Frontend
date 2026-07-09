@@ -26,7 +26,7 @@ export const API_ENDPOINTS = {
       return `${V1}/restaurants/${restaurantId}/menu-items/image-upload`;
     },
   },
-};
+} as const;
 
 export const API_TIMEOUT = 10000;
 
@@ -42,3 +42,7 @@ export const API_HEADERS = {
 } as const;
 
 export const DEFAULT_PAGE_LIMIT = 20;
+
+export const HTTP_STATUS = {
+  CONFLICT: 409,
+} as const;

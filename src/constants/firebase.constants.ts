@@ -10,5 +10,5 @@ export const FIREBASE_COLLECTIONS = {
 } as const;
 
 export const FIREBASE_BUCKETS = {
-  IMAGE_UPLOAD_BUCKET: process.env.GCS_BUCKET_NAME,
+  IMAGE_UPLOAD_BUCKET: process.env.IMAGE_UPLOAD_BUCKET,
 } as const;

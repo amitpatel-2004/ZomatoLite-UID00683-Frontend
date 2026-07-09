@@ -5,4 +5,4 @@ export const RESTAURANT_STATUS = {
 
 export const MENU_ITEM_STATUS = {
   ACTIVE: 'active',
-};
+} as const;

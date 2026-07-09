@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Button, Dropdown, Modal, Typography } from 'antd';
 
-import { MoreOutlined, StarFilled } from '@ant-design/icons';
+import { MoreOutlined } from '@ant-design/icons';
+import { Rating } from '@components/Rating';
 import { DEFAULT_CURRENCY } from '@constants/app.constants';
 import { FIREBASE_BUCKETS } from '@constants/firebase.constants';
 import { BUTTON_SIZES, BUTTON_TYPES } from '@constants/style.constants';
@@ -43,34 +44,30 @@ export const MenuItemCard = (props: MenuItemCardProps): React.JSX.Element => {
         </div>
       )}
 
-      <div className="menu-item-card__body">
-        <div className="menu-item-card__top">
+      <div className="menu-item-body">
+        <div className="menu-item-heading">
           <span
-            className={`menu-item-card__veg-dot menu-item-card__veg-dot--${isVeg ? DISPLAY.FOOD_TYPE.VEG : DISPLAY.FOOD_TYPE.NON_VEG}`}
+            className={`menu-item-heading__food-type-dot menu-item-heading__food-type-dot--${isVeg ? DISPLAY.FOOD_TYPE.VEG : DISPLAY.FOOD_TYPE.NON_VEG}`}
           />
-          <div className="menu-item-card__name-section">
-            <Text className="menu-item-card__name typography__display" ellipsis={{ tooltip: true }}>
-              {name}
-            </Text>
-            <span className="menu-item-card__star-wrap">
-              <StarFilled className="menu-item-card__star" />
-              <Text className="typography__meta">
-                {rating > 0 ? rating.toFixed(1) : DISPLAY.EMPTY.NO_RATING}
-              </Text>
-            </span>
-          </div>
+          <Text
+            className="menu-item-heading__name typography__display"
+            ellipsis={{ tooltip: true }}
+          >
+            {name}
+          </Text>
+          <Rating emptyText={DISPLAY.EMPTY.NO_RATING} value={rating} />
         </div>
 
         {description && (
           <Text
-            className="typography__meta typography--secondary menu-item-card__description"
+            className="typography__meta typography--secondary menu-item-body__description"
             ellipsis={{ tooltip: true }}
           >
             {description}
           </Text>
         )}
 
-        <div className="menu-item-card__footer">
+        <div className="menu-item-body__footer">
           <Text className="typography__accent">{`${DEFAULT_CURRENCY.symbol}${price.toFixed(2)}/-`}</Text>
 
           {isOwner && (

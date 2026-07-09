@@ -1,6 +1,6 @@
 @use 'abstracts/mixins' as mixins;
 
-.restaurant-list {
+.infinite-scroll-list {
   display: flex;
   flex-direction: column;
   gap: mixins.pxToRem(12);
@@ -11,5 +11,9 @@
     display: flex;
     justify-content: center;
     padding: mixins.pxToRem(48) 0;
+  }
+
+  &__sentinel {
+    height: 1px;
   }
 }

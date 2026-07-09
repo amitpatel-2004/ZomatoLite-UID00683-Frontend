@@ -22,22 +22,33 @@
     height: 100%;
     object-fit: cover;
   }
+}
 
-  &__body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
+.menu-item-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  &__description {
+    display: block;
   }
 
-  &__top {
+  &__footer {
     display: flex;
     align-items: center;
-    gap: mixins.pxToRem(8);
-    min-width: 0;
+    justify-content: space-between;
+    margin-top: auto;
   }
+}
 
-  &__veg-dot {
+.menu-item-heading {
+  display: flex;
+  align-items: center;
+  gap: mixins.pxToRem(8);
+  min-width: 0;
+
+  &__food-type-dot {
     width: mixins.pxToRem(10);
     height: mixins.pxToRem(10);
     border-radius: 50%;
@@ -52,38 +63,12 @@
     }
   }
 
-  &__name-section {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: mixins.pxToRem(16);
-    min-width: 0;
-    overflow: hidden;
-  }
-
   &__name {
+    flex: 1;
     min-width: 0;
   }
 
-  &__description {
-    display: block;
-  }
-
-  &__star-wrap {
-    display: flex;
-    align-items: center;
-    gap: mixins.pxToRem(8);
+  .rating {
     flex-shrink: 0;
-  }
-
-  &__star.anticon {
-    color: var(--color-star);
-  }
-
-  &__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: auto;
   }
 }

@@ -1,5 +1,5 @@
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
-import { useOwnerRestaurants } from '@pages/restaurants/hooks/useOwnerRestaurants';
+import { useRestaurant } from '@pages/restaurants/hooks/useRestaurant';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -7,9 +7,9 @@ import { DashboardContainer } from './DashboardContainer';
 
 import '@testing-library/jest-dom';
 
-jest.mock('@pages/restaurants/hooks/useOwnerRestaurants', () => {
+jest.mock('@pages/restaurants/hooks/useRestaurant', () => {
   return {
-    useOwnerRestaurants: jest.fn(),
+    useRestaurant: jest.fn(),
   };
 });
 
@@ -21,22 +21,25 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-const mockUseOwnerRestaurants = jest.mocked(useOwnerRestaurants);
+const mockUseRestaurant = jest.mocked(useRestaurant);
 
 const defaultMock = {
   createRestaurant: jest.fn(),
   deleteRestaurant: jest.fn(),
+  error: null,
   fetchMore: jest.fn(),
   hasMore: false,
   isFetching: false,
   isLoading: false,
   items: [],
+  restaurant: null,
+  updateRestaurant: jest.fn(),
 };
 
 describe('DashboardContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseOwnerRestaurants.mockReturnValue(defaultMock);
+    mockUseRestaurant.mockReturnValue(defaultMock);
     global.IntersectionObserver = jest.fn().mockImplementation(() => {
       return {
         observe: jest.fn(),

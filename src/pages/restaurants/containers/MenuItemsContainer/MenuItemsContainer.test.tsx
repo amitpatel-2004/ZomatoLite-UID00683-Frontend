@@ -13,7 +13,7 @@ jest.mock('@pages/restaurants/hooks/useMenuItems', () => {
   };
 });
 
-jest.mock('@services/restaurant/menuItemService', () => {
+jest.mock('@services/menuItem/menuItemService', () => {
   return {
     menuItemService: {
       getUploadUrl: jest.fn(),
