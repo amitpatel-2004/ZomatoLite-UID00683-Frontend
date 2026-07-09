@@ -13,6 +13,7 @@ export const DISPLAY = {
     MENU_ITEMS: 'Menu',
     CREATE_MENU_ITEM: 'Add Menu Item',
     EDIT_MENU_ITEM: 'Edit Menu Item',
+    UPLOAD_MENU_ITEMS_CSV: 'Bulk upload Menu Items using CSV',
     BROWSE: 'Browse Restaurants',
     RESTAURANT_ORDERS: 'Orders',
     MY_ORDERS: 'My Orders',
@@ -43,6 +44,11 @@ export const DISPLAY = {
     ORDER_STATUS: ORDER_STATUS_LABELS,
     ORDER_ID: 'Order',
     ORDER_TRACKING_STEPS: ORDER_TRACKING_STEP_TITLES,
+    CSV_UPLOAD_GUIDELINES: [
+      'Required columns: name, price, is_veg. Optional: description, quantity.',
+      'Maximum file size: 1 MB.',
+      'Up to 25 menu items can be uploaded per restaurant per day.',
+    ],
   },
   ACTIONS: {
     SAVE: 'Save',
@@ -53,6 +59,7 @@ export const DISPLAY = {
     LOAD_MORE: 'Load More',
     GO_TO_ORDERS: 'View Orders',
     UPLOAD_CSV: 'Upload CSV',
+    UPLOAD: 'Upload',
     UPLOAD_IMAGE: 'Upload Image',
     BACK: 'Back',
     ADD_TO_CART: 'Add',

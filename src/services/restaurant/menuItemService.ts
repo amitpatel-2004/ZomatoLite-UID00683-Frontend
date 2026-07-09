@@ -7,6 +7,8 @@ import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
 
 import type {
   CreateMenuItemPayload,
+  CsvUploadUrlPayload,
+  CsvUploadUrlResponse,
   UpdateMenuItemPayload,
   UploadUrlPayload,
   UploadUrlResponse,
@@ -64,5 +66,20 @@ export const menuItemService = {
 
   uploadImage: async (uploadUrl: string, file: File): Promise<void> => {
     await axios.put(uploadUrl, file, { headers: { 'Content-Type': file.type } });
+  },
+
+  getCsvUploadUrl: async (
+    restaurantId: string,
+    payload: CsvUploadUrlPayload,
+  ): Promise<CsvUploadUrlResponse> => {
+    const { data } = await apiClient.post<ApiEntityResponse<CsvUploadUrlResponse>>(
+      API_ENDPOINTS.RESTAURANTS.menuItemCsvUploadUrl(restaurantId),
+      payload,
+    );
+    return data.data;
+  },
+
+  uploadCsv: async (uploadUrl: string, file: File): Promise<void> => {
+    await axios.put(uploadUrl, file, { headers: { 'Content-Type': 'text/csv' } });
   },
 };
