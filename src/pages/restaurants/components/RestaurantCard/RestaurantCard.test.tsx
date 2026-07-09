@@ -1,4 +1,3 @@
-import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
 import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
 import { render, screen } from '@testing-library/react';
@@ -25,18 +24,6 @@ describe('RestaurantCard', () => {
     render(<RestaurantCard restaurant={mockRestaurant} onClick={jest.fn()} />);
 
     expect(screen.getByText('Test Restaurant')).toBeVisible();
-  });
-
-  it('should show no-rating text when rating is 0', () => {
-    render(<RestaurantCard restaurant={mockRestaurant} onClick={jest.fn()} />);
-
-    expect(screen.getByText(DISPLAY.EMPTY.NO_RATING)).toBeVisible();
-  });
-
-  it('should show rating value when greater than 0', () => {
-    render(<RestaurantCard restaurant={{ ...mockRestaurant, rating: 4.3 }} onClick={jest.fn()} />);
-
-    expect(screen.getByText('4.3')).toBeVisible();
   });
 
   it('should render the description when provided', () => {

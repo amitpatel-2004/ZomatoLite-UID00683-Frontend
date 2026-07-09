@@ -10,7 +10,7 @@ export const REGISTER_INITIAL_VALUES = {
   email: '',
   password: '',
   role: USER_ROLES.CUSTOMER,
-};
+} as const;
 
 export const FIELD_CONFIGS = {
   CONFIRM_PASSWORD: {

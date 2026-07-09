@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Button, Drawer, Grid, Layout, Menu, Modal, Popover, Typography } from 'antd';
+import { Button, Drawer, Grid, Layout, Menu, message, Modal, Popover, Typography } from 'antd';
 
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons';
 import { APP_NAME, DEFAULT_CURRENCY } from '@constants/app.constants';
@@ -15,7 +15,7 @@ import {
   SIDER_WIDTHS,
 } from '@constants/style.constants';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
-import { useLogout } from '@pages/auth/hooks/useLogout';
+import { useAuth } from '@pages/auth/hooks/useAuth';
 import { ORDER_STATUS } from '@pages/restaurants/constants/order.constants';
 import { useMyOrders } from '@pages/restaurants/hooks/useMyOrders';
 import type { Order } from '@pages/restaurants/types/order.types';
@@ -34,7 +34,7 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
   const user = useSelector(getAuthUser);
   const navigate = useNavigate();
   const location = useLocation();
-  const { logout } = useLogout();
+  const { logout } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const screens = Grid.useBreakpoint();
 
@@ -52,22 +52,27 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
       cancelText: MESSAGES.CONFIRM.LOGOUT_CANCEL,
       okText: MESSAGES.CONFIRM.LOGOUT_OK,
       okType: 'danger',
-      onOk: () => {
-        return void logout();
+      onOk: async () => {
+        try {
+          await logout();
+          navigate(ROUTES.AUTH.LOGIN);
+        } catch {
+          void message.error(MESSAGES.ERRORS.LOGOUT_FAILED);
+        }
       },
       title: MESSAGES.CONFIRM.LOGOUT_TITLE,
     });
   };
 
   const profileContent = user ? (
-    <div className="app-layout__profile-card">
+    <div className="profile-card">
       <Text className="typography__heading">{user.displayName}</Text>
       <Text className="typography__caption typography--secondary">{user.role}</Text>
       <Text className="typography__caption typography--secondary">
         {user.currency?.symbol ?? DEFAULT_CURRENCY.symbol}
         {user.balance?.toFixed(2) ?? '0.00'}
       </Text>
-      <div className="app-layout__profile-divider" />
+      <div className="profile-card__divider" />
       <Button block danger onClick={handleLogoutClick} type={BUTTON_TYPES.LINK}>
         {MESSAGES.LABELS.LOGOUT}
       </Button>
@@ -88,10 +93,10 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
 
   return (
     <Layout className="app-layout">
-      <Header className="app-layout__header">
-        <div className="app-layout__header-left">
+      <Header className="app-header">
+        <div className="app-header-start">
           <Button
-            className="app-layout__sider-toggle typography--white"
+            className="app-header-start__toggle typography--white"
             icon={drawerOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
             onClick={() => {
               return setDrawerOpen((prev) => {
@@ -101,7 +106,7 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
             type={BUTTON_TYPES.TEXT}
           />
           <Text
-            className="typography__display typography--white app-layout__brand"
+            className="typography__display typography--white app-header-start__brand"
             onClick={() => {
               return navigate(ROUTES.RESTAURANT.DASHBOARD);
             }}
@@ -111,7 +116,7 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
         </div>
 
         {user && (
-          <div className="app-layout__header-right">
+          <div className="app-header-end">
             <Popover
               content={profileContent}
               overlayClassName="app-layout__popover"
@@ -119,7 +124,7 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
               trigger="click"
             >
               <Button
-                className="app-layout__profile-btn"
+                className="app-header-end__trigger"
                 icon={<UserOutlined />}
                 shape={BUTTON_SHAPES.ICON}
                 type={BUTTON_TYPES.TEXT}

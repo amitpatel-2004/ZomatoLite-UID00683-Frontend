@@ -13,11 +13,46 @@ jest.mock('@pages/restaurants/hooks/useMenuItems', () => {
   };
 });
 
-jest.mock('@services/restaurant/menuItemService', () => {
+jest.mock('@pages/restaurants/hooks/useCart', () => {
+  return {
+    useCart: () => {
+      return {
+        addItem: jest.fn(),
+        clear: jest.fn(),
+        decrement: jest.fn(),
+        increment: jest.fn(),
+        items: [],
+        restaurantId: null,
+        restaurantName: null,
+      };
+    },
+  };
+});
+
+jest.mock('react-redux', () => {
+  return {
+    useDispatch: jest.fn(() => {
+      return jest.fn();
+    }),
+    useSelector: jest.fn(() => {
+      return null;
+    }),
+  };
+});
+
+jest.mock('@services/menuItem/menuItemService', () => {
   return {
     menuItemService: {
       getUploadUrl: jest.fn(),
       uploadImage: jest.fn(),
+    },
+  };
+});
+
+jest.mock('@services/restaurant/orderService', () => {
+  return {
+    orderService: {
+      create: jest.fn(),
     },
   };
 });
@@ -48,19 +83,23 @@ describe('MenuItemsContainer', () => {
   });
 
   it('should render the section title', () => {
-    render(<MenuItemsContainer isOwner={false} restaurantId="1" />);
+    render(
+      <MenuItemsContainer isOwner={false} restaurantId="1" restaurantName="Tandoori Palace" />,
+    );
 
     expect(screen.getByText(DISPLAY.TITLES.MENU_ITEMS)).toBeVisible();
   });
 
   it('should render the Add Item button when isOwner is true', () => {
-    render(<MenuItemsContainer isOwner={true} restaurantId="1" />);
+    render(<MenuItemsContainer isOwner={true} restaurantId="1" restaurantName="Tandoori Palace" />);
 
     expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.ADD_MENU_ITEM })).toBeVisible();
   });
 
   it('should not render the Add Item button when isOwner is false', () => {
-    render(<MenuItemsContainer isOwner={false} restaurantId="1" />);
+    render(
+      <MenuItemsContainer isOwner={false} restaurantId="1" restaurantName="Tandoori Palace" />,
+    );
 
     expect(
       screen.queryByRole('button', { name: DISPLAY.ACTIONS.ADD_MENU_ITEM }),
@@ -68,7 +107,9 @@ describe('MenuItemsContainer', () => {
   });
 
   it('should show the empty state when there are no menu items', () => {
-    render(<MenuItemsContainer isOwner={false} restaurantId="1" />);
+    render(
+      <MenuItemsContainer isOwner={false} restaurantId="1" restaurantName="Tandoori Palace" />,
+    );
 
     expect(screen.getByText(DISPLAY.EMPTY.NO_MENU_ITEMS)).toBeVisible();
   });
@@ -76,7 +117,7 @@ describe('MenuItemsContainer', () => {
   it('should open the menu item form when Add Item is clicked', async () => {
     const user = userEvent.setup();
 
-    render(<MenuItemsContainer isOwner={true} restaurantId="1" />);
+    render(<MenuItemsContainer isOwner={true} restaurantId="1" restaurantName="Tandoori Palace" />);
     await user.click(screen.getByRole('button', { name: DISPLAY.ACTIONS.ADD_MENU_ITEM }));
 
     expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.SAVE })).toBeVisible();

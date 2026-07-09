@@ -3,7 +3,7 @@ import { DISPLAY } from '@pages/auth/constants/display.constants';
 export const LOGIN_INITIAL_VALUES = {
   email: '',
   password: '',
-};
+} as const;
 
 export const FIELD_CONFIGS = {
   EMAIL: {

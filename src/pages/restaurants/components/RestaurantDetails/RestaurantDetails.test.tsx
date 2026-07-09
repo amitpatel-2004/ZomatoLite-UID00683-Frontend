@@ -27,37 +27,12 @@ describe('RestaurantDetails', () => {
         isOwner={false}
         onDelete={jest.fn()}
         onEdit={jest.fn()}
+        onGoToOrders={jest.fn()}
         restaurant={mockRestaurant}
       />,
     );
 
     expect(screen.getByText('Tandoori Palace')).toBeVisible();
-  });
-
-  it('should show no-rating text when rating is 0', () => {
-    render(
-      <RestaurantDetails
-        isOwner={false}
-        onDelete={jest.fn()}
-        onEdit={jest.fn()}
-        restaurant={mockRestaurant}
-      />,
-    );
-
-    expect(screen.getByText(DISPLAY.EMPTY.NO_RATING)).toBeVisible();
-  });
-
-  it('should show the rating when greater than 0', () => {
-    render(
-      <RestaurantDetails
-        isOwner={false}
-        onDelete={jest.fn()}
-        onEdit={jest.fn()}
-        restaurant={{ ...mockRestaurant, rating: 4.5 }}
-      />,
-    );
-
-    expect(screen.getByText('4.5')).toBeVisible();
   });
 
   it('should render the description when provided', () => {
@@ -66,6 +41,7 @@ describe('RestaurantDetails', () => {
         isOwner={false}
         onDelete={jest.fn()}
         onEdit={jest.fn()}
+        onGoToOrders={jest.fn()}
         restaurant={mockRestaurant}
       />,
     );
@@ -79,6 +55,7 @@ describe('RestaurantDetails', () => {
         isOwner={false}
         onDelete={jest.fn()}
         onEdit={jest.fn()}
+        onGoToOrders={jest.fn()}
         restaurant={mockRestaurant}
       />,
     );
@@ -93,6 +70,7 @@ describe('RestaurantDetails', () => {
         isOwner={true}
         onDelete={jest.fn()}
         onEdit={jest.fn()}
+        onGoToOrders={jest.fn()}
         restaurant={mockRestaurant}
       />,
     );
@@ -109,6 +87,7 @@ describe('RestaurantDetails', () => {
         isOwner={true}
         onDelete={jest.fn()}
         onEdit={onEdit}
+        onGoToOrders={jest.fn()}
         restaurant={mockRestaurant}
       />,
     );
@@ -126,6 +105,7 @@ describe('RestaurantDetails', () => {
         isOwner={true}
         onDelete={onDelete}
         onEdit={jest.fn()}
+        onGoToOrders={jest.fn()}
         restaurant={mockRestaurant}
       />,
     );

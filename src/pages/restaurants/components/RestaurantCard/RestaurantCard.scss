@@ -11,66 +11,47 @@
     gap: mixins.pxToRem(6);
   }
 
-  &__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: mixins.pxToRem(12);
+  &__description {
+    display: block;
   }
+}
 
-  &__title-row {
-    display: flex;
-    align-items: center;
-    gap: mixins.pxToRem(8);
-    flex: 1;
-    min-width: 0;
+.restaurant-card-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: mixins.pxToRem(12);
+
+  .rating {
+    flex-shrink: 0;
   }
+}
 
-  .ant-typography.restaurant-card__name {
+.restaurant-card-heading {
+  display: flex;
+  align-items: center;
+  gap: mixins.pxToRem(8);
+  flex: 1;
+  min-width: 0;
+
+  &__name.ant-typography {
     margin: 0;
     min-width: 0;
   }
 
-  &__status-tag {
+  &__status {
     border-radius: mixins.pxToRem(12);
     padding: 0 mixins.pxToRem(8);
     text-transform: capitalize;
   }
+}
 
-  &__rating {
-    display: flex;
-    align-items: center;
-    gap: mixins.pxToRem(4);
-    flex-shrink: 0;
-  }
-
-  &__star.anticon {
-    color: var(--color-star);
-  }
-
-  &__description {
-    display: block;
-  }
-
-  &__bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: mixins.pxToRem(8);
-    margin-top: mixins.pxToRem(4);
-  }
-
-  &__cuisine-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: mixins.pxToRem(4);
-  }
-
-  &__cuisine-tag {
-    border-radius: mixins.pxToRem(12);
-    text-transform: capitalize;
-    margin: 0;
-  }
+.restaurant-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: mixins.pxToRem(8);
+  margin-top: mixins.pxToRem(4);
 
   &__time {
     flex-shrink: 0;

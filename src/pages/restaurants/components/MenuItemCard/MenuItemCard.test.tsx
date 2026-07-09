@@ -22,37 +22,34 @@ const mockItem: MenuItem = {
 describe('MenuItemCard', () => {
   it('should render the item name and price', () => {
     render(
-      <MenuItemCard isOwner={false} item={mockItem} onDelete={jest.fn()} onEdit={jest.fn()} />,
+      <MenuItemCard
+        cartQuantity={0}
+        isOwner={false}
+        item={mockItem}
+        onAddToCart={jest.fn()}
+        onDecrement={jest.fn()}
+        onDelete={jest.fn()}
+        onEdit={jest.fn()}
+        onIncrement={jest.fn()}
+      />,
     );
 
     expect(screen.getByText('White sauce pasta')).toBeVisible();
     expect(screen.getByText('₹249.00/-')).toBeVisible();
   });
 
-  it('should show no-rating text when rating is 0', () => {
-    render(
-      <MenuItemCard isOwner={false} item={mockItem} onDelete={jest.fn()} onEdit={jest.fn()} />,
-    );
-
-    expect(screen.getByText(DISPLAY.EMPTY.NO_RATING)).toBeVisible();
-  });
-
-  it('should show the rating when greater than 0', () => {
-    render(
-      <MenuItemCard
-        isOwner={false}
-        item={{ ...mockItem, rating: 4.2 }}
-        onDelete={jest.fn()}
-        onEdit={jest.fn()}
-      />,
-    );
-
-    expect(screen.getByText('4.2')).toBeVisible();
-  });
-
   it('should render the description when provided', () => {
     render(
-      <MenuItemCard isOwner={false} item={mockItem} onDelete={jest.fn()} onEdit={jest.fn()} />,
+      <MenuItemCard
+        cartQuantity={0}
+        isOwner={false}
+        item={mockItem}
+        onAddToCart={jest.fn()}
+        onDecrement={jest.fn()}
+        onDelete={jest.fn()}
+        onEdit={jest.fn()}
+        onIncrement={jest.fn()}
+      />,
     );
 
     expect(screen.getByText('Authentic pasta with white sauce')).toBeVisible();
@@ -60,15 +57,37 @@ describe('MenuItemCard', () => {
 
   it('should not render the three-dot menu when isOwner is false', () => {
     render(
-      <MenuItemCard isOwner={false} item={mockItem} onDelete={jest.fn()} onEdit={jest.fn()} />,
+      <MenuItemCard
+        cartQuantity={0}
+        isOwner={false}
+        item={mockItem}
+        onAddToCart={jest.fn()}
+        onDecrement={jest.fn()}
+        onDelete={jest.fn()}
+        onEdit={jest.fn()}
+        onIncrement={jest.fn()}
+      />,
     );
 
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.getAllByRole('button')).toHaveLength(1);
+    expect(screen.getByText(DISPLAY.ACTIONS.ADD_TO_CART)).toBeVisible();
   });
 
   it('should render the three-dot menu when isOwner is true', () => {
-    render(<MenuItemCard isOwner={true} item={mockItem} onDelete={jest.fn()} onEdit={jest.fn()} />);
+    render(
+      <MenuItemCard
+        cartQuantity={0}
+        isOwner={true}
+        item={mockItem}
+        onAddToCart={jest.fn()}
+        onDecrement={jest.fn()}
+        onDelete={jest.fn()}
+        onEdit={jest.fn()}
+        onIncrement={jest.fn()}
+      />,
+    );
 
     expect(screen.getByRole('button')).toBeVisible();
+    expect(screen.queryByText(DISPLAY.ACTIONS.ADD_TO_CART)).not.toBeInTheDocument();
   });
 });

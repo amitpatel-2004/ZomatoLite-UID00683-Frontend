@@ -86,7 +86,6 @@ export const TAG_COLORS = {
 export const SELECT_MODES = {
   MULTIPLE: 'multiple',
   TAGS: 'tags',
-  COMBOBOX: 'combobox',
 } as const;
 
 export const BUTTON_SIZES = {

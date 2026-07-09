@@ -1,6 +1,6 @@
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
-import { useRestaurantDetail } from '@pages/restaurants/hooks/useRestaurantDetail';
+import { useRestaurant } from '@pages/restaurants/hooks/useRestaurant';
 import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -9,9 +9,9 @@ import { RestaurantDetailContainer } from './RestaurantDetailContainer';
 
 import '@testing-library/jest-dom';
 
-jest.mock('@pages/restaurants/hooks/useRestaurantDetail', () => {
+jest.mock('@pages/restaurants/hooks/useRestaurant', () => {
   return {
-    useRestaurantDetail: jest.fn(),
+    useRestaurant: jest.fn(),
   };
 });
 
@@ -42,7 +42,7 @@ jest.mock('react-redux', () => {
   };
 });
 
-const mockUseRestaurantDetail = jest.mocked(useRestaurantDetail);
+const mockUseRestaurant = jest.mocked(useRestaurant);
 const mockUseSelector = jest.mocked(jest.requireMock('react-redux').useSelector);
 
 const mockRestaurant: Restaurant = {
@@ -58,9 +58,14 @@ const mockRestaurant: Restaurant = {
 };
 
 const defaultHookMock = {
+  createRestaurant: jest.fn(),
   deleteRestaurant: jest.fn(),
   error: null,
+  fetchMore: jest.fn(),
+  hasMore: false,
+  isFetching: false,
   isLoading: false,
+  items: [],
   restaurant: mockRestaurant,
   updateRestaurant: jest.fn(),
 };
@@ -74,12 +79,12 @@ const mockAuthState = (userId: string | null) => {
 describe('RestaurantDetailContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseRestaurantDetail.mockReturnValue(defaultHookMock);
+    mockUseRestaurant.mockReturnValue(defaultHookMock);
     mockAuthState('owner1');
   });
 
   it('should show a loading spinner while loading', () => {
-    mockUseRestaurantDetail.mockReturnValue({ ...defaultHookMock, isLoading: true });
+    mockUseRestaurant.mockReturnValue({ ...defaultHookMock, isLoading: true });
 
     const { container } = render(<RestaurantDetailContainer />);
 
@@ -87,7 +92,7 @@ describe('RestaurantDetailContainer', () => {
   });
 
   it('should show an error message when the restaurant failed to load', () => {
-    mockUseRestaurantDetail.mockReturnValue({
+    mockUseRestaurant.mockReturnValue({
       ...defaultHookMock,
       error: 'Something went wrong.',
       restaurant: null,

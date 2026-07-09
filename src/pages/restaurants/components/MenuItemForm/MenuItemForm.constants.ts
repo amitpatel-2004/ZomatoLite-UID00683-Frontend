@@ -1,13 +1,15 @@
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
 
-export const getMenuItemInitialValues = (item: MenuItem | null) => {
+import type { MenuItemFormValues } from './MenuItemForm.types';
+
+export const getMenuItemInitialValues = (item: MenuItem | null): MenuItemFormValues => {
   return {
     name: item?.name ?? '',
     description: item?.description ?? '',
-    price: (item?.price ?? '') as number | string,
+    price: item?.price ?? '',
     isVeg: item?.isVeg ?? true,
-    quantity: (item?.quantity ?? '') as number | string | null,
+    quantity: item?.quantity ?? '',
   };
 };
 

@@ -12,7 +12,7 @@ import { OrderCard } from '@pages/restaurants/components/OrderCard';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import { ORDER_STATUS } from '@pages/restaurants/constants/order.constants';
-import { useRestaurantDetail } from '@pages/restaurants/hooks/useRestaurantDetail';
+import { useRestaurant } from '@pages/restaurants/hooks/useRestaurant';
 import { useRestaurantOrders } from '@pages/restaurants/hooks/useRestaurantOrders';
 import type { Order, OrderStatus } from '@pages/restaurants/types/order.types';
 import { getAuthUser } from '@redux/authStore';
@@ -46,7 +46,7 @@ export const RestaurantOrdersContainer = (): React.JSX.Element => {
   const navigate = useNavigate();
   const user = useSelector(getAuthUser);
 
-  const { isLoading: isRestaurantLoading, restaurant } = useRestaurantDetail(restaurantId);
+  const { isLoading: isRestaurantLoading, restaurant } = useRestaurant(restaurantId);
   const isOwner = !!user && !!restaurant && restaurant.ownerId === user._id;
 
   const { error, isLoading, orders, updateStatus } = useRestaurantOrders(
