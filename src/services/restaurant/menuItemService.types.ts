@@ -19,3 +19,13 @@ export type UploadUrlResponse = {
   uploadUrl: string;
   imagePath: string;
 };
+
+export type CsvUploadUrlPayload = {
+  contentType: 'text/csv';
+  fileSize: number;
+};
+
+export type CsvUploadUrlResponse = {
+  uploadUrl: string;
+  uploadId: string;
+};

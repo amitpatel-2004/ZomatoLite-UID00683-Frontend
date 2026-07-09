@@ -1,0 +1,9 @@
+@use 'abstracts/mixins' as mixins;
+
+.csv-upload-modal__guidelines {
+  padding-left: mixins.pxToRem(16);
+}
+
+.ant-alert.csv-upload-modal__error {
+  margin-top: mixins.pxToRem(8);
+}

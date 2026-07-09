@@ -8,6 +8,7 @@ export const MESSAGES = {
     ORDER_PLACED: 'Order placed successfully.',
     ORDER_CANCELLED: 'Order cancelled.',
     ORDER_STATUS_UPDATED: 'Order status updated.',
+    CSV_UPLOADED: 'File uploaded and in process, you will get email for results shortly.',
   },
   ERRORS: {
     FETCH_FAILED: 'Could not load restaurant details.',
@@ -23,6 +24,29 @@ export const MESSAGES = {
     ORDER_CANCEL_FAILED: 'Could not cancel the order.',
     ORDER_STATUS_UPDATE_FAILED: 'Could not update the order status.',
     ORDERS_LOAD_FAILED: 'Could not load orders.',
+    CSV_UPLOAD_FAILED: 'Could not upload the file. Please try again.',
+    CSV_FILE_SIZE_EXCEEDED: 'File size exceeds the 1 MB limit. Try smaller file.',
+    CSV_MISSING_COLUMNS: 'CSV is missing required columns: name, price, is_veg.',
+    CSV_EMPTY_FILE: 'CSV file has no data rows.',
+    CSV_VALIDATION_FAILED: 'This file has some problems. Please fix them and try again.',
+    CSV_ROW_EMPTY_NAME: (row: number) => {
+      return `Row ${row}: name is required.`;
+    },
+    CSV_ROW_NAME_TOO_LONG: (row: number) => {
+      return `Row ${row}: name must be at most 100 characters.`;
+    },
+    CSV_ROW_DUPLICATE_NAME: (row: number) => {
+      return `Row ${row}: duplicate name.`;
+    },
+    CSV_ROW_INVALID_PRICE: (row: number) => {
+      return `Row ${row}: price must be a number greater than 0 and at most 9999.99.`;
+    },
+    CSV_ROW_INVALID_IS_VEG: (row: number) => {
+      return `Row ${row}: is_veg must be true or false.`;
+    },
+    CSV_ROW_INVALID_QUANTITY: (row: number) => {
+      return `Row ${row}: quantity must be a whole number from 0 to 9999.`;
+    },
   },
   VALIDATION: {
     NAME_REQUIRED: 'Name is required.',

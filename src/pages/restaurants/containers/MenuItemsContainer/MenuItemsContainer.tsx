@@ -7,6 +7,7 @@ import { Button, message, Modal, Typography } from 'antd';
 import { BUTTON_TYPES, TITLE_LEVELS } from '@constants/style.constants';
 import { isConflictError } from '@core/api/apiError';
 import { CartBar } from '@pages/restaurants/components/CartBar';
+import { MenuItemCsvUploadModal } from '@pages/restaurants/components/MenuItemCsvUploadModal';
 import { MenuItemForm } from '@pages/restaurants/components/MenuItemForm';
 import type { MenuItemFormSubmitValues } from '@pages/restaurants/components/MenuItemForm/MenuItemForm.types';
 import { MenuItemList } from '@pages/restaurants/components/MenuItemList';
@@ -52,6 +53,8 @@ export const MenuItemsContainer = (props: MenuItemsContainerProps): React.JSX.El
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [isCsvModalOpen, setIsCsvModalOpen] = useState(false);
+  const [isUploadingCsv, setIsUploadingCsv] = useState(false);
 
   const isCartForThisRestaurant = cart.restaurantId === restaurantId;
   const cartItems = isCartForThisRestaurant ? cart.items : [];
@@ -145,6 +148,24 @@ export const MenuItemsContainer = (props: MenuItemsContainerProps): React.JSX.El
     }
   };
 
+  const handleCsvUpload = async (file: File) => {
+    setIsUploadingCsv(true);
+    try {
+      const { uploadUrl } = await menuItemService.getCsvUploadUrl(restaurantId, {
+        contentType: 'text/csv',
+        fileSize: file.size,
+      });
+      await menuItemService.uploadCsv(uploadUrl, file);
+      void message.success(MESSAGES.SUCCESS.CSV_UPLOADED);
+      setIsCsvModalOpen(false);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : MESSAGES.ERRORS.CSV_UPLOAD_FAILED;
+      void message.error(msg);
+    } finally {
+      setIsUploadingCsv(false);
+    }
+  };
+
   const handleAddToCart = (item: MenuItem) => {
     if (cart.restaurantId && cart.restaurantId !== restaurantId) {
       Modal.confirm({
@@ -196,7 +217,13 @@ export const MenuItemsContainer = (props: MenuItemsContainerProps): React.JSX.El
 
         {isOwner && (
           <div className="menu-items-container__actions">
-            <Button disabled>{DISPLAY.ACTIONS.UPLOAD_CSV}</Button>
+            <Button
+              onClick={() => {
+                return setIsCsvModalOpen(true);
+              }}
+            >
+              {DISPLAY.ACTIONS.UPLOAD_CSV}
+            </Button>
             <Button onClick={handleOpenCreate} type={BUTTON_TYPES.PRIMARY}>
               {DISPLAY.ACTIONS.ADD_MENU_ITEM}
             </Button>
@@ -252,6 +279,15 @@ export const MenuItemsContainer = (props: MenuItemsContainerProps): React.JSX.El
           setEditingItem(null);
         }}
         open={modalOpen}
+      />
+
+      <MenuItemCsvUploadModal
+        isUploading={isUploadingCsv}
+        onClose={() => {
+          return setIsCsvModalOpen(false);
+        }}
+        onUpload={handleCsvUpload}
+        open={isCsvModalOpen}
       />
     </div>
   );
