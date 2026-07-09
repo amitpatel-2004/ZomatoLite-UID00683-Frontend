@@ -1,0 +1,13 @@
+@use 'abstracts/mixins' as mixins;
+
+.cuisine-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: mixins.pxToRem(4);
+
+  &__tag {
+    border-radius: mixins.pxToRem(12);
+    text-transform: capitalize;
+    margin: 0;
+  }
+}

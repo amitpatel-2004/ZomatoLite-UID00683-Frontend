@@ -11,6 +11,14 @@ export type MenuItemFormProps = {
   isSubmitting: boolean;
 };
 
+export type MenuItemFormValues = {
+  name: string;
+  description: string;
+  price: number | string;
+  isVeg: boolean;
+  quantity: number | string;
+};
+
 export type MenuItemFormSubmitValues = {
   name: string;
   description: string;

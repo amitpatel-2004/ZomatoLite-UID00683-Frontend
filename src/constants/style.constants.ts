@@ -81,12 +81,12 @@ export const TAG_COLORS = {
   PROCESSING: 'processing',
   SUCCESS: 'success',
   ERROR: 'error',
+  OWNED: 'blue',
 } as const;
 
 export const SELECT_MODES = {
   MULTIPLE: 'multiple',
   TAGS: 'tags',
-  COMBOBOX: 'combobox',
 } as const;
 
 export const BUTTON_SIZES = {

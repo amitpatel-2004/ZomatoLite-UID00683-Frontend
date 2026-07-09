@@ -11,54 +11,63 @@ import '@testing-library/jest-dom';
 const mockRestaurant: Restaurant = {
   _id: '1',
   ownerId: 'owner1',
-  name: 'Test Restaurant',
+  name: 'Tandoori Palace',
   description: 'Good food',
-  cuisineTypes: ['italian'],
+  cuisineTypes: ['indian'],
   rating: 0,
   status: RESTAURANT_STATUS.ACTIVE,
   openingTime: '09:00',
   closingTime: '22:00',
 };
 
+const renderRestaurantCard = (
+  props: {
+    onClick?: jest.Mock;
+    restaurant?: Restaurant;
+    isOwnRestaurant?: boolean;
+  } = {},
+) => {
+  return render(
+    <RestaurantCard
+      isOwnRestaurant={props.isOwnRestaurant}
+      onClick={props.onClick ?? jest.fn()}
+      restaurant={props.restaurant ?? mockRestaurant}
+    />,
+  );
+};
+
 describe('RestaurantCard', () => {
-  it('should render restaurant name', () => {
-    render(<RestaurantCard restaurant={mockRestaurant} onClick={jest.fn()} />);
+  it('should render the restaurant name and description', () => {
+    renderRestaurantCard();
 
-    expect(screen.getByText('Test Restaurant')).toBeVisible();
-  });
-
-  it('should show no-rating text when rating is 0', () => {
-    render(<RestaurantCard restaurant={mockRestaurant} onClick={jest.fn()} />);
-
-    expect(screen.getByText(DISPLAY.EMPTY.NO_RATING)).toBeVisible();
-  });
-
-  it('should show rating value when greater than 0', () => {
-    render(<RestaurantCard restaurant={{ ...mockRestaurant, rating: 4.3 }} onClick={jest.fn()} />);
-
-    expect(screen.getByText('4.3')).toBeVisible();
-  });
-
-  it('should render the description when provided', () => {
-    render(<RestaurantCard restaurant={mockRestaurant} onClick={jest.fn()} />);
-
+    expect(screen.getByText('Tandoori Palace')).toBeVisible();
     expect(screen.getByText('Good food')).toBeVisible();
   });
 
   it('should not render a description when it is empty', () => {
-    render(
-      <RestaurantCard restaurant={{ ...mockRestaurant, description: '' }} onClick={jest.fn()} />,
-    );
+    renderRestaurantCard({ restaurant: { ...mockRestaurant, description: '' } });
 
     expect(screen.queryByText('Good food')).not.toBeInTheDocument();
+  });
+
+  it('should not show the own-restaurant tag by default', () => {
+    renderRestaurantCard();
+
+    expect(screen.queryByText(DISPLAY.LABELS.OWN_RESTAURANT)).not.toBeInTheDocument();
+  });
+
+  it('should show the own-restaurant tag when isOwnRestaurant is true', () => {
+    renderRestaurantCard({ isOwnRestaurant: true });
+
+    expect(screen.getByText(DISPLAY.LABELS.OWN_RESTAURANT)).toBeVisible();
   });
 
   it('should call onClick with the restaurant id when clicked', async () => {
     const onClick = jest.fn();
     const user = userEvent.setup();
+    renderRestaurantCard({ onClick });
 
-    render(<RestaurantCard restaurant={mockRestaurant} onClick={onClick} />);
-    await user.click(screen.getByText('Test Restaurant'));
+    await user.click(screen.getByText('Tandoori Palace'));
 
     expect(onClick).toHaveBeenCalledWith('1');
   });

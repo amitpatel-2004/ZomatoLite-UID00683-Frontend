@@ -8,6 +8,7 @@ import {
   getAuthUser,
   getIsAuthLoading,
   getIsEmailVerified,
+  sessionCleared,
 } from '@redux/authStore';
 import { useAppDispatch } from '@redux/hooks';
 import { authService } from '@services/auth/authService';
@@ -53,5 +54,16 @@ export const useAuth = () => {
     }
   };
 
-  return { isEmailVerified, isLoading, login, register, resendVerification, user };
+  const logout = async (): Promise<void> => {
+    try {
+      await authService.logout();
+      dispatch(sessionCleared());
+    } catch (error) {
+      const message = error instanceof Error ? error.message : MESSAGES.ERRORS.GENERIC;
+      dispatch(authRequestFailed(message));
+      throw error;
+    }
+  };
+
+  return { isEmailVerified, isLoading, login, logout, register, resendVerification, user };
 };

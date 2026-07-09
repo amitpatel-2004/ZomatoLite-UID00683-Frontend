@@ -3,6 +3,7 @@
 
 .app-layout {
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -13,24 +14,44 @@
     overflow: hidden;
   }
 
-  &__header-left {
-    display: flex;
-    align-items: center;
-    align-self: stretch;
-    padding-left: 0;
+  &__nav {
+    border-right: none;
+    background: var(--color-bg-sidebar);
 
-    @include mixins.respond-tablet-up {
-      padding-left: mixins.pxToRem(24);
+    .ant-menu-item {
+      font-size: mixins.pxToRem(15);
     }
   }
 
-  &__header-right {
-    display: flex;
-    align-items: center;
-    padding-right: mixins.pxToRem(12);
+  &__content {
+    position: relative;
+    overflow-y: auto;
+    padding: mixins.pxToRem(24);
+    background: var(--color-bg-page);
+  }
+}
+
+.app-header.ant-layout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-primary);
+  height: var(--header-height);
+  line-height: normal;
+  padding: mixins.pxToRem(8);
+}
+
+.app-header-start {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  padding-left: 0;
+
+  @include mixins.respond-tablet-up {
+    padding-left: mixins.pxToRem(24);
   }
 
-  &__sider-toggle {
+  &__toggle {
     .anticon {
       font-size: mixins.pxToRem(24);
     }
@@ -59,17 +80,14 @@
       opacity: 0.88;
     }
   }
+}
 
-  &__nav {
-    border-right: none;
-    background: var(--color-bg-sidebar);
+.app-header-end {
+  display: flex;
+  align-items: center;
+  padding-right: mixins.pxToRem(12);
 
-    .ant-menu-item {
-      font-size: mixins.pxToRem(15);
-    }
-  }
-
-  &__profile-btn {
+  &__trigger {
     &.ant-btn-text {
       color: var(--color-white);
       width: mixins.pxToRem(36);
@@ -82,37 +100,20 @@
       }
     }
   }
+}
 
-  &__profile-card {
-    display: flex;
-    flex-direction: column;
-    gap: mixins.pxToRem(4);
-    min-width: mixins.pxToRem(180);
-    padding: mixins.pxToRem(4) 0;
-  }
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  gap: mixins.pxToRem(4);
+  min-width: mixins.pxToRem(180);
+  padding: mixins.pxToRem(4) 0;
 
-  &__profile-divider {
+  &__divider {
     height: 1px;
     background: var(--color-border);
     margin: mixins.pxToRem(6) 0;
   }
-
-  &__content {
-    position: relative;
-    overflow-y: auto;
-    padding: mixins.pxToRem(24);
-    background: var(--color-bg-page);
-  }
-}
-
-.app-layout__header.ant-layout-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--color-primary);
-  height: var(--header-height);
-  line-height: normal;
-  padding: mixins.pxToRem(8);
 }
 
 .app-layout__sider.ant-layout-sider-light {
