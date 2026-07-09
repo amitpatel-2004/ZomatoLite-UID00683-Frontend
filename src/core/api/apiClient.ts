@@ -4,7 +4,7 @@ import axios, { AxiosError } from 'axios';
 import { API_BASE_URL, API_HEADERS, API_TIMEOUT } from '@constants/api.constants';
 import { MESSAGES } from '@constants/message.constants';
 import { ApiError } from '@core/api/apiError';
-import { firebaseAuth } from '@core/firebase/firebase.config';
+import { firebaseAuth } from '@core/firebase/firebaseClient';
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
