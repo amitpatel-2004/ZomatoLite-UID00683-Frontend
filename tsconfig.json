@@ -30,7 +30,8 @@
       "@utils/*": ["./src/utils/*"],
       "@appTypes/*": ["./src/types/*"],
       "@redux/*": ["./src/redux/*"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@test/*": ["./src/test/*"]
     },
     "types": ["jest", "node"]
   },

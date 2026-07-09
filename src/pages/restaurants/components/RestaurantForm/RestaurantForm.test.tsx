@@ -2,7 +2,7 @@ import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
 import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { RestaurantForm } from './RestaurantForm';
@@ -18,7 +18,7 @@ const renderRestaurantForm = (
 ) => {
   return render(
     <RestaurantForm
-      handleSubmit={props.handleSubmit ?? jest.fn().mockResolvedValue(undefined)}
+      handleSubmit={props.handleSubmit ?? jest.fn()}
       initialValues={props.initialValues ?? null}
       isSubmitting={false}
       onClose={props.onClose ?? jest.fn()}
@@ -27,21 +27,17 @@ const renderRestaurantForm = (
   );
 };
 
-const selectCuisineType = (label: string) => {
-  const option = document.querySelector(`.ant-select-item[title="${label}"]`) as HTMLElement;
-  fireEvent.mouseDown(option);
-  fireEvent.click(option);
-};
-
 describe('RestaurantForm', () => {
-  it('should render all form fields', () => {
+  it('should render all form fields and buttons', () => {
     renderRestaurantForm();
 
-    expect(screen.getByPlaceholderText(DISPLAY.PLACEHOLDERS.RESTAURANT_NAME)).toBeVisible();
+    expect(screen.getByRole('textbox', { name: DISPLAY.LABELS.NAME })).toBeVisible();
     expect(screen.getByPlaceholderText(DISPLAY.PLACEHOLDERS.RESTAURANT_DESCRIPTION)).toBeVisible();
-    expect(screen.getByText(DISPLAY.PLACEHOLDERS.CUISINE_TYPES)).toBeVisible();
+    expect(screen.getByRole('combobox')).toBeInTheDocument();
     expect(screen.getByText(DISPLAY.LABELS.OPENING_TIME)).toBeVisible();
     expect(screen.getByText(DISPLAY.LABELS.CLOSING_TIME)).toBeVisible();
+    expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.CANCEL })).toBeVisible();
+    expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.SAVE })).toBeVisible();
   });
 
   it('should render the create title when there are no initial values', () => {
@@ -72,14 +68,14 @@ describe('RestaurantForm', () => {
     const user = userEvent.setup();
     renderRestaurantForm();
 
-    await user.click(screen.getByPlaceholderText(DISPLAY.PLACEHOLDERS.RESTAURANT_NAME));
+    await user.click(screen.getByRole('textbox', { name: DISPLAY.LABELS.NAME }));
     await user.tab();
 
     expect(await screen.findByText(MESSAGES.VALIDATION.NAME_REQUIRED)).toBeVisible();
   });
 
-  it('should not call handleSubmit when the form is submitted with empty fields', async () => {
-    const handleSubmit = jest.fn().mockResolvedValue(undefined);
+  it('should display required error messages on form submission with empty values', async () => {
+    const handleSubmit = jest.fn();
     const user = userEvent.setup();
     renderRestaurantForm({ handleSubmit });
 
@@ -87,6 +83,8 @@ describe('RestaurantForm', () => {
 
     expect(await screen.findByText(MESSAGES.VALIDATION.NAME_REQUIRED)).toBeVisible();
     expect(screen.getByText(MESSAGES.VALIDATION.CUISINE_TYPES_REQUIRED)).toBeVisible();
+    expect(screen.getByText(MESSAGES.VALIDATION.OPENING_TIME_REQUIRED)).toBeVisible();
+    expect(screen.getByText(MESSAGES.VALIDATION.CLOSING_TIME_REQUIRED)).toBeVisible();
     expect(handleSubmit).not.toHaveBeenCalled();
   });
 
@@ -101,17 +99,14 @@ describe('RestaurantForm', () => {
   });
 
   it('should call handleSubmit with the entered values when the form is valid', async () => {
-    const handleSubmit = jest.fn().mockResolvedValue(undefined);
+    const handleSubmit = jest.fn();
     const user = userEvent.setup();
     renderRestaurantForm({ handleSubmit });
 
-    await user.type(
-      screen.getByPlaceholderText(DISPLAY.PLACEHOLDERS.RESTAURANT_NAME),
-      'Tandoori Palace',
-    );
+    await user.type(screen.getByRole('textbox', { name: DISPLAY.LABELS.NAME }), 'Tandoori Palace');
 
     await user.click(screen.getByRole('combobox'));
-    selectCuisineType('Indian');
+    await user.click(screen.getByText('Indian'));
 
     const openingTime = document.querySelector('input[name="openingTime"]') as HTMLInputElement;
     const closingTime = document.querySelector('input[name="closingTime"]') as HTMLInputElement;
