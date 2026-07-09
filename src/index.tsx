@@ -10,8 +10,6 @@ import { AuthInit } from '@containers/AuthInit';
 import { router } from '@routes/AppRoutes';
 import { store } from '@store/index';
 
-import '@core/antd/antd.config';
-
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(document.getElementById('root')!);
 

@@ -3,7 +3,8 @@ import axios, { AxiosError } from 'axios';
 
 import { API_BASE_URL, API_HEADERS, API_TIMEOUT } from '@constants/api.constants';
 import { MESSAGES } from '@constants/message.constants';
-import { firebaseAuth } from '@core/firebase/firebase.config';
+import { ApiError } from '@core/api/apiError';
+import { firebaseAuth } from '@core/firebase/firebaseClient';
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -32,7 +33,8 @@ apiClient.interceptors.response.use(
   (error: AxiosError<{ message?: string }>): Promise<never> => {
     const backendMessage = error.response?.data?.message;
     const errorMessage = backendMessage ?? error.message ?? MESSAGES.ERRORS.GENERIC;
+    const status = error.response?.status ?? 0;
 
-    return Promise.reject(new Error(errorMessage));
+    return Promise.reject(new ApiError(errorMessage, status));
   },
 );

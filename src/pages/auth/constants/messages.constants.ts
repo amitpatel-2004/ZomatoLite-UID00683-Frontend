@@ -1,4 +1,12 @@
 export const MESSAGES = {
+  LABELS: {
+    LOGOUT: 'Logout',
+  },
+  CONFIRM: {
+    LOGOUT_TITLE: 'Are you sure you want to logout?',
+    LOGOUT_OK: 'Yes, logout',
+    LOGOUT_CANCEL: 'Cancel',
+  },
   SUCCESS: {
     LOGIN: 'Logged in successfully.',
     REGISTER: 'Account created! Please verify your email.',
@@ -11,6 +19,7 @@ export const MESSAGES = {
     EMAIL_ALREADY_VERIFIED: 'Your email is already verified.',
     NOT_LOGGED_IN: 'No user is currently logged in.',
     SESSION_EXPIRED: 'Your session has expired. Please log in again.',
+    LOGOUT_FAILED: 'Logout failed. Please try again.',
   },
   VALIDATION: {
     EMAIL_REQUIRED: 'Email is required.',

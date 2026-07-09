@@ -10,6 +10,22 @@ export const API_ENDPOINTS = {
     LOGIN: `${V1}/auth/login`,
     REGISTER: `${V1}/auth/register`,
   },
+  RESTAURANTS: {
+    BASE: `${V1}/restaurants`,
+    MINE: `${V1}/restaurants/mine`,
+    byId: (id: string) => {
+      return `${V1}/restaurants/${id}`;
+    },
+    menuItems: (id: string) => {
+      return `${V1}/restaurants/${id}/menu-items`;
+    },
+    menuItemById: (restaurantId: string, itemId: string) => {
+      return `${V1}/restaurants/${restaurantId}/menu-items/${itemId}`;
+    },
+    menuItemImageUpload: (restaurantId: string) => {
+      return `${V1}/restaurants/${restaurantId}/menu-items/image-upload`;
+    },
+  },
 } as const;
 
 export const API_TIMEOUT = 10000;
@@ -23,4 +39,10 @@ export const API_HEADERS = {
       Authorization: `Bearer ${token}`,
     };
   },
+} as const;
+
+export const DEFAULT_PAGE_LIMIT = 20;
+
+export const HTTP_STATUS = {
+  CONFLICT: 409,
 } as const;

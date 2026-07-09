@@ -2,13 +2,14 @@ import React from 'react';
 
 import { Field, Form as FormikForm, Formik } from 'formik';
 
-import { Button, Form, Radio, Typography } from 'antd';
+import { Form, Radio, Typography } from 'antd';
 
 import { Card } from '@components/Card';
 import { PasswordField } from '@components/FormFields/PasswordField';
 import { RadioGroupField } from '@components/FormFields/RadioGroupField';
 import { TextField } from '@components/FormFields/TextField';
-import { BUTTON_TYPES, FORM_LAYOUTS } from '@constants/style.constants';
+import { SubmitButton } from '@components/SubmitButton';
+import { FORM_LAYOUTS } from '@constants/style.constants';
 import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 
@@ -46,11 +47,7 @@ export const RegisterForm = (props: RegisterFormProps): React.JSX.Element => {
                 <Radio value={USER_ROLES.OWNER}>{DISPLAY.LABELS.ROLE_OWNER}</Radio>
               </Field>
 
-              <Form.Item>
-                <Button block htmlType="submit" loading={isLoading} type={BUTTON_TYPES.PRIMARY}>
-                  {DISPLAY.ACTIONS.REGISTER}
-                </Button>
-              </Form.Item>
+              <SubmitButton loading={isLoading}>{DISPLAY.ACTIONS.REGISTER}</SubmitButton>
             </FormikForm>
           </Form>
 

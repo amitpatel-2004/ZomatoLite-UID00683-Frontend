@@ -1,0 +1,1 @@
+export { RestaurantDetailContainer } from './RestaurantDetailContainer';

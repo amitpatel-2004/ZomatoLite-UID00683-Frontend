@@ -1,0 +1,14 @@
+@use 'abstracts/mixins' as mixins;
+
+.dashboard-container {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: mixins.pxToRem(24);
+  }
+
+  .dashboard-container__header .ant-typography {
+    margin: 0;
+  }
+}

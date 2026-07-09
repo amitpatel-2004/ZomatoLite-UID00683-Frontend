@@ -5,8 +5,11 @@ export const ROUTES = {
     VERIFY_EMAIL: '/auth/verify-email',
   },
   RESTAURANT: {
-    ROOT: '/restaurant',
-    DASHBOARD: '/restaurant/dashboard',
+    DASHBOARD: '/dashboard',
+    DETAIL_BASE: '/dashboard/restaurant',
+    DETAIL: (id: string) => {
+      return `/dashboard/restaurant/${id}`;
+    },
   },
   ERROR: {
     NOT_FOUND: '/not-found',

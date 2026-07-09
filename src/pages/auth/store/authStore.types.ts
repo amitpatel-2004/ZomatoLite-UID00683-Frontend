@@ -1,4 +1,4 @@
-import type { AuthResult, AuthUser } from '@services/auth';
+import type { AuthResult, AuthUser } from '@services/auth/authService.types';
 
 import { AUTH_ACTIONS } from './authStore.constants';
 

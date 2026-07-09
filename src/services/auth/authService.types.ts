@@ -10,6 +10,8 @@ export type AuthUser = {
   currency?: Currency;
 };
 
+export type AuthResponseUser = Omit<AuthUser, 'balance' | 'currency'>;
+
 export type AuthResult = {
   user: AuthUser;
   idToken: string;
@@ -30,7 +32,7 @@ export type RegisterPayload = {
 
 export type AuthResponseData = {
   customToken: string;
-  user: AuthUser;
+  user: AuthResponseUser;
 };
 
 export type AuthApiResponse = {

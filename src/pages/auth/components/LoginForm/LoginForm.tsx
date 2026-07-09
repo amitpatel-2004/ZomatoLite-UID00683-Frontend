@@ -2,11 +2,12 @@ import React from 'react';
 
 import { Field, Form as FormikForm, Formik } from 'formik';
 
-import { Button, Form, Typography } from 'antd';
+import { Typography } from 'antd';
 
 import { Card } from '@components/Card';
 import { PasswordField } from '@components/FormFields/PasswordField';
 import { TextField } from '@components/FormFields/TextField';
+import { SubmitButton } from '@components/SubmitButton';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 
 import { FIELD_CONFIGS, LOGIN_INITIAL_VALUES } from './LoginForm.constants';
@@ -33,12 +34,9 @@ export const LoginForm = (props: LoginFormProps): React.JSX.Element => {
 
             <Field {...FIELD_CONFIGS.PASSWORD} component={PasswordField} />
 
-            <Form.Item>
-              <Button block htmlType="submit" loading={isLoading} type="primary">
-                {DISPLAY.ACTIONS.LOGIN}
-              </Button>
-            </Form.Item>
+            <SubmitButton loading={isLoading}>{DISPLAY.ACTIONS.LOGIN}</SubmitButton>
           </FormikForm>
+
           <Text className="login-form__footer typography__subtitle">
             {DISPLAY.ACTIONS.NO_ACCOUNT}{' '}
             <Link className="login-form__link" onClick={onRegisterClick}>

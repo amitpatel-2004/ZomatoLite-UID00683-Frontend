@@ -1,4 +1,25 @@
+@use '../abstracts/mixins' as mixins;
+
 .typography {
+  &__display {
+    font-size: mixins.pxToRem(22);
+    font-weight: var(--font-weight-bold);
+    display: block;
+    letter-spacing: -0.01em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__heading {
+    font-size: mixins.pxToRem(17);
+    font-weight: var(--font-weight-semibold);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   &__title {
     color: var(--color-text-primary);
     text-align: center;
@@ -11,10 +32,52 @@
 
   &__label {
     color: var(--color-text-primary);
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__body {
     color: var(--color-text-secondary);
+  }
+
+  &__meta {
+    font-size: mixins.pxToRem(14);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__accent {
+    font-size: mixins.pxToRem(20);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+  }
+
+  &__caption {
+    font-size: mixins.pxToRem(16);
+    font-weight: var(--font-weight-semibold);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &--white {
+    color: var(--color-white);
+  }
+
+  &--muted {
+    opacity: 0.75;
+  }
+
+  &--secondary {
+    color: var(--color-text-secondary);
+  }
+
+  &--center {
+    text-align: center;
   }
 }

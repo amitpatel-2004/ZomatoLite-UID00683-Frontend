@@ -5,4 +5,5 @@ export type PasswordFieldProps = {
   form: FormikProps<unknown>;
   label: string;
   placeholder?: string;
+  required?: boolean;
 };

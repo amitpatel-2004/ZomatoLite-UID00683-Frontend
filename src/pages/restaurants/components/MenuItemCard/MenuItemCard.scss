@@ -1,0 +1,74 @@
+@use 'abstracts/mixins' as mixins;
+
+.menu-item-card {
+  display: flex;
+  gap: mixins.pxToRem(12);
+  align-items: flex-start;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: mixins.pxToRem(10);
+  padding: mixins.pxToRem(14);
+
+  &__image-wrap {
+    width: mixins.pxToRem(84);
+    height: mixins.pxToRem(84);
+    flex-shrink: 0;
+    border-radius: mixins.pxToRem(8);
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.menu-item-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  &__description {
+    display: block;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+}
+
+.menu-item-heading {
+  display: flex;
+  align-items: center;
+  gap: mixins.pxToRem(8);
+  min-width: 0;
+
+  &__food-type-dot {
+    width: mixins.pxToRem(10);
+    height: mixins.pxToRem(10);
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    &--veg {
+      background: var(--color-success);
+    }
+
+    &--nonveg {
+      background: var(--color-error);
+    }
+  }
+
+  &__name {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .rating {
+    flex-shrink: 0;
+  }
+}

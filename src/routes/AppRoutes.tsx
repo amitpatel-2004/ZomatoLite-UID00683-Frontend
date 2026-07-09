@@ -1,12 +1,15 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { ROUTES } from '@constants/route.constants';
+import { AppLayout } from '@layouts/AppLayout';
 import { CenteredLayout } from '@layouts/CenteredLayout';
 import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { LoginContainer } from '@pages/auth/containers/LoginContainer';
 import { RegisterContainer } from '@pages/auth/containers/RegisterContainer';
 import { VerifyEmailContainer } from '@pages/auth/containers/VerifyEmailContainer';
 import { ErrorContainer } from '@pages/error/containers/ErrorContainer';
+import { DashboardContainer } from '@pages/restaurants/containers/DashboardContainer';
+import { RestaurantDetailContainer } from '@pages/restaurants/containers/RestaurantDetailContainer';
 
 import { AuthGuard } from './guards/AuthGuard';
 import {
@@ -16,10 +19,6 @@ import {
   isUnverified,
   isVerified,
 } from './guards/authGuardChecks';
-
-const DashboardPlaceholder = () => {
-  return <div>Restaurant Dashboard UI</div>;
-};
 
 export const router = createBrowserRouter([
   {
@@ -83,8 +82,23 @@ export const router = createBrowserRouter([
                   />
                 ),
                 children: [
-                  { path: ROUTES.RESTAURANT.DASHBOARD, element: <DashboardPlaceholder /> },
+                  {
+                    path: ROUTES.RESTAURANT.DASHBOARD,
+                    element: (
+                      <AppLayout>
+                        <DashboardContainer />
+                      </AppLayout>
+                    ),
+                  },
                 ],
+              },
+              {
+                path: ROUTES.RESTAURANT.DETAIL(':id'),
+                element: (
+                  <AppLayout>
+                    <RestaurantDetailContainer />
+                  </AppLayout>
+                ),
               },
             ],
           },

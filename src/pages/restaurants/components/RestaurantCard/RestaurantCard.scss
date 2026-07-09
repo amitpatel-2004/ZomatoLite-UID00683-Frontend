@@ -1,0 +1,60 @@
+@use 'abstracts/mixins' as mixins;
+
+.restaurant-card {
+  cursor: pointer;
+  border-radius: mixins.pxToRem(10);
+
+  .ant-card-body {
+    padding: mixins.pxToRem(16) mixins.pxToRem(20);
+    display: flex;
+    flex-direction: column;
+    gap: mixins.pxToRem(6);
+  }
+
+  &__description {
+    display: block;
+  }
+}
+
+.restaurant-card-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: mixins.pxToRem(12);
+
+  .rating {
+    flex-shrink: 0;
+  }
+}
+
+.restaurant-card-heading {
+  display: flex;
+  align-items: center;
+  gap: mixins.pxToRem(8);
+  flex: 1;
+  min-width: 0;
+
+  &__name.ant-typography {
+    margin: 0;
+    min-width: 0;
+  }
+
+  &__status {
+    border-radius: mixins.pxToRem(12);
+    padding: 0 mixins.pxToRem(8);
+    text-transform: capitalize;
+  }
+}
+
+.restaurant-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: mixins.pxToRem(8);
+  margin-top: mixins.pxToRem(4);
+
+  &__time {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
