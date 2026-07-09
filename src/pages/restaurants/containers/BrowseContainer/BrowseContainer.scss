@@ -1,0 +1,7 @@
+@use 'abstracts/mixins' as mixins;
+
+.browse-container {
+  .ant-typography {
+    margin-bottom: mixins.pxToRem(24);
+  }
+}

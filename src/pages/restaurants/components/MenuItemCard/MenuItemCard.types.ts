@@ -5,6 +5,10 @@ export type MenuItemCardProps = {
   isOwner: boolean;
   onEdit: (item: MenuItem) => void;
   onDelete: (id: string) => Promise<void>;
+  cartQuantity: number;
+  onAddToCart: (item: MenuItem) => void;
+  onIncrement: (menuItemId: string) => void;
+  onDecrement: (menuItemId: string) => void;
 };
 
 export type OwnerActionsParams = {

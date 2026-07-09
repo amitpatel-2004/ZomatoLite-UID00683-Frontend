@@ -9,10 +9,10 @@ import {
   getIsAuthLoading,
   getIsEmailVerified,
   sessionCleared,
-} from '@pages/auth/store';
+} from '@redux/authStore';
+import { useAppDispatch } from '@redux/hooks';
 import { authService } from '@services/auth/authService';
 import type { LoginPayload, RegisterPayload } from '@services/auth/authService.types';
-import { useAppDispatch } from '@store/hooks';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();

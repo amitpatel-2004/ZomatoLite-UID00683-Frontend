@@ -16,7 +16,10 @@ import {
 } from '@constants/style.constants';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
 import { useAuth } from '@pages/auth/hooks/useAuth';
-import { getAuthUser } from '@pages/auth/store';
+import { ORDER_STATUS } from '@pages/restaurants/constants/order.constants';
+import { useMyOrders } from '@pages/restaurants/hooks/useMyOrders';
+import type { Order } from '@pages/restaurants/types/order.types';
+import { getAuthUser } from '@redux/authStore';
 
 import type { AppLayoutProps } from './AppLayout.types';
 import { getNavItems, getSelectedKey } from './AppLayout.utils';
@@ -37,7 +40,12 @@ export const AppLayout = (props: AppLayoutProps): React.JSX.Element => {
 
   const isMobile = screens.md === false;
 
-  const navItems = user ? getNavItems(user.role) : [];
+  const { orders } = useMyOrders();
+  const pendingOrdersCount = orders.filter((order: Order) => {
+    return order.status === ORDER_STATUS.PENDING;
+  }).length;
+
+  const navItems = user ? getNavItems(user.role, pendingOrdersCount) : [];
 
   const handleLogoutClick = () => {
     Modal.confirm({

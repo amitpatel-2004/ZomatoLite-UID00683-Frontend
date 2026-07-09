@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { DEFAULT_PAGE_LIMIT } from '@constants/api.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
+import { useAppDispatch } from '@redux/hooks';
 import {
   getIsMenuItemsFetching,
   getIsMenuItemsLoading,
@@ -19,13 +20,12 @@ import {
   menuItemListRequested,
   menuItemsCleared,
   menuItemUpdated,
-} from '@pages/restaurants/store/menuItemStore';
+} from '@redux/restaurantStore';
 import { menuItemService } from '@services/menuItem/menuItemService';
 import type {
   CreateMenuItemPayload,
   UpdateMenuItemPayload,
 } from '@services/menuItem/menuItemService.types';
-import { useAppDispatch } from '@store/hooks';
 
 export const useMenuItems = (restaurantId: string) => {
   const dispatch = useAppDispatch();

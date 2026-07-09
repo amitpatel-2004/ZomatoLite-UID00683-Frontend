@@ -25,6 +25,13 @@ export const SPIN_SIZES = {
   LARGE: 'large',
 } as const;
 
+export const BADGE_SIZES = {
+  DEFAULT: 'default',
+  SMALL: 'small',
+} as const;
+
+export const PENDING_ORDERS_BADGE_OFFSET: [number, number] = [10, 0];
+
 export const ROW_ALIGN = {
   TOP: 'top',
   MIDDLE: 'middle',
@@ -69,12 +76,16 @@ export const MODAL_WIDTHS = {
 export const TAG_COLORS = {
   ACTIVE: 'success',
   INACTIVE: 'default',
+  PENDING: 'default',
+  PROCESSING: 'processing',
+  SUCCESS: 'success',
+  ERROR: 'error',
+  OWNED: 'blue',
 } as const;
 
 export const SELECT_MODES = {
   MULTIPLE: 'multiple',
   TAGS: 'tags',
-  COMBOBOX: 'combobox',
 } as const;
 
 export const BUTTON_SIZES = {

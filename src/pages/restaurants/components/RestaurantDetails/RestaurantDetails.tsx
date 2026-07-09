@@ -12,7 +12,7 @@ import {
 } from '@constants/style.constants';
 import { CuisineTags } from '@pages/restaurants/components/CuisineTags';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
-import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
+import { RESTAURANT_STATUS, SHOW_RATING } from '@pages/restaurants/constants/restaurant.constants';
 import { formatTo12Hour } from '@utils/time';
 
 import type { RestaurantDetailsProps } from './RestaurantDetails.types';
@@ -22,7 +22,7 @@ import './RestaurantDetails.scss';
 const { Text, Title } = Typography;
 
 export const RestaurantDetails = (props: RestaurantDetailsProps): React.JSX.Element => {
-  const { isOwner, onDelete, onEdit, restaurant } = props;
+  const { isOwner, onDelete, onEdit, onGoToOrders, restaurant } = props;
   const { cuisineTypes, closingTime, description, name, openingTime, rating, status } = restaurant;
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -77,7 +77,9 @@ export const RestaurantDetails = (props: RestaurantDetailsProps): React.JSX.Elem
                 {DISPLAY.ACTIONS.DELETE}
               </Button>
             </Popconfirm>
-            <Button disabled>{DISPLAY.ACTIONS.GO_TO_ORDERS}</Button>
+            <Button onClick={onGoToOrders} type={BUTTON_TYPES.DEFAULT}>
+              {DISPLAY.ACTIONS.GO_TO_ORDERS}
+            </Button>
           </Space>
         )}
       </div>
@@ -90,7 +92,7 @@ export const RestaurantDetails = (props: RestaurantDetailsProps): React.JSX.Elem
         {cuisineTypes.length > 0 && <CuisineTags cuisineTypes={cuisineTypes} />}
 
         <div className="restaurant-highlights">
-          <Rating emptyText={DISPLAY.EMPTY.NO_RATING} value={rating} />
+          {SHOW_RATING && <Rating emptyText={DISPLAY.EMPTY.NO_RATING} value={rating} />}
           <Text className="typography__caption typography--secondary restaurant-highlights__hours">
             {DISPLAY.LABELS.OPENS}: {formatTo12Hour(openingTime)} - {formatTo12Hour(closingTime)}
           </Text>

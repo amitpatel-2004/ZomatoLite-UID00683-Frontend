@@ -6,6 +6,21 @@ import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
 import type { CreateRestaurantPayload, UpdateRestaurantPayload } from './restaurantService.types';
 
 export const restaurantService = {
+  list: async (
+    limit = DEFAULT_PAGE_LIMIT,
+    after?: string,
+  ): Promise<PaginatedResult<Restaurant>> => {
+    const params: Record<string, string | number> = { limit };
+    if (after) params.after = after;
+    const { data } = await apiClient.get<ApiListResponse<Restaurant>>(
+      API_ENDPOINTS.RESTAURANTS.BASE,
+      {
+        params,
+      },
+    );
+    return data.data;
+  },
+
   listMine: async (
     limit = DEFAULT_PAGE_LIMIT,
     after?: string,

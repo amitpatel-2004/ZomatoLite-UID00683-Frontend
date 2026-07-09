@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { DEFAULT_PAGE_LIMIT } from '@constants/api.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
+import { useAppDispatch } from '@redux/hooks';
 import {
   getCurrentRestaurant,
   getIsRestaurantsFetching,
@@ -23,13 +24,12 @@ import {
   restaurantListLoaded,
   restaurantListRequested,
   restaurantUpdated,
-} from '@pages/restaurants/store/restaurantStore';
+} from '@redux/restaurantStore';
 import { restaurantService } from '@services/restaurant/restaurantService';
 import type {
   CreateRestaurantPayload,
   UpdateRestaurantPayload,
 } from '@services/restaurant/restaurantService.types';
-import { useAppDispatch } from '@store/hooks';
 
 export const useRestaurant = (restaurantId?: string) => {
   const dispatch = useAppDispatch();

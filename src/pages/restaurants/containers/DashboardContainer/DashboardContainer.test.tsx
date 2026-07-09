@@ -77,7 +77,7 @@ describe('DashboardContainer', () => {
 
     expect(screen.getByText(DISPLAY.TITLES.DASHBOARD)).toBeVisible();
     expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.ADD_RESTAURANT })).toBeVisible();
-    expect(await screen.findByText(DISPLAY.EMPTY.NO_RESTAURANTS)).toBeVisible();
+    expect(await screen.findByText(DISPLAY.EMPTY.NO_OWNED_RESTAURANTS)).toBeVisible();
   });
 
   it('should open the restaurant form when Add Restaurant is clicked', async () => {

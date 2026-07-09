@@ -5,8 +5,12 @@ import { doc, getDoc } from 'firebase/firestore';
 
 import { FIREBASE_COLLECTIONS } from '@constants/firebase.constants';
 import { firebaseAuth, firebaseDb } from '@core/firebase/firebaseClient';
-import { authRequestSucceeded, firebaseInitialized, sessionCleared } from '@pages/auth/store';
-import { useAppDispatch } from '@store/hooks';
+import {
+  authRequestSucceeded,
+  firebaseInitialized,
+  sessionCleared,
+} from '@redux/authStore/authStore.actions';
+import { useAppDispatch } from '@redux/hooks';
 
 import { mapFirebaseUserToAuthUser } from './AuthInit.utils';
 

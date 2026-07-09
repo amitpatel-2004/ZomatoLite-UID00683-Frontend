@@ -5,18 +5,18 @@ import { Card, Tag, Typography } from 'antd';
 import { Rating } from '@components/Rating';
 import { TAG_COLORS, TITLE_LEVELS } from '@constants/style.constants';
 import { CuisineTags } from '@pages/restaurants/components/CuisineTags';
-import { DISPLAY } from '@pages/restaurants/constants/display.constants';
-import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
+import { DESCRIPTION_MAX_ROWS, DISPLAY } from '@pages/restaurants/constants/display.constants';
+import { RESTAURANT_STATUS, SHOW_RATING } from '@pages/restaurants/constants/restaurant.constants';
 import { formatTo12Hour } from '@utils/time';
 
 import type { RestaurantCardProps } from './RestaurantCard.types';
 
 import './RestaurantCard.scss';
 
-const { Text, Title } = Typography;
+const { Text, Title, Paragraph } = Typography;
 
 export const RestaurantCard = (props: RestaurantCardProps): React.JSX.Element => {
-  const { restaurant, onClick } = props;
+  const { restaurant, onClick, isOwnRestaurant } = props;
   const { _id, cuisineTypes, description, name, openingTime, closingTime, rating, status } =
     restaurant;
 
@@ -43,18 +43,23 @@ export const RestaurantCard = (props: RestaurantCardProps): React.JSX.Element =>
           >
             {status}
           </Tag>
+          {isOwnRestaurant && (
+            <Tag className="restaurant-card__owned-tag" color={TAG_COLORS.OWNED}>
+              {DISPLAY.LABELS.OWN_RESTAURANT}
+            </Tag>
+          )}
         </div>
 
-        <Rating emptyText={DISPLAY.EMPTY.NO_RATING} value={rating} />
+        {SHOW_RATING && <Rating emptyText={DISPLAY.EMPTY.NO_RATING} value={rating} />}
       </div>
 
       {description && (
-        <Text
-          className="typography__meta typography--secondary restaurant-card__description"
-          ellipsis={{ tooltip: true }}
+        <Paragraph
+          className="typography__body typography--secondary restaurant-card__description"
+          ellipsis={{ rows: DESCRIPTION_MAX_ROWS, tooltip: true }}
         >
           {description}
-        </Text>
+        </Paragraph>
       )}
 
       <div className="restaurant-card-meta">

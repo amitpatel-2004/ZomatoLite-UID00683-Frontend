@@ -29,7 +29,7 @@
       "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/utils/*"],
       "@appTypes/*": ["./src/types/*"],
-      "@store/*": ["./src/store/*"],
+      "@redux/*": ["./src/redux/*"],
       "@services/*": ["./src/services/*"],
       "@test/*": ["./src/test/*"]
     },

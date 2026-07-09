@@ -10,6 +10,16 @@ export const ROUTES = {
     DETAIL: (id: string) => {
       return `/dashboard/restaurant/${id}`;
     },
+    BROWSE_DETAIL: (id: string) => {
+      return `/browse/restaurant/${id}`;
+    },
+    ORDERS: (id: string) => {
+      return `/dashboard/restaurant/${id}/orders`;
+    },
+  },
+  BROWSE: '/browse',
+  ORDERS: {
+    MINE: '/orders',
   },
   ERROR: {
     NOT_FOUND: '/not-found',

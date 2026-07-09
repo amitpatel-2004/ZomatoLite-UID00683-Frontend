@@ -7,6 +7,9 @@ export const firebaseConfig = {
 
 export const FIREBASE_COLLECTIONS = {
   USERS: 'users',
+  RESTAURANTS: 'restaurants',
+  MENU_ITEMS: 'menuItems',
+  ORDERS: 'orders',
 } as const;
 
 export const FIREBASE_BUCKETS = {

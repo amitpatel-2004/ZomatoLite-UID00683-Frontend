@@ -8,5 +8,6 @@ export type VerifyEmailFormProps = {
   localEmail: string | null;
   isResending: boolean;
   resendStatus: ResendStatus;
+  cooldownSeconds: number;
   onResend: () => Promise<void>;
 };

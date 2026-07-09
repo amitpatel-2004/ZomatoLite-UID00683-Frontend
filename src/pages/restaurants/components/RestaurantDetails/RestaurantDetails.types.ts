@@ -5,4 +5,5 @@ export type RestaurantDetailsProps = {
   isOwner: boolean;
   onEdit: () => void;
   onDelete: () => Promise<void>;
+  onGoToOrders: () => void;
 };

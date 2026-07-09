@@ -1,0 +1,16 @@
+@use 'abstracts/mixins' as mixins;
+
+.my-orders-container {
+  &__loading {
+    display: flex;
+    justify-content: center;
+    padding: mixins.pxToRem(80) 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: mixins.pxToRem(12);
+    margin-top: mixins.pxToRem(16);
+  }
+}

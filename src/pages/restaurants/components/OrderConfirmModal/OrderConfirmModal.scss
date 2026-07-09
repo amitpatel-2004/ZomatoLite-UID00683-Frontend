@@ -1,0 +1,22 @@
+@use 'abstracts/mixins' as mixins;
+
+.order-confirm-modal {
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: mixins.pxToRem(8);
+    margin-bottom: mixins.pxToRem(12);
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: mixins.pxToRem(4) 0;
+  }
+
+  &__divider {
+    border-top: 1px solid var(--color-border);
+    margin: mixins.pxToRem(8) 0;
+  }
+}

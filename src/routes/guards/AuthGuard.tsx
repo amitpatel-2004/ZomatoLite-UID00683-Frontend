@@ -8,7 +8,7 @@ import { Spin } from 'antd';
 import { SPIN_SIZES } from '@constants/style.constants';
 import { CenteredLayout } from '@layouts/CenteredLayout';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
-import { getAuthUser, getIsEmailVerified, getIsFirebaseInitializing } from '@pages/auth/store';
+import { getAuthUser, getIsEmailVerified, getIsFirebaseInitializing } from '@redux/authStore';
 
 import type { AuthGuardProps } from './AuthGuard.types';
 

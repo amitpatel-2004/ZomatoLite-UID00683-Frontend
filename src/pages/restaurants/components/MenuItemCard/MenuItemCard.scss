@@ -3,7 +3,7 @@
 .menu-item-card {
   display: flex;
   gap: mixins.pxToRem(12);
-  align-items: flex-start;
+  align-items: center;
   background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: mixins.pxToRem(10);
@@ -39,6 +39,17 @@
     align-items: center;
     justify-content: space-between;
     margin-top: auto;
+  }
+
+  &__stepper {
+    display: flex;
+    align-items: center;
+    gap: mixins.pxToRem(8);
+  }
+
+  &__stepper-count {
+    min-width: mixins.pxToRem(16);
+    text-align: center;
   }
 }
 

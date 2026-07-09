@@ -1,0 +1,27 @@
+@use 'abstracts/mixins' as mixins;
+
+.cart-bar {
+  position: absolute;
+  bottom: mixins.pxToRem(16);
+  left: mixins.pxToRem(24);
+  right: mixins.pxToRem(24);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: mixins.pxToRem(12);
+  padding: mixins.pxToRem(12) mixins.pxToRem(16);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: mixins.pxToRem(10);
+  box-shadow: 0 mixins.pxToRem(4) mixins.pxToRem(16) var(--color-card-shadow);
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__actions {
+    display: flex;
+    gap: mixins.pxToRem(8);
+  }
+}

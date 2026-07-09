@@ -25,6 +25,7 @@ const renderRestaurantDetails = (
     isOwner?: boolean;
     onDelete?: jest.Mock;
     onEdit?: jest.Mock;
+    onGoToOrders?: jest.Mock;
     restaurant?: Restaurant;
   } = {},
 ) => {
@@ -33,6 +34,7 @@ const renderRestaurantDetails = (
       isOwner={props.isOwner ?? false}
       onDelete={props.onDelete ?? jest.fn()}
       onEdit={props.onEdit ?? jest.fn()}
+      onGoToOrders={props.onGoToOrders ?? jest.fn()}
       restaurant={props.restaurant ?? mockRestaurant}
     />,
   );
@@ -55,6 +57,9 @@ describe('RestaurantDetails', () => {
     expect(
       screen.queryByRole('button', { name: new RegExp(DISPLAY.ACTIONS.DELETE) }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: DISPLAY.ACTIONS.GO_TO_ORDERS }),
+    ).not.toBeInTheDocument();
   });
 
   it('should render owner actions when isOwner is true', () => {
@@ -62,6 +67,7 @@ describe('RestaurantDetails', () => {
 
     expect(screen.getByRole('button', { name: new RegExp(DISPLAY.ACTIONS.EDIT) })).toBeVisible();
     expect(screen.getByRole('button', { name: new RegExp(DISPLAY.ACTIONS.DELETE) })).toBeVisible();
+    expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.GO_TO_ORDERS })).toBeVisible();
   });
 
   it('should call onEdit when Edit is clicked', async () => {
@@ -83,5 +89,15 @@ describe('RestaurantDetails', () => {
     await user.click(screen.getByRole('button', { name: DISPLAY.POPCONFIRM.OK_TEXT }));
 
     expect(onDelete).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call onGoToOrders when View Orders is clicked', async () => {
+    const onGoToOrders = jest.fn();
+    const user = userEvent.setup();
+    renderRestaurantDetails({ isOwner: true, onGoToOrders });
+
+    await user.click(screen.getByRole('button', { name: DISPLAY.ACTIONS.GO_TO_ORDERS }));
+
+    expect(onGoToOrders).toHaveBeenCalledTimes(1);
   });
 });

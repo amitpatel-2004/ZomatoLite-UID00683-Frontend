@@ -1,3 +1,4 @@
+import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
 import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
 import { render, screen } from '@testing-library/react';
@@ -23,10 +24,12 @@ const renderRestaurantCard = (
   props: {
     onClick?: jest.Mock;
     restaurant?: Restaurant;
+    isOwnRestaurant?: boolean;
   } = {},
 ) => {
   return render(
     <RestaurantCard
+      isOwnRestaurant={props.isOwnRestaurant}
       onClick={props.onClick ?? jest.fn()}
       restaurant={props.restaurant ?? mockRestaurant}
     />,
@@ -45,6 +48,18 @@ describe('RestaurantCard', () => {
     renderRestaurantCard({ restaurant: { ...mockRestaurant, description: '' } });
 
     expect(screen.queryByText('Good food')).not.toBeInTheDocument();
+  });
+
+  it('should not show the own-restaurant tag by default', () => {
+    renderRestaurantCard();
+
+    expect(screen.queryByText(DISPLAY.LABELS.OWN_RESTAURANT)).not.toBeInTheDocument();
+  });
+
+  it('should show the own-restaurant tag when isOwnRestaurant is true', () => {
+    renderRestaurantCard({ isOwnRestaurant: true });
+
+    expect(screen.getByText(DISPLAY.LABELS.OWN_RESTAURANT)).toBeVisible();
   });
 
   it('should call onClick with the restaurant id when clicked', async () => {

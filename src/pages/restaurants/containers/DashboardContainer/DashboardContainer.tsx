@@ -66,7 +66,7 @@ export const DashboardContainer = (): React.JSX.Element => {
       </div>
 
       <RestaurantList
-        emptyText={DISPLAY.EMPTY.NO_RESTAURANTS}
+        emptyText={DISPLAY.EMPTY.NO_OWNED_RESTAURANTS}
         hasMore={hasMore}
         isFetching={isFetching}
         isLoading={isLoading}

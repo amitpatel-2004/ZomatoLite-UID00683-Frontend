@@ -4,16 +4,19 @@ import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
 import { strictPasswordSchema } from '@pages/auth/schemas/authSchemas';
 
+import { DISPLAY_NAME_PATTERN, EMAIL_PATTERN } from './RegisterForm.constants';
+
 export const registerValidationSchema = Yup.object({
   displayName: Yup.string()
     .max(100, MESSAGES.VALIDATION.DISPLAY_NAME_MAX)
-    .matches(/^[\w '.,-]+$/, MESSAGES.VALIDATION.DISPLAY_NAME_PATTERN)
+    .matches(DISPLAY_NAME_PATTERN, MESSAGES.VALIDATION.DISPLAY_NAME_PATTERN)
     .required(MESSAGES.VALIDATION.DISPLAY_NAME_REQUIRED)
     .test('no-whitespace-only', MESSAGES.VALIDATION.DISPLAY_NAME_NO_WHITESPACE, (value) => {
       return Boolean(value && value.trim().length > 0);
     }),
   email: Yup.string()
     .email(MESSAGES.VALIDATION.EMAIL_INVALID)
+    .matches(EMAIL_PATTERN, MESSAGES.VALIDATION.EMAIL_INVALID)
     .max(255, MESSAGES.VALIDATION.EMAIL_MAX)
     .required(MESSAGES.VALIDATION.EMAIL_REQUIRED),
   password: strictPasswordSchema,

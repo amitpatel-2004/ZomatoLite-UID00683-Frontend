@@ -26,6 +26,9 @@ export const DISPLAY = {
     LOGIN: 'Log In',
     REGISTER: 'Create Account',
     RESEND_VERIFICATION: 'Resend Email',
+    RESEND_VERIFICATION_COOLDOWN: (seconds: number) => {
+      return `Resend Email (${seconds}s)`;
+    },
     LOGOUT: 'Log Out',
     GO_TO_LOGIN: 'Back to Login',
     GO_TO_REGISTER: 'Create an account',

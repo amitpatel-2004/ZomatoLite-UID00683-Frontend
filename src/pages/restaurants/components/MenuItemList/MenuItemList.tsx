@@ -7,14 +7,39 @@ import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import type { MenuItemListProps } from './MenuItemList.types';
 
 export const MenuItemList = (props: MenuItemListProps): React.JSX.Element => {
-  const { isOwner, onDelete, onEdit, ...listProps } = props;
+  const {
+    cartItems,
+    isOwner,
+    onAddToCart,
+    onDecrement,
+    onDelete,
+    onEdit,
+    onIncrement,
+    ...listProps
+  } = props;
 
   return (
     <InfiniteScrollList
       {...listProps}
       emptyText={DISPLAY.EMPTY.NO_MENU_ITEMS}
       renderItem={(item) => {
-        return <MenuItemCard isOwner={isOwner} item={item} onDelete={onDelete} onEdit={onEdit} />;
+        const cartQuantity =
+          cartItems.find((cartItem) => {
+            return cartItem.menuItemId === item._id;
+          })?.quantity ?? 0;
+
+        return (
+          <MenuItemCard
+            cartQuantity={cartQuantity}
+            isOwner={isOwner}
+            item={item}
+            onAddToCart={onAddToCart}
+            onDecrement={onDecrement}
+            onDelete={onDelete}
+            onEdit={onEdit}
+            onIncrement={onIncrement}
+          />
+        );
       }}
     />
   );

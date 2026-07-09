@@ -30,10 +30,12 @@ export const MESSAGES = {
     PASSWORD_MIN: 'Password must be at least 6 characters.',
     PASSWORD_CONFIRM_REQUIRED: 'Please confirm your password.',
     PASSWORD_MISMATCH: 'Passwords do not match.',
+    PASSWORD_PATTERN: 'Must contain at least a letter and a number.',
     DISPLAY_NAME_REQUIRED: 'Display name is required.',
     DISPLAY_NAME_MAX: 'Display name must be at most 100 characters.',
     DISPLAY_NAME_NO_WHITESPACE: 'Display name cannot be empty or only spaces.',
-    DISPLAY_NAME_PATTERN: 'Display name contains invalid characters.',
+    DISPLAY_NAME_PATTERN:
+      'Display name can only contain letters and spaces. Numbers and special characters are not allowed.',
     ROLE_REQUIRED: 'Please select a role.',
     ROLE_INVALID: 'Role must be either customer or owner.',
   },

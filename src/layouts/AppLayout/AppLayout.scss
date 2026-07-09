@@ -24,6 +24,7 @@
   }
 
   &__content {
+    position: relative;
     overflow-y: auto;
     padding: mixins.pxToRem(24);
     background: var(--color-bg-page);

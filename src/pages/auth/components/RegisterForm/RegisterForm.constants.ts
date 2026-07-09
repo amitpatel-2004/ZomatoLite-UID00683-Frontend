@@ -1,6 +1,9 @@
 import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { DISPLAY } from '@pages/auth/constants/display.constants';
 
+export const EMAIL_PATTERN = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+export const DISPLAY_NAME_PATTERN = /^[A-Za-z ]+$/;
+
 export const REGISTER_INITIAL_VALUES = {
   confirmPassword: '',
   displayName: '',
