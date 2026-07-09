@@ -1,17 +1,26 @@
+import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { RESTAURANT_STATUS } from '@pages/restaurants/constants/restaurant.constants';
-import { useRestaurant } from '@pages/restaurants/hooks/useRestaurant';
 import type { Restaurant } from '@pages/restaurants/types/restaurant.types';
-import { render, screen } from '@testing-library/react';
+import type { AuthUser } from '@services/auth/authService.types';
+import { restaurantService } from '@services/restaurant/restaurantService';
+import { renderWithStore } from '@test/utils/renderWithStore';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { RestaurantDetailContainer } from './RestaurantDetailContainer';
 
 import '@testing-library/jest-dom';
 
-jest.mock('@pages/restaurants/hooks/useRestaurant', () => {
+jest.mock('@services/restaurant/restaurantService', () => {
   return {
-    useRestaurant: jest.fn(),
+    restaurantService: {
+      listMine: jest.fn(),
+      getById: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn(),
+    },
   };
 });
 
@@ -36,14 +45,14 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-jest.mock('react-redux', () => {
-  return {
-    useSelector: jest.fn(),
-  };
-});
+const mockGetById = jest.mocked(restaurantService.getById);
 
-const mockUseRestaurant = jest.mocked(useRestaurant);
-const mockUseSelector = jest.mocked(jest.requireMock('react-redux').useSelector);
+const mockOwner: AuthUser = {
+  _id: 'owner1',
+  email: 'owner@example.com',
+  displayName: 'Owner',
+  role: USER_ROLES.OWNER,
+};
 
 const mockRestaurant: Restaurant = {
   _id: 'restaurant1',
@@ -57,83 +66,76 @@ const mockRestaurant: Restaurant = {
   closingTime: '22:00',
 };
 
-const defaultHookMock = {
-  createRestaurant: jest.fn(),
-  deleteRestaurant: jest.fn(),
-  error: null,
-  fetchMore: jest.fn(),
-  hasMore: false,
-  isFetching: false,
-  isLoading: false,
-  items: [],
-  restaurant: mockRestaurant,
-  updateRestaurant: jest.fn(),
-};
-
-const mockAuthState = (userId: string | null) => {
-  mockUseSelector.mockImplementation((selector: (state: unknown) => unknown) => {
-    return selector({ auth: { user: userId ? { _id: userId } : null } });
+const renderWithAuthUser = (userId: string | null) => {
+  return renderWithStore(<RestaurantDetailContainer />, {
+    auth: {
+      user: userId ? { ...mockOwner, _id: userId } : null,
+      idToken: null,
+      isLoading: false,
+      isEmailVerified: false,
+      isFirebaseInitializing: false,
+      error: null,
+    },
   });
 };
 
 describe('RestaurantDetailContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseRestaurant.mockReturnValue(defaultHookMock);
-    mockAuthState('owner1');
   });
 
   it('should show a loading spinner while loading', () => {
-    mockUseRestaurant.mockReturnValue({ ...defaultHookMock, isLoading: true });
+    mockGetById.mockReturnValue(new Promise(() => {}));
 
-    const { container } = render(<RestaurantDetailContainer />);
+    const { container } = renderWithAuthUser('owner1');
 
     expect(container.querySelector('.ant-spin')).toBeVisible();
   });
 
-  it('should show an error message when the restaurant failed to load', () => {
-    mockUseRestaurant.mockReturnValue({
-      ...defaultHookMock,
-      error: 'Something went wrong.',
-      restaurant: null,
-    });
+  it('should show an error message when the restaurant failed to load', async () => {
+    mockGetById.mockRejectedValue(new Error('Something went wrong.'));
 
-    render(<RestaurantDetailContainer />);
+    renderWithAuthUser('owner1');
 
-    expect(screen.getByText('Something went wrong.')).toBeVisible();
+    expect(await screen.findByText('Something went wrong.')).toBeVisible();
   });
 
-  it('should render the restaurant name and menu items section', () => {
-    render(<RestaurantDetailContainer />);
+  it('should render the restaurant name and menu items section', async () => {
+    mockGetById.mockResolvedValue(mockRestaurant);
 
-    expect(screen.getByText('Tandoori Palace')).toBeVisible();
+    renderWithAuthUser('owner1');
+
+    expect(await screen.findByText('Tandoori Palace')).toBeVisible();
     expect(screen.getByTestId('menu-items-container')).toBeVisible();
   });
 
-  it('should not render owner actions when the current user is not the owner', () => {
-    mockAuthState('someone-else');
+  it('should not render owner actions when the current user is not the owner', async () => {
+    mockGetById.mockResolvedValue(mockRestaurant);
 
-    render(<RestaurantDetailContainer />);
+    renderWithAuthUser('someone-else');
 
+    expect(await screen.findByText('Tandoori Palace')).toBeVisible();
     expect(
       screen.queryByRole('button', { name: new RegExp(DISPLAY.ACTIONS.EDIT) }),
     ).not.toBeInTheDocument();
   });
 
   it('should open the restaurant form when Edit is clicked by the owner', async () => {
+    mockGetById.mockResolvedValue(mockRestaurant);
     const user = userEvent.setup();
-    render(<RestaurantDetailContainer />);
 
-    await user.click(screen.getByRole('button', { name: new RegExp(DISPLAY.ACTIONS.EDIT) }));
+    renderWithAuthUser('owner1');
+    await user.click(await screen.findByRole('button', { name: new RegExp(DISPLAY.ACTIONS.EDIT) }));
 
-    expect(screen.getByText(DISPLAY.TITLES.EDIT_RESTAURANT)).toBeVisible();
+    expect(screen.getByRole('dialog', { name: DISPLAY.TITLES.EDIT_RESTAURANT })).toBeVisible();
   });
 
   it('should call navigate(-1) when Back is clicked', async () => {
+    mockGetById.mockResolvedValue(mockRestaurant);
     const user = userEvent.setup();
-    render(<RestaurantDetailContainer />);
 
-    await user.click(screen.getByRole('button', { name: new RegExp(DISPLAY.ACTIONS.BACK) }));
+    renderWithAuthUser('owner1');
+    await user.click(await screen.findByRole('button', { name: new RegExp(DISPLAY.ACTIONS.BACK) }));
 
     expect(mockNavigate).toHaveBeenCalledWith(-1);
   });

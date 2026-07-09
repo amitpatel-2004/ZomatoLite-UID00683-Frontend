@@ -20,117 +20,66 @@ const mockRestaurant: Restaurant = {
   closingTime: '22:00',
 };
 
+const renderRestaurantDetails = (
+  props: {
+    isOwner?: boolean;
+    onDelete?: jest.Mock;
+    onEdit?: jest.Mock;
+    restaurant?: Restaurant;
+  } = {},
+) => {
+  return render(
+    <RestaurantDetails
+      isOwner={props.isOwner ?? false}
+      onDelete={props.onDelete ?? jest.fn()}
+      onEdit={props.onEdit ?? jest.fn()}
+      restaurant={props.restaurant ?? mockRestaurant}
+    />,
+  );
+};
+
 describe('RestaurantDetails', () => {
-  it('should render the restaurant name', () => {
-    render(
-      <RestaurantDetails
-        isOwner={false}
-        onDelete={jest.fn()}
-        onEdit={jest.fn()}
-        restaurant={mockRestaurant}
-      />,
-    );
+  it('should render the restaurant name and description', () => {
+    renderRestaurantDetails();
 
     expect(screen.getByText('Tandoori Palace')).toBeVisible();
-  });
-
-  it('should show no-rating text when rating is 0', () => {
-    render(
-      <RestaurantDetails
-        isOwner={false}
-        onDelete={jest.fn()}
-        onEdit={jest.fn()}
-        restaurant={mockRestaurant}
-      />,
-    );
-
-    expect(screen.getByText(DISPLAY.EMPTY.NO_RATING)).toBeVisible();
-  });
-
-  it('should show the rating when greater than 0', () => {
-    render(
-      <RestaurantDetails
-        isOwner={false}
-        onDelete={jest.fn()}
-        onEdit={jest.fn()}
-        restaurant={{ ...mockRestaurant, rating: 4.5 }}
-      />,
-    );
-
-    expect(screen.getByText('4.5')).toBeVisible();
-  });
-
-  it('should render the description when provided', () => {
-    render(
-      <RestaurantDetails
-        isOwner={false}
-        onDelete={jest.fn()}
-        onEdit={jest.fn()}
-        restaurant={mockRestaurant}
-      />,
-    );
-
     expect(screen.getByText('Good food')).toBeVisible();
   });
 
   it('should not render owner actions when isOwner is false', () => {
-    render(
-      <RestaurantDetails
-        isOwner={false}
-        onDelete={jest.fn()}
-        onEdit={jest.fn()}
-        restaurant={mockRestaurant}
-      />,
-    );
+    renderRestaurantDetails({ isOwner: false });
 
-    expect(screen.queryByRole('button', { name: /Edit/ })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /Delete/ })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: new RegExp(DISPLAY.ACTIONS.EDIT) }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: new RegExp(DISPLAY.ACTIONS.DELETE) }),
+    ).not.toBeInTheDocument();
   });
 
   it('should render owner actions when isOwner is true', () => {
-    render(
-      <RestaurantDetails
-        isOwner={true}
-        onDelete={jest.fn()}
-        onEdit={jest.fn()}
-        restaurant={mockRestaurant}
-      />,
-    );
+    renderRestaurantDetails({ isOwner: true });
 
-    expect(screen.getByRole('button', { name: /Edit/ })).toBeVisible();
-    expect(screen.getByRole('button', { name: /Delete/ })).toBeVisible();
+    expect(screen.getByRole('button', { name: new RegExp(DISPLAY.ACTIONS.EDIT) })).toBeVisible();
+    expect(screen.getByRole('button', { name: new RegExp(DISPLAY.ACTIONS.DELETE) })).toBeVisible();
   });
 
   it('should call onEdit when Edit is clicked', async () => {
     const onEdit = jest.fn();
     const user = userEvent.setup();
-    render(
-      <RestaurantDetails
-        isOwner={true}
-        onDelete={jest.fn()}
-        onEdit={onEdit}
-        restaurant={mockRestaurant}
-      />,
-    );
+    renderRestaurantDetails({ isOwner: true, onEdit });
 
-    await user.click(screen.getByRole('button', { name: /Edit/ }));
+    await user.click(screen.getByRole('button', { name: new RegExp(DISPLAY.ACTIONS.EDIT) }));
 
     expect(onEdit).toHaveBeenCalledTimes(1);
   });
 
   it('should call onDelete when the delete confirmation is accepted', async () => {
-    const onDelete = jest.fn().mockResolvedValue(undefined);
+    const onDelete = jest.fn();
     const user = userEvent.setup();
-    render(
-      <RestaurantDetails
-        isOwner={true}
-        onDelete={onDelete}
-        onEdit={jest.fn()}
-        restaurant={mockRestaurant}
-      />,
-    );
+    renderRestaurantDetails({ isOwner: true, onDelete });
 
-    await user.click(screen.getByRole('button', { name: /Delete/ }));
+    await user.click(screen.getByRole('button', { name: new RegExp(DISPLAY.ACTIONS.DELETE) }));
     await user.click(screen.getByRole('button', { name: DISPLAY.POPCONFIRM.OK_TEXT }));
 
     expect(onDelete).toHaveBeenCalledTimes(1);

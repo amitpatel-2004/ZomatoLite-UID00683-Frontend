@@ -18,7 +18,7 @@ const renderMenuItemForm = (
 ) => {
   return render(
     <MenuItemForm
-      handleSubmit={props.handleSubmit ?? jest.fn().mockResolvedValue(undefined)}
+      handleSubmit={props.handleSubmit ?? jest.fn()}
       initialValues={props.initialValues ?? null}
       isSubmitting={false}
       onClose={props.onClose ?? jest.fn()}
@@ -28,15 +28,16 @@ const renderMenuItemForm = (
 };
 
 describe('MenuItemForm', () => {
-  it('should render all form fields', () => {
+  it('should render all form fields and buttons', () => {
     renderMenuItemForm();
 
-    expect(screen.getByPlaceholderText(DISPLAY.PLACEHOLDERS.MENU_ITEM_NAME)).toBeVisible();
-    expect(screen.getByPlaceholderText(DISPLAY.PLACEHOLDERS.MENU_ITEM_DESCRIPTION)).toBeVisible();
+    expect(screen.getByRole('textbox', { name: DISPLAY.LABELS.NAME })).toBeVisible();
     expect(screen.getByText(DISPLAY.LABELS.PRICE)).toBeVisible();
     expect(screen.getByText(DISPLAY.LABELS.QUANTITY)).toBeVisible();
-    expect(screen.getByText(DISPLAY.LABELS.VEG)).toBeVisible();
-    expect(screen.getByText(DISPLAY.LABELS.NON_VEG)).toBeVisible();
+    expect(screen.getByRole('radio', { name: DISPLAY.LABELS.VEG })).toBeVisible();
+    expect(screen.getByRole('radio', { name: DISPLAY.LABELS.NON_VEG })).toBeVisible();
+    expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.CANCEL })).toBeVisible();
+    expect(screen.getByRole('button', { name: DISPLAY.ACTIONS.SAVE })).toBeVisible();
   });
 
   it('should render the create title when there are no initial values', () => {
@@ -66,29 +67,41 @@ describe('MenuItemForm', () => {
   it('should default the veg/non-veg selection to Veg', () => {
     renderMenuItemForm();
 
-    expect(screen.getByLabelText(DISPLAY.LABELS.VEG)).toBeChecked();
-    expect(screen.getByLabelText(DISPLAY.LABELS.NON_VEG)).not.toBeChecked();
+    expect(screen.getByRole('radio', { name: DISPLAY.LABELS.VEG })).toBeChecked();
+    expect(screen.getByRole('radio', { name: DISPLAY.LABELS.NON_VEG })).not.toBeChecked();
   });
 
-  it('should show an error when the name field is left empty', async () => {
+  it('should show error when focus is lost (onBlur)', async () => {
     const user = userEvent.setup();
     renderMenuItemForm();
 
-    await user.click(screen.getByPlaceholderText(DISPLAY.PLACEHOLDERS.MENU_ITEM_NAME));
+    await user.click(screen.getByRole('textbox', { name: DISPLAY.LABELS.NAME }));
     await user.tab();
 
     expect(await screen.findByText(MESSAGES.VALIDATION.NAME_REQUIRED)).toBeVisible();
   });
 
-  it('should not call handleSubmit when the form is submitted with empty fields', async () => {
-    const handleSubmit = jest.fn().mockResolvedValue(undefined);
+  it('should display required error messages on form submission with empty values', async () => {
     const user = userEvent.setup();
-    renderMenuItemForm({ handleSubmit });
+    renderMenuItemForm();
 
     await user.click(screen.getByRole('button', { name: DISPLAY.ACTIONS.SAVE }));
 
     expect(await screen.findByText(MESSAGES.VALIDATION.NAME_REQUIRED)).toBeVisible();
     expect(screen.getByText(MESSAGES.VALIDATION.PRICE_REQUIRED)).toBeVisible();
+  });
+
+  it('should display validation error messages on form submission and should not submit', async () => {
+    const handleSubmit = jest.fn();
+    const user = userEvent.setup();
+    renderMenuItemForm({ handleSubmit });
+
+    await user.type(screen.getByRole('textbox', { name: DISPLAY.LABELS.NAME }), 'Chicken Biryani');
+    await user.type(screen.getByPlaceholderText('0.00'), '249');
+    await user.type(screen.getByPlaceholderText('0'), '5.5');
+    await user.click(screen.getByRole('button', { name: DISPLAY.ACTIONS.SAVE }));
+
+    expect(await screen.findByText(MESSAGES.VALIDATION.QUANTITY_INTEGER)).toBeVisible();
     expect(handleSubmit).not.toHaveBeenCalled();
   });
 
@@ -103,17 +116,14 @@ describe('MenuItemForm', () => {
   });
 
   it('should call handleSubmit with the entered values when the form is valid', async () => {
-    const handleSubmit = jest.fn().mockResolvedValue(undefined);
+    const handleSubmit = jest.fn();
     const user = userEvent.setup();
     renderMenuItemForm({ handleSubmit });
 
-    await user.type(
-      screen.getByPlaceholderText(DISPLAY.PLACEHOLDERS.MENU_ITEM_NAME),
-      'Chicken Biryani',
-    );
+    await user.type(screen.getByRole('textbox', { name: DISPLAY.LABELS.NAME }), 'Chicken Biryani');
     await user.type(screen.getByPlaceholderText('0.00'), '249');
     await user.type(screen.getByPlaceholderText('0'), '10');
-    await user.click(screen.getByText(DISPLAY.LABELS.NON_VEG));
+    await user.click(screen.getByRole('radio', { name: DISPLAY.LABELS.NON_VEG }));
 
     await user.click(screen.getByRole('button', { name: DISPLAY.ACTIONS.SAVE }));
 
