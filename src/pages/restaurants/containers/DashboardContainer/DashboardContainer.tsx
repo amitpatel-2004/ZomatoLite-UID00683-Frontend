@@ -4,15 +4,16 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, message, Typography } from 'antd';
 
+import { HTTP_STATUS } from '@constants/api.constants';
 import { ROUTES } from '@constants/route.constants';
 import { BUTTON_TYPES, TITLE_LEVELS } from '@constants/style.constants';
-import { isConflictError } from '@core/api/apiError';
-import { DISPLAY } from '@pages/dashboard/constants/display.constants';
-import { MESSAGES } from '@pages/dashboard/constants/messages.constants';
-import { useOwnerRestaurants } from '@pages/dashboard/hooks/useOwnerRestaurants';
+import { isApiErrorWithStatus } from '@core/api/apiError';
 import type { RestaurantFormValues } from '@pages/restaurants/components/RestaurantForm';
 import { RestaurantForm } from '@pages/restaurants/components/RestaurantForm';
 import { RestaurantList } from '@pages/restaurants/components/RestaurantList';
+import { DISPLAY } from '@pages/restaurants/constants/display.constants';
+import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
+import { useRestaurant } from '@pages/restaurants/hooks/useRestaurant';
 
 import './DashboardContainer.scss';
 
@@ -20,8 +21,7 @@ const { Title } = Typography;
 
 export const DashboardContainer = (): React.JSX.Element => {
   const navigate = useNavigate();
-  const { createRestaurant, fetchMore, hasMore, isFetching, isLoading, items } =
-    useOwnerRestaurants();
+  const { createRestaurant, fetchMore, hasMore, isFetching, isLoading, items } = useRestaurant();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,7 +36,7 @@ export const DashboardContainer = (): React.JSX.Element => {
       void message.success(MESSAGES.SUCCESS.RESTAURANT_CREATED);
       setIsFormOpen(false);
     } catch (error) {
-      if (isConflictError(error)) {
+      if (isApiErrorWithStatus(error, HTTP_STATUS.CONFLICT)) {
         setFieldError('name', error.message);
       } else {
         const msg = error instanceof Error ? error.message : MESSAGES.ERRORS.CREATE_FAILED;
@@ -66,7 +66,7 @@ export const DashboardContainer = (): React.JSX.Element => {
       </div>
 
       <RestaurantList
-        emptyText={DISPLAY.OTHERS.NO_RESTAURANTS}
+        emptyText={DISPLAY.EMPTY.NO_OWNED_RESTAURANTS}
         hasMore={hasMore}
         isFetching={isFetching}
         isLoading={isLoading}

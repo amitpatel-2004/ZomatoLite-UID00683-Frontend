@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 
 import { Button, message, Modal, Typography } from 'antd';
 
+import { HTTP_STATUS } from '@constants/api.constants';
 import { BUTTON_TYPES, TITLE_LEVELS } from '@constants/style.constants';
-import { isConflictError } from '@core/api/apiError';
+import { isApiErrorWithStatus } from '@core/api/apiError';
 import { CartBar } from '@pages/restaurants/components/CartBar';
 import { MenuItemCsvUploadModal } from '@pages/restaurants/components/MenuItemCsvUploadModal';
 import { MenuItemForm } from '@pages/restaurants/components/MenuItemForm';
@@ -19,12 +20,13 @@ import { useMenuItems } from '@pages/restaurants/hooks/useMenuItems';
 import type { MenuItem } from '@pages/restaurants/types/restaurant.types';
 import { getAuthUser, userUpdated } from '@redux/authStore';
 import { useAppDispatch } from '@redux/hooks';
-import { menuItemService } from '@services/restaurant/menuItemService';
+import { menuItemService } from '@services/menuItem/menuItemService';
 import { orderService } from '@services/restaurant/orderService';
 import { getDirtyValues } from '@utils/formik';
 import { getPricingSummary } from '@utils/pricing';
 
 import type { MenuItemsContainerProps } from './MenuItemsContainer.types';
+import { buildMenuItemPayload } from './MenuItemsContainer.utils';
 
 import './MenuItemsContainer.scss';
 
@@ -104,14 +106,7 @@ export const MenuItemsContainer = (props: MenuItemsContainerProps): React.JSX.El
         }
       }
 
-      const payload = {
-        name: values.name,
-        description: values.description,
-        price: values.price,
-        isVeg: values.isVeg,
-        quantity: values.quantity,
-        imagePath,
-      };
+      const payload = buildMenuItemPayload(values, imagePath);
 
       if (editingItem) {
         const changedFields = getDirtyValues(payload, editingItem);
@@ -127,7 +122,7 @@ export const MenuItemsContainer = (props: MenuItemsContainerProps): React.JSX.El
       setModalOpen(false);
       setEditingItem(null);
     } catch (err) {
-      if (isConflictError(err)) {
+      if (isApiErrorWithStatus(err, HTTP_STATUS.CONFLICT)) {
         setFieldError('name', err.message);
       } else {
         const msg = err instanceof Error ? err.message : MESSAGES.ERRORS.MENU_ITEM_SAVE_FAILED;

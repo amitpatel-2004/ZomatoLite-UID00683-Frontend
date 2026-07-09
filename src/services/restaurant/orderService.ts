@@ -4,9 +4,11 @@ import {
   collectionGroup,
   doc,
   getDoc,
+  increment,
   onSnapshot,
   orderBy,
   query,
+  runTransaction,
   updateDoc,
   where,
 } from 'firebase/firestore';
@@ -16,6 +18,7 @@ import { API_ENDPOINTS } from '@constants/api.constants';
 import { FIREBASE_COLLECTIONS } from '@constants/firebase.constants';
 import { apiClient } from '@core/api/apiClient';
 import { firebaseDb } from '@core/firebase/firebase.config';
+import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
 import { ORDER_STATUS } from '@pages/restaurants/constants/order.constants';
 import type { Order, OrderStatus } from '@pages/restaurants/types/order.types';
 
@@ -154,6 +157,27 @@ export const orderService = {
   },
 
   cancel: async (restaurantId: string, orderId: string): Promise<void> => {
-    await orderService.updateStatus(restaurantId, orderId, ORDER_STATUS.CANCELLED);
+    const orderRef = doc(
+      firebaseDb,
+      FIREBASE_COLLECTIONS.RESTAURANTS,
+      restaurantId,
+      FIREBASE_COLLECTIONS.ORDERS,
+      orderId,
+    );
+
+    await runTransaction(firebaseDb, async (transaction) => {
+      const orderSnap = await transaction.get(orderRef);
+      if (!orderSnap.exists()) throw new Error(MESSAGES.ERRORS.ORDER_NOT_FOUND);
+
+      const orderData = orderSnap.data();
+      if (orderData.status !== ORDER_STATUS.PENDING) return;
+
+      const customerId: string = orderData.customerId;
+      const total: number = orderData.pricingSummary?.total ?? 0;
+      const userRef = doc(firebaseDb, FIREBASE_COLLECTIONS.USERS, customerId);
+
+      transaction.update(orderRef, { status: ORDER_STATUS.CANCELLED });
+      transaction.update(userRef, { balance: increment(total) });
+    });
   },
 };

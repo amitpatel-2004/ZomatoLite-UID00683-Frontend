@@ -1,0 +1,11 @@
+@use 'abstracts/mixins' as mixins;
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: mixins.pxToRem(4);
+
+  &__star.anticon {
+    color: var(--color-star);
+  }
+}

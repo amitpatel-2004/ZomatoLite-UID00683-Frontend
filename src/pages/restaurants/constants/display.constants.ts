@@ -8,6 +8,7 @@ export const DESCRIPTION_MAX_ROWS = 3;
 
 export const DISPLAY = {
   TITLES: {
+    DASHBOARD: 'My Restaurants',
     CREATE_RESTAURANT: 'Add Restaurant',
     EDIT_RESTAURANT: 'Edit Restaurant',
     MENU_ITEMS: 'Menu',
@@ -43,6 +44,7 @@ export const DISPLAY = {
     ITEMS_SELECTED: 'items selected',
     ORDER_STATUS: ORDER_STATUS_LABELS,
     ORDER_ID: 'Order',
+    OWN_RESTAURANT: 'Your Restaurant',
     ORDER_TRACKING_STEPS: ORDER_TRACKING_STEP_TITLES,
     CSV_UPLOAD_GUIDELINES: [
       'Required columns: name, price, is_veg. Optional: description, quantity.',
@@ -51,6 +53,7 @@ export const DISPLAY = {
     ],
   },
   ACTIONS: {
+    ADD_RESTAURANT: 'Add Restaurant',
     SAVE: 'Save',
     CANCEL: 'Cancel',
     EDIT: 'Edit',
@@ -75,9 +78,10 @@ export const DISPLAY = {
     TRACK_ORDER: 'Track',
   },
   EMPTY: {
+    NO_OWNED_RESTAURANTS: "You haven't added any restaurants yet.",
     NO_MENU_ITEMS: 'No menu items yet.',
     NO_RATING: 'No ratings yet',
-    NO_RESTAURANTS: 'No restaurants found.',
+    NO_RESTAURANTS_FOUND: 'No restaurants found.',
     NO_ORDERS: 'No orders yet.',
   },
   PLACEHOLDERS: {

@@ -2,7 +2,7 @@ import { sendEmailVerification, signInWithCustomToken, signOut } from 'firebase/
 
 import { API_ENDPOINTS } from '@constants/api.constants';
 import { apiClient } from '@core/api/apiClient';
-import { firebaseAuth } from '@core/firebase/firebase.config';
+import { firebaseAuth } from '@core/firebase/firebaseClient';
 import { MESSAGES } from '@pages/auth/constants/messages.constants';
 
 import type {

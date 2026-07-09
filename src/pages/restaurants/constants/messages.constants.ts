@@ -1,5 +1,6 @@
 export const MESSAGES = {
   SUCCESS: {
+    RESTAURANT_CREATED: 'Restaurant created.',
     RESTAURANT_UPDATED: 'Restaurant updated.',
     RESTAURANT_DELETED: 'Restaurant deleted.',
     MENU_ITEM_CREATED: 'Menu item added.',
@@ -11,7 +12,9 @@ export const MESSAGES = {
     CSV_UPLOADED: 'File uploaded and in process, you will get email for results shortly.',
   },
   ERRORS: {
-    FETCH_FAILED: 'Could not load restaurant details.',
+    FETCH_FAILED: 'Could not load restaurants.',
+    FETCH_MORE_FAILED: 'Could not load more restaurants.',
+    CREATE_FAILED: 'Could not create the restaurant.',
     UPDATE_FAILED: 'Could not update the restaurant.',
     DELETE_FAILED: 'Could not delete the restaurant.',
     MENU_LOAD_FAILED: 'Could not load menu items.',
@@ -24,6 +27,7 @@ export const MESSAGES = {
     ORDER_CANCEL_FAILED: 'Could not cancel the order.',
     ORDER_STATUS_UPDATE_FAILED: 'Could not update the order status.',
     ORDERS_LOAD_FAILED: 'Could not load orders.',
+    ORDER_NOT_FOUND: 'Order not found.',
     CSV_UPLOAD_FAILED: 'Could not upload the file. Please try again.',
     CSV_FILE_SIZE_EXCEEDED: 'File size exceeds the 1 MB limit. Try smaller file.',
     CSV_MISSING_COLUMNS: 'CSV is missing required columns: name, price, is_veg.',

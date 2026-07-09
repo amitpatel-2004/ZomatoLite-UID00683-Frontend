@@ -7,9 +7,9 @@ import { USER_ROLES } from '@pages/auth/constants/auth.constants';
 import { LoginContainer } from '@pages/auth/containers/LoginContainer';
 import { RegisterContainer } from '@pages/auth/containers/RegisterContainer';
 import { VerifyEmailContainer } from '@pages/auth/containers/VerifyEmailContainer';
-import { DashboardContainer } from '@pages/dashboard/containers/DashboardContainer';
 import { ErrorContainer } from '@pages/error/containers/ErrorContainer';
 import { BrowseContainer } from '@pages/restaurants/containers/BrowseContainer';
+import { DashboardContainer } from '@pages/restaurants/containers/DashboardContainer';
 import { MyOrdersContainer } from '@pages/restaurants/containers/MyOrdersContainer';
 import { RestaurantDetailContainer } from '@pages/restaurants/containers/RestaurantDetailContainer';
 import { RestaurantOrdersContainer } from '@pages/restaurants/containers/RestaurantOrdersContainer';
@@ -105,6 +105,14 @@ export const router = createBrowserRouter([
               },
               {
                 path: ROUTES.RESTAURANT.DETAIL(':id'),
+                element: (
+                  <AppLayout>
+                    <RestaurantDetailContainer />
+                  </AppLayout>
+                ),
+              },
+              {
+                path: ROUTES.RESTAURANT.BROWSE_DETAIL(':id'),
                 element: (
                   <AppLayout>
                     <RestaurantDetailContainer />

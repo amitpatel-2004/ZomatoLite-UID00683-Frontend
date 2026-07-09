@@ -6,15 +6,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button, message, Spin, Typography } from 'antd';
 
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { HTTP_STATUS } from '@constants/api.constants';
 import { ROUTES } from '@constants/route.constants';
 import { BUTTON_TYPES, SPIN_SIZES, TITLE_LEVELS } from '@constants/style.constants';
-import { isConflictError } from '@core/api/apiError';
+import { isApiErrorWithStatus } from '@core/api/apiError';
 import { RestaurantDetails } from '@pages/restaurants/components/RestaurantDetails';
 import type { RestaurantFormValues } from '@pages/restaurants/components/RestaurantForm';
 import { RestaurantForm } from '@pages/restaurants/components/RestaurantForm';
 import { DISPLAY } from '@pages/restaurants/constants/display.constants';
 import { MESSAGES } from '@pages/restaurants/constants/messages.constants';
-import { useRestaurantDetail } from '@pages/restaurants/hooks/useRestaurantDetail';
+import { useRestaurant } from '@pages/restaurants/hooks/useRestaurant';
 import { getAuthUser } from '@redux/authStore';
 import { getDirtyValues } from '@utils/formik';
 
@@ -30,7 +31,7 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
   const user = useSelector(getAuthUser);
 
   const { deleteRestaurant, error, isLoading, restaurant, updateRestaurant } =
-    useRestaurantDetail(restaurantId);
+    useRestaurant(restaurantId);
 
   const [isEditRestaurantOpen, setIsEditRestaurantOpen] = useState(false);
   const [isRestaurantSubmitting, setIsRestaurantSubmitting] = useState(false);
@@ -55,7 +56,7 @@ export const RestaurantDetailContainer = (): React.JSX.Element => {
       void message.success(MESSAGES.SUCCESS.RESTAURANT_UPDATED);
       setIsEditRestaurantOpen(false);
     } catch (err) {
-      if (isConflictError(err)) {
+      if (isApiErrorWithStatus(err, HTTP_STATUS.CONFLICT)) {
         setFieldError('name', err.message);
       } else {
         const msg = err instanceof Error ? err.message : MESSAGES.ERRORS.UPDATE_FAILED;
